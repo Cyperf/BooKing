@@ -1,0 +1,46 @@
+﻿namespace WebApplication1.SQL
+{
+	using Microsoft.Data.SqlClient;
+
+	public static class AdoNet
+    {
+		private static string _connectionString;
+
+		public static void Init()
+        {
+			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+			builder.DataSource = "(localdb)\\MSSQLLocalDB"; // server
+			builder.InitialCatalog = "Databasen";			// database navn
+			_connectionString = builder.ConnectionString;
+		}
+        public static void ExecuteNonQuery(string nonQuery)
+        {
+			try
+			{
+				using SqlConnection connection = new SqlConnection(_connectionString);
+				connection.Open();
+				SqlCommand cmd = new SqlCommand(nonQuery, connection);
+				cmd.ExecuteNonQuery();
+			}
+			catch (Exception ex)
+			{
+
+			}
+        }
+		public static void ExecuteQuery(string query, Action<SqlDataReader> action)
+		{
+			try
+			{
+				using SqlConnection connection = new SqlConnection(_connectionString);
+				connection.Open();
+				SqlCommand cmd = new SqlCommand(query, connection);
+				SqlDataReader reader = cmd.ExecuteReader();
+				action(reader);
+			}
+			catch (Exception ex)
+			{
+
+			}
+		}
+	}
+}
