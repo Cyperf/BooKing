@@ -1,6 +1,7 @@
 ﻿namespace WebApplication1.SQL
 {
 	using Microsoft.Data.SqlClient;
+	using System.Diagnostics;
 
 	public static class AdoNet
     {
@@ -10,7 +11,10 @@
         {
 			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
 			builder.DataSource = "(localdb)\\MSSQLLocalDB"; // server
-			builder.InitialCatalog = "Databasen";			// database navn
+			builder.InitialCatalog = "Databasen";           // database navn
+			builder.UserID = "";
+			builder.Password = "";
+			builder.TrustServerCertificate = true;
 			_connectionString = builder.ConnectionString;
 		}
         public static void ExecuteNonQuery(string nonQuery)
@@ -24,7 +28,7 @@
 			}
 			catch (Exception ex)
 			{
-
+				Debug.WriteLine(ex.ToString());
 			}
         }
 		/// <summary>
@@ -44,7 +48,7 @@
 			}
 			catch (Exception ex)
 			{
-
+				Debug.WriteLine("\nERROR\n" + ex.ToString());  
 			}
 		}
 		/// <summary>
@@ -67,7 +71,7 @@
 			}
 			catch (Exception ex)
 			{
-
+				Debug.WriteLine(ex.ToString());
 			}
 		}
 	}
