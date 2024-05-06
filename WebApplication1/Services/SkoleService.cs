@@ -12,7 +12,7 @@
 
 		protected override Func<Skole, string> _fromItemToString { get; } = (skole) =>
 		{
-			return $"{skole.Id}, {skole.Location}";
+			return $"{skole.Id}, '{skole.Location}'";
 		};
 
 		protected override Func<SqlDataReader, Skole> _fromReaderToItem { get; } = (reader) =>

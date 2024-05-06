@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Builder;
 
-WebApplication1.SQL.AdoNet.Init(); 
+WebApplication1.SQL.AdoNet.Init();
+
+//WebApplication1.SQL.AdoNet.ExecuteNonQuery("INSERT INTO Skole VALUES ('Hello')");
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
