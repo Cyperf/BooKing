@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Builder;
+using System.Diagnostics;
 
 WebApplication1.SQL.AdoNet.Init();
-
-//WebApplication1.SQL.AdoNet.ExecuteNonQuery("INSERT INTO Skole VALUES ('Hello')");
+//Debug.WriteLine("PASSWORD LENGTH: \n" + new Microsoft.AspNetCore.Identity.PasswordHasher<string>().HashPassword("user", "password").Length);
+//WebApplication1.SQL.AdoNet.ExecuteNonQuery("INSERT INTO Skole VALUES ('Roskilde')");
+//WebApplication1.SQL.AdoNet.ExecuteNonQuery("INSERT INTO Skole VALUES ('Sorø')");
 
 var builder = WebApplication.CreateBuilder(args);
 
