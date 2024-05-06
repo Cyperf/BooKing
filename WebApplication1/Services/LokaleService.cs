@@ -8,9 +8,7 @@ namespace WebApplication1.Services
     public class LokaleService : Repository<Lokale>
     {
 
-        Repository<Lokale?> _lokaler;
-
-        public void Create(Lokale lokale)
+        public LokaleService()
         {
             _tableName = "Lokale";
         }
@@ -23,35 +21,38 @@ namespace WebApplication1.Services
         {
             return new Lokale(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetBoolean(3));
         };
-
+		public override void Update(Lokale item)
+		{
+			throw new NotImplementedException();
+		}
 
 		//public void Create(Lokale lokale)
-  //      {
-  //          _lokaler.Create(lokale);
-  //      }
-  //      public Lokale? Read(Lokale lokale)
-  //      {
-  //          return _lokaler.Read(lokale.Id);
-  //      }
-  //      public Lokale? Read(int lokaleId)
-  //      {
-  //          return _lokaler.Read(lokaleId);
-  //      }
-  //      public void Update(Lokale lokale)
-  //      {
-  //          _lokaler.Update(lokale);
-  //      }
-  //      public void Delete(Lokale lokale)
-  //      {
-  //          if (lokale != null)
-  //          {
+		//      {
+		//          _lokaler.Create(lokale);
+		//      }
+		//      public Lokale? Read(Lokale lokale)
+		//      {
+		//          return _lokaler.Read(lokale.Id);
+		//      }
+		//      public Lokale? Read(int lokaleId)
+		//      {
+		//          return _lokaler.Read(lokaleId);
+		//      }
+		//      public void Update(Lokale lokale)
+		//      {
+		//          _lokaler.Update(lokale);
+		//      }
+		//      public void Delete(Lokale lokale)
+		//      {
+		//          if (lokale != null)
+		//          {
 
-  //          }
-  //          else throw new NotImplementedException();
-  //      }
+		//          }
+		//          else throw new NotImplementedException();
+		//      }
 
 
-        }
+	}
     }
 }
 
