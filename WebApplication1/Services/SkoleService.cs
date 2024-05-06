@@ -5,6 +5,10 @@
 	using WebApplication1.Models;
 	public class SkoleService : Repository<Skole>
 	{
+		public SkoleService() 
+		{
+			_tableName = "Skole";
+		}
 
 		protected override Func<Skole, string> _fromItemToString { get; } = (skole) =>
 		{

@@ -10,9 +10,11 @@
 		public static void Init()
         {
 			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-			builder.DataSource = "mssql14.unoeuro.com"; // server
-
-            builder.InitialCatalog = "frederiknicolajsen_dk_db_booking";			// database navn
+			builder.DataSource = "(localdb)\\MSSQLLocalDB"; // server
+			builder.InitialCatalog = "Databasen";           // database navn
+			builder.UserID = "";
+			builder.Password = "";
+			builder.TrustServerCertificate = true;
 			_connectionString = builder.ConnectionString;
 		}
         public static void ExecuteNonQuery(string nonQuery)
@@ -46,7 +48,7 @@
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine(ex.ToString());
+				Debug.WriteLine("\nERROR\n" + ex.ToString());  
 			}
 		}
 		/// <summary>

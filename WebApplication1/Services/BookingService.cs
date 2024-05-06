@@ -5,6 +5,10 @@ namespace WebApplication1.Services
 {
 	public class BookingService : Repository<Booking>
 	{
+		public BookingService()
+		{
+			_tableName = "Booking";
+		}
 		protected override Func<Booking, string> _fromItemToString { get; } = (booking) => 
 		{ 
 			return $"{booking.Id}, {booking.Dato}, {booking.TidFra}, {booking.TidTil}, {booking.Gruppemedlem}, {booking.LokaleId}, {booking.SkoleId}, {booking.BookingType.Id}"; 
