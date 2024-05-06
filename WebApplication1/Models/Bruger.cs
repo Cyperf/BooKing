@@ -5,14 +5,24 @@
         public string Navn { get; set; }
         public string Email { get; set; }
         public string Kodeord { get; set; }
-        public BrugerRolle BrugerRolle { get; set; }
+        public BrugerRolle Rolle { get; set; }
         public int SkoleId { get; set; }
+        public DateOnly SletningsDato;
 
         public Bruger()
         {
 
         }
-        public bool Ændrekodeord(string kode)
+        public Bruger(string navn, string email, string kodeord, BrugerRolle rolle, int skoleId, DateOnly sletningsDato)
+		{
+            Navn = navn;
+            Email = email;
+            Kodeord = kodeord;
+            Rolle = rolle;
+            SkoleId = skoleId;
+			SletningsDato = sletningsDato;
+		}
+		public bool Ændrekodeord(string kode)
         {
             return true;
         }
