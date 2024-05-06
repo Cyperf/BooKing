@@ -12,7 +12,7 @@
 
 		protected override Func<Skole, string> _fromItemToString { get; } = (skole) =>
 		{
-			return $"{skole.Id}, {skole.Location}";
+			return $"{skole.Id}, '{skole.Location}'";
 		};
 
 		protected override Func<SqlDataReader, Skole> _fromReaderToItem { get; } = (reader) =>
@@ -23,13 +23,5 @@
 		public override void Update(Skole item)
 		{
 		}
-        private void AddMockData()
-        {
-            Create(new Skole(1, "Roskilde"));
-            Create(new Skole(2, "Køge"));
-            Create(new Skole(3, "Næstved"));
-
-
-        }
     }
 }

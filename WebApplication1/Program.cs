@@ -2,7 +2,11 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Options;
 
-WebApplication1.SQL.AdoNet.Init(); 
+WebApplication1.SQL.AdoNet.Init();
+//Debug.WriteLine("PASSWORD LENGTH: \n" + new Microsoft.AspNetCore.Identity.PasswordHasher<string>().HashPassword("user", "password").Length);
+//WebApplication1.SQL.AdoNet.ExecuteNonQuery("INSERT INTO Skole VALUES ('Roskilde')");
+//WebApplication1.SQL.AdoNet.ExecuteNonQuery("INSERT INTO Skole VALUES ('Sorø')");
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
