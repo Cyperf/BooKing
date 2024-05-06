@@ -14,6 +14,12 @@ namespace WebApplication1.Services
         {
             _tableName = "Lokale";
         }
+
+        public override void Update(Lokale item)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override Func<Lokale, string> _fromItemToString { get; } = (lokale) =>
         {
             return $"{lokale.Id}, {lokale.SkoleId}, {lokale.HarSmartBoard}";
@@ -53,5 +59,5 @@ namespace WebApplication1.Services
 
         }
     }
-}
+
 
