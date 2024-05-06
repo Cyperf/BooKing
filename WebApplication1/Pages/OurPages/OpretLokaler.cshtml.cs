@@ -27,7 +27,7 @@ namespace WebApplication1.Pages.OurPages
         public bool HarSmartboard { get; set; }
         public IActionResult OnGet()
         {
-            new SkoleService();
+            
             // make only admins allowed BG
             foreach(Skole skole in skoleService.ReadAll("Skole"))
             {
