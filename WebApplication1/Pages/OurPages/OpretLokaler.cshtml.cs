@@ -1,17 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 using WebApplication1.Models;
 using WebApplication1.Services;
+using WebApplication1.SQL;
 
 namespace WebApplication1.Pages.OurPages
 {
     public class OpretLokalerModel : PageModel
     {
 
-        //public LokaleService _lokaleService { get; set; }
+        public LokaleService _lokaleService { get; set; }
         public Lokale _lokale { get; set; }
-
+        public List<Skole> AlleSkoler { get; set; }
 
         [Display(Name = "Id")]
         public int Id { get; set; }
@@ -23,8 +25,8 @@ namespace WebApplication1.Pages.OurPages
         public bool HarSmartboard { get; set; }
         public IActionResult OnGet()
         {
-
             // make only admins allowed BG
+
             return Page();
 
         }
@@ -35,7 +37,7 @@ namespace WebApplication1.Pages.OurPages
             _lokale.SkoleId = SkoleId;
             _lokale.MaxGrupperAdGangen = MaxGrupperAdGangen;
             _lokale.HarSmartBoard = HarSmartboard;
-            //_lokaleService.Create(_lokale);
+            _lokaleService.Create(_lokale);
             return Page();
         }
 

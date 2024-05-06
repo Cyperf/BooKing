@@ -44,7 +44,7 @@
 			});
 			return items;
 		}
-		public abstract void Update(T item);;
+		public abstract void Update(T item);
 		//{
 		//	AdoNet.ExecuteNonQuery($"UPDATE {_tableName} SET");
 		//}
