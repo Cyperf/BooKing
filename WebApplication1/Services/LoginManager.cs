@@ -8,7 +8,6 @@
 		public static bool Login(string email, string password)
 		{
 			string hashedPassword = new Microsoft.AspNetCore.Identity.PasswordHasher<string>().HashPassword(email, password);
-			//Debug.WriteLine("PASSWORD LENGTH: \n" + new Microsoft.AspNetCore.Identity.PasswordHasher<string>().HashPassword("user", "password").Length);
 			bool b = false;
 			AdoNet.ExecuteQuery($"SELECT Name, Email, Kode, Rolle, SkoleId, SletningsDato FROM bruger WHERE Email={email} AND Kode={hashedPassword}",
 				reader =>
