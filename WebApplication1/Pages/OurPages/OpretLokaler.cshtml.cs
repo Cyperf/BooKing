@@ -14,6 +14,7 @@ namespace WebApplication1.Pages.OurPages
         public LokaleService _lokaleService { get; set; }
         public List<Skole> AlleSkoler { get; set; }
         public SkoleService skoleService { get; set; }
+        
         [BindProperty]
         public Lokale _lokale { get; set; }
         [Display(Name = "Id")]
