@@ -14,6 +14,8 @@ namespace WebApplication1.Pages.OurPages
         public LokaleService _lokaleService { get; set; }
         public Lokale _lokale { get; set; }
         public List<Skole> AlleSkoler { get; set; }
+        public SkoleService skoleService { get; set; }
+
 
         [Display(Name = "Id")]
         public int Id { get; set; }
@@ -26,7 +28,10 @@ namespace WebApplication1.Pages.OurPages
         public IActionResult OnGet()
         {
             // make only admins allowed BG
-
+            foreach(Skole skole in skoleService.ReadAll("Skole"))
+            {
+                AlleSkoler.Add(skole);
+            }
             return Page();
 
         }
