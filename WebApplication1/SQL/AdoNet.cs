@@ -9,8 +9,9 @@
 		public static void Init()
         {
 			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-			builder.DataSource = "(localdb)\\MSSQLLocalDB"; // server
-			builder.InitialCatalog = "Databasen";			// database navn
+			builder.DataSource = "mssql14.unoeuro.com"; // server
+
+            builder.InitialCatalog = "frederiknicolajsen_dk_db_booking";			// database navn
 			_connectionString = builder.ConnectionString;
 		}
         public static void ExecuteNonQuery(string nonQuery)
