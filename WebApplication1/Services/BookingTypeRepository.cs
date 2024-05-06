@@ -5,6 +5,10 @@ namespace WebApplication1.Services
 {
 	public class BookingTypeRepository : Repository<BookingType>
 	{
+		public BookingTypeRepository()
+		{
+			_tableName = "BookingType";
+		}
 		public static BookingTypeRepository Instance = new BookingTypeRepository();
 		protected override Func<BookingType, string> _fromItemToString { get; } = (bookingType) =>
 		{
