@@ -39,8 +39,9 @@ CREATE TABLE Booking(
 	TidFra int NOT NULL,
 	TidTil int NOT NULL,
 	BrugerEmail varchar(30) NOT NULL FOREIGN KEY REFERENCES Bruger(Email),
-	LokaleId int NOT NULL FOREIGN KEY REFERENCES Lokale(Id),
-	SkoleId int NOT NULL FOREIGN KEY REFERENCES Lokale(SkoleId),
-	Type int NOT NULL FOREIGN KEY REFERENCES BookingType(Id)
+	LokaleId int NOT NULL,
+	SkoleId int NOT NULL,
+	Type int NOT NULL FOREIGN KEY REFERENCES BookingType(Id),
+	FOREIGN KEY (LokaleId, SkoleId) REFERENCES Lokale(Id, SkoleId)
 );
 
