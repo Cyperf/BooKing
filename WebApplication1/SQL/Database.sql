@@ -24,7 +24,7 @@ CREATE TABLE Bruger(
 CREATE TABLE Lokale(
 	Id int NOT NULL,
 	SkoleId int NOT NULL FOREIGN KEY REFERENCES Skole(Id),
-	HarSmartboard bool NOT NULL,
+	HarSmartboard boolean NOT NULL,
 	PRIMARY KEY (Id, SkoleId)
 );
 
