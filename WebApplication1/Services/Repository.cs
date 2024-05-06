@@ -13,7 +13,7 @@
 		/// <param name="newItem"></param>
 		public void Create(T newItem)
 		{
-			AdoNet.ExecuteNonQuery(_fromItemToString(newItem));
+			AdoNet.ExecuteNonQuery($"INSERT INTO {_tableName} VALUES ({_fromItemToString(newItem)})");
 		}
 		/// <summary>
 		/// Reads one item from the database, with a given id
