@@ -23,14 +23,10 @@ namespace WebApplication1.Services
             return $"{lokale.Id}, {lokale.SkoleId}, {lokale.HarSmartBoard}";
         };
 
-        protected override Func<SqlDataReader, Lokale> _fromReaderToItem { get; } = (reader) =>
-        {
-            return new Lokale(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetBoolean(3));
-        };
-		public override void Update(Lokale item)
+		protected override Func<SqlDataReader, Lokale> _fromReaderToItem { get; } = (reader) =>
 		{
-			throw new NotImplementedException();
-		}
+			return new Lokale(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetBoolean(3));
+		};
 
 		//public void Create(Lokale lokale)
 		//      {
