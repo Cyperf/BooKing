@@ -6,16 +6,27 @@
         public DateTime Dato { get; set; }
         public int TidFra {  get; set; }
         public int TidTil {  get; set; }
-        public int GruppemedlemId { get; set; }
+        public string Gruppemedlem { get; set; }
         public int LokaleId { get; set; }
+        public int SkoleId { get; set; }
         public BookingType BookingType { get; set; }
 
         public Booking()
         {
-            //Automatisk Id
-        }
 
-        public override string ToString()
+        }
+		public Booking(int id, DateTime dato, int tidFra, int tidTil, string gruppeMedlem, int lokaleId, int skoleId)
+		{
+            Id = id;
+            Dato = dato;
+            TidFra = tidFra;
+            TidTil = tidTil;
+            Gruppemedlem = gruppeMedlem;
+            LokaleId = lokaleId;
+            SkoleId = skoleId;
+		}
+
+		public override string ToString()
         {
             return base.ToString();
         }
