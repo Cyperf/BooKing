@@ -10,10 +10,10 @@
 		public static void Init()
         {
 			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
-			builder.DataSource = "(localdb)\\MSSQLLocalDB"; // server
-			builder.InitialCatalog = "Databasen";           // database navn
-			builder.UserID = "";
-			builder.Password = "";
+			builder.DataSource = "mssql14.unoeuro.com"; // server
+            builder.InitialCatalog = "frederiknicolajsen_dk_db_booking";           // database navn
+			builder.UserID = "frederiknicolajsen_dk";
+			builder.Password = "ADR4EaBy29n3Fem5ztdg";
 			builder.TrustServerCertificate = true;
 			_connectionString = builder.ConnectionString;
 		}
