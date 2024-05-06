@@ -27,6 +27,11 @@
 
 			}
         }
+		/// <summary>
+		/// executes a query on the database
+		/// </summary>
+		/// <param name="query">the query</param>
+		/// <param name="action">use the data given from the database</param>
 		public static void ExecuteQuery(string query, Action<SqlDataReader> action)
 		{
 			try
@@ -36,6 +41,29 @@
 				SqlCommand cmd = new SqlCommand(query, connection);
 				SqlDataReader reader = cmd.ExecuteReader();
 				action(reader);
+			}
+			catch (Exception ex)
+			{
+
+			}
+		}
+		/// <summary>
+		/// executes a query on the database
+		/// </summary>
+		/// <param name="query">the query</param>
+		/// <param name="action">use an action, for one row in the database</param>
+		public static void ExecuteQueryForEach(string query, Action<SqlDataReader> action)
+		{
+			try
+			{
+				using SqlConnection connection = new SqlConnection(_connectionString);
+				connection.Open();
+				SqlCommand cmd = new SqlCommand(query, connection);
+				SqlDataReader reader = cmd.ExecuteReader();
+				while (reader.Read())
+				{
+					action(reader);
+				}
 			}
 			catch (Exception ex)
 			{
