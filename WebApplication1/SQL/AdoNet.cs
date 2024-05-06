@@ -1,6 +1,7 @@
 ﻿namespace WebApplication1.SQL
 {
 	using Microsoft.Data.SqlClient;
+	using System.Diagnostics;
 
 	public static class AdoNet
     {
@@ -24,7 +25,7 @@
 			}
 			catch (Exception ex)
 			{
-
+				Debug.WriteLine(ex.ToString());
 			}
         }
 		/// <summary>
@@ -44,7 +45,7 @@
 			}
 			catch (Exception ex)
 			{
-
+				Debug.WriteLine(ex.ToString());
 			}
 		}
 		/// <summary>
@@ -67,7 +68,7 @@
 			}
 			catch (Exception ex)
 			{
-
+				Debug.WriteLine(ex.ToString());
 			}
 		}
 	}

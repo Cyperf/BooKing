@@ -15,7 +15,7 @@
         {
 
         }
-		public Booking(int id, DateTime dato, int tidFra, int tidTil, string gruppeMedlem, int lokaleId, int skoleId)
+		public Booking(int id, DateTime dato, int tidFra, int tidTil, string gruppeMedlem, int lokaleId, int skoleId, BookingType bookingType)
 		{
             Id = id;
             Dato = dato;
@@ -24,6 +24,7 @@
             Gruppemedlem = gruppeMedlem;
             LokaleId = lokaleId;
             SkoleId = skoleId;
+            this.BookingType = bookingType;
 		}
 
 		public override string ToString()
