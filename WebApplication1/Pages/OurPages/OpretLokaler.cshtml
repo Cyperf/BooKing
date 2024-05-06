@@ -36,12 +36,14 @@
                                                   @*   <label asp-for="SkoleId" class="control-label"></label>
                                                     <input asp-for="SkoleId" class="form-control" />
                                                     <span asp-validation-for="SkoleId" class="text-danger"></span> *@
-                                                    <select name="number">
-                                                        <option value="">Vælg en skole</option>
-                                                        @foreach(Models.Skole Skole in Model.AlleSkoler)
+                                                    <select name="SkoleId">
+                                                        <option value="10">Vælg en skole</option>
+                                                        <option value="1">Roskilde</option>
+                                                        <option value="2">Næstved</option>
+                                                       @*  @foreach(Models.Skole Skole in Model.AlleSkoler)
                                                         {
                                                             <option value="@Skole.Id">@Skole.Location</option>
-                                                        }
+                                                        } *@
                                                     </select>
                                                 </div>
 

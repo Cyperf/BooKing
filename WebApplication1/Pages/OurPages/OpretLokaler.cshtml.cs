@@ -12,27 +12,32 @@ namespace WebApplication1.Pages.OurPages
     {
 
         public LokaleService _lokaleService { get; set; }
-        public Lokale _lokale { get; set; }
         public List<Skole> AlleSkoler { get; set; }
         public SkoleService skoleService { get; set; }
-
-
+        [BindProperty]
+        public Lokale _lokale { get; set; }
         [Display(Name = "Id")]
+        [BindProperty]
         public int Id { get; set; }
         [Display(Name ="SkoleId")]
+        [BindProperty]
         public int SkoleId { get; set; }
         [Display(Name="MaxGrupperAdGangen")]
+        [BindProperty]
         public int MaxGrupperAdGangen { get; set; }
         [Display(Name="Har Smartboard")]
+        [BindProperty]
         public bool HarSmartboard { get; set; }
+
+
         public IActionResult OnGet()
         {
-            new SkoleService();
+            
             // make only admins allowed BG
-            foreach(Skole skole in skoleService.ReadAll("Skole"))
-            {
-                AlleSkoler.Add(skole);
-            }
+            //foreach(Skole skole in skoleService.ReadAll())
+            //{
+            //    AlleSkoler.Add(skole);
+            //}
             return Page();
 
         }

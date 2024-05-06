@@ -6,11 +6,10 @@
         public int SkoleId { get; set; }
         public int MaxGrupperAdGangen { get; set; }
         public bool HarSmartBoard { get; set; }
-    
 
+        public Lokale() { Id = 999;SkoleId = 999;MaxGrupperAdGangen = 999; HarSmartBoard = true; }
     public Lokale(int id, int skoleid, int maxgrupperadgangen, bool harsmartboard)
     {
-
         Id = id;
         SkoleId = skoleid;
         MaxGrupperAdGangen = maxgrupperadgangen;
