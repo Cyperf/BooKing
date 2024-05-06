@@ -5,6 +5,7 @@
 	using WebApplication1.Models;
 	public class SkoleService : Repository<Skole>
 	{
+
 		protected override Func<Skole, string> _fromItemToString { get; } = (skole) =>
 		{
 			return $"{skole.Id}, {skole.Location}";
@@ -18,5 +19,13 @@
 		public override void Update(Skole item)
 		{
 		}
-	}
+        private void AddMockData()
+        {
+            Create(new Skole(1, "Roskilde"));
+            Create(new Skole(2, "Køge"));
+            Create(new Skole(3, "Næstved"));
+
+
+        }
+    }
 }
