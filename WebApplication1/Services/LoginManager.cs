@@ -5,7 +5,7 @@
 	public class LoginManager
 	{
 		public static WebApplication1.Models.Bruger? LoggedInUser { get; private set; } = null;
-		public bool Login(string email, string password)
+		public static bool Login(string email, string password)
 		{
 			bool b = false;
 			AdoNet.ExecuteQuery($"SELECT Name, Email, Kode, Rolle, SkoleId, SletningsDato FROM bruger WHERE Email={email} AND Kode={password}",
