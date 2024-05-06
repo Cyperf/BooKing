@@ -3,10 +3,15 @@
     public class BrugerRolle
     {
         public int Id { get; set; }
-        public string BrugerType {  get; set; }
-        public BrugerRolle(string brugertype)
+        public string RolleNavn {  get; set; }
+        public int? DagesVarselIndenOverskrivelse {  get; set; }
+		public BrugerRolle()
+		{
+		}
+		public BrugerRolle(string rolleNavn, int? dagesVarselIndenOverskrivelse)
         {
-           BrugerType = brugertype;
-        }
+			RolleNavn = rolleNavn;
+            DagesVarselIndenOverskrivelse = dagesVarselIndenOverskrivelse;
+		}
     }
 }

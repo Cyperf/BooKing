@@ -44,10 +44,13 @@
 			});
 			return items;
 		}
-		public abstract void Update(T item);;
+		public abstract void Update(T item);
 		//{
 		//	AdoNet.ExecuteNonQuery($"UPDATE {_tableName} SET");
 		//}
-		public bool Delete() { throw new NotImplementedException(); }
+		public void Delete(int id)
+		{
+			AdoNet.ExecuteNonQuery($"DELETE FROM {_tableName} WHERE id={id}");
+		}
 	}
 }
