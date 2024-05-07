@@ -1,6 +1,4 @@
-﻿CREATE DATABASE Databasen;
-USE Databasen;
-
+﻿
 CREATE TABLE Skole(
 	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
 	Lokation varchar(30)
@@ -15,7 +13,7 @@ CREATE TABLE BrugerRolle(
 CREATE TABLE Bruger(
 	Name varchar(20) NOT NULL,
 	Email varchar(30) NOT NULL PRIMARY KEY,
-	Kode varchar(128) NOT NULL,
+	Kode varchar(32) NOT NULL,
 	Rolle int NOT NULL FOREIGN KEY REFERENCES BrugerRolle(Id),
 	SkoleId int NOT NULL FOREIGN KEY REFERENCES Skole(Id),
 	SletningsDato date NULL
@@ -24,7 +22,6 @@ CREATE TABLE Bruger(
 CREATE TABLE Lokale(
 	Id int NOT NULL,
 	SkoleId int NOT NULL FOREIGN KEY REFERENCES Skole(Id),
-	MaxGrupperAfGangen int NOT NULL,
 	HarSmartboard tinyint NOT NULL,
 	PRIMARY KEY (Id, SkoleId)
 );
@@ -46,9 +43,7 @@ CREATE TABLE Booking(
 	FOREIGN KEY (LokaleId, SkoleId) REFERENCES Lokale(Id, SkoleId)
 );
 
-DROP TABLE Booking;
-DROP TABLE BookingType;
-DROP TABLE Lokale;
-DROP TABLE Bruger;
-DROP TABLE BrugerRolle;
-DROP TABLE Skole;
+
+INSERT INTO Skole (Lokation)
+VALUES ('JORNKOB'),
+('Steffen');
