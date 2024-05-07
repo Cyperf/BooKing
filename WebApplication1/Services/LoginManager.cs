@@ -7,7 +7,7 @@
 		public static WebApplication1.Models.Bruger? LoggedInUser { get; private set; } = null;
 		public static bool Login(string email, string password)
 		{
-			string hashedPassword = new Microsoft.AspNetCore.Identity.PasswordHasher<string>().HashPassword(email, password);
+			string hashedPassword = HashPassword(email, password);
 			bool b = false;
 			AdoNet.ExecuteQuery($"SELECT Name, Email, Kode, Rolle, SkoleId, SletningsDato FROM bruger WHERE Email={email} AND Kode={hashedPassword}",
 				reader =>
@@ -31,5 +31,10 @@
 				});
 			return rolle;
 		}
+
+		public static string HashPassword(string email, string password)
+		{
+			return new Microsoft.AspNetCore.Identity.PasswordHasher<string>().HashPassword(email, password);
+        }
 	}
 }
