@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using WebApplication1.Models;
 using WebApplication1.Services;
 using WebApplication1.SQL;
@@ -12,8 +13,8 @@ namespace WebApplication1.Pages.OurPages
     {
 
         public LokaleService _lokaleService { get; set; } = new LokaleService();
-        public List<Skole> AlleSkoler { get; set; }
-        public SkoleService skoleService { get; set; }
+        public List<Skole> AlleSkoler { get; set; } = new List<Skole>();
+        public SkoleService skoleService { get; set; } = new SkoleService();
         
         [BindProperty]
         public Lokale _lokale { get; set; }
@@ -33,12 +34,11 @@ namespace WebApplication1.Pages.OurPages
 
         public IActionResult OnGet()
         {
-            
             // make only admins allowed BG
-            //foreach(Skole skole in skoleService.ReadAll())
-            //{
-            //    AlleSkoler.Add(skole);
-            //}
+            foreach (Skole skole in skoleService.ReadAll())
+            {
+                AlleSkoler.Add(skole);
+            }
             return Page();
 
         }
