@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Options;
+using WebApplication1.Services;
 
 WebApplication1.SQL.AdoNet.Init();
 //Debug.WriteLine("PASSWORD LENGTH: \n" + new Microsoft.AspNetCore.Identity.PasswordHasher<string>().HashPassword("user", "password").Length);
 //WebApplication1.SQL.AdoNet.ExecuteNonQuery("INSERT INTO Skole VALUES ('Roskilde')");
 //WebApplication1.SQL.AdoNet.ExecuteNonQuery("INSERT INTO Skole VALUES ('Sorø')");
+//new SkoleService().Create(new WebApplication1.Models.Skole(0, "Næstved"));
 
 var builder = WebApplication.CreateBuilder(args);
 
