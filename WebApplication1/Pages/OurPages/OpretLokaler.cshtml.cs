@@ -12,7 +12,7 @@ namespace WebApplication1.Pages.OurPages
     public class OpretLokalerModel : PageModel
     {
 
-        public LokaleService _lokaleService { get; set; } = new LokaleService();
+        public LokaleService lokaleService { get; set; } = new LokaleService();
         public List<Skole> AlleSkoler { get; set; } = new List<Skole>();
         public SkoleService skoleService { get; set; } = new SkoleService();
         
@@ -49,7 +49,7 @@ namespace WebApplication1.Pages.OurPages
             _lokale.SkoleId = SkoleId;
             _lokale.MaxGrupperAdGangen = MaxGrupperAdGangen;
             _lokale.HarSmartBoard = HarSmartboard;
-            _lokaleService.Create(_lokale);
+            lokaleService.Create(_lokale);
             return RedirectToPage("/OurPages/OpretLokaler");
         }
 
