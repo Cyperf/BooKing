@@ -2,7 +2,10 @@
 @model WebApplication1.Pages.OurPages.BrugerSideModel
 @{
 }
-<html>
+@* @WebApplication1.Services.LoginManager.LoggedInUser.Email *@
+
+
+
 <style>
 table, th, td {
   border:1px solid black;
@@ -15,6 +18,7 @@ table, th, td {
 <table style="width:100%">
   <tr>
     <th>E-Mail</th>
+            @WebApplication1.Services.LoginManager.LoggedInUser.Email
     <th>Rolle</th>
     <th>Skole</th>
   </tr>
@@ -33,4 +37,3 @@ table, th, td {
 <p>To understand the example better, we have added borders to the table.</p>
 
 </body>
-</html>
