@@ -2,3 +2,59 @@
 @model WebApplication1.Pages.OurPages.BrugerSideModel
 @{
 }
+@* @WebApplication1.Services.LoginManager.LoggedInUser.Email *@
+
+
+<head>
+<style>
+h1 {
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+}
+
+h3 {
+  text-align: right;
+}
+</style>
+</head>
+<body>
+
+    <h2> Velkommen @WebApplication1.Services.LoginManager.LoggedInUser.Navn!</h2>
+
+</body>
+
+
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+
+
+    <table>
+        <tr>
+            <th>E-mail</th>
+            <td>@WebApplication1.Services.LoginManager.LoggedInUser.Email</td>
+        </tr>
+        <tr>
+            <th>Rolle</th>
+            <td>@WebApplication1.Services.LoginManager.LoggedInUser.Rolle.RolleNavn</td>
+        </tr>
+        <tr>
+            <th>Skole</th>
+            @{string skole = new WebApplication1.Services.SkoleService().Read(WebApplication1.Services.LoginManager.LoggedInUser.SkoleId).Location;
+                <td>@skole</td>
+            }
+        </tr>
+    </table>
+
+</body>
+
