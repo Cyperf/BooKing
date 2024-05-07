@@ -11,7 +11,7 @@ namespace WebApplication1.Pages.OurPages
     public class OpretLokalerModel : PageModel
     {
 
-        public LokaleService _lokaleService { get; set; }
+        public LokaleService _lokaleService { get; set; } = new LokaleService();
         public List<Skole> AlleSkoler { get; set; }
         public SkoleService skoleService { get; set; }
         
