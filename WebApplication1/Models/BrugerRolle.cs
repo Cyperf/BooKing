@@ -13,5 +13,11 @@
 			RolleNavn = rolleNavn;
             DagesVarselIndenOverskrivelse = dagesVarselIndenOverskrivelse;
 		}
+        public BrugerRolle(int id, string rolleNavn, int? dagesVarselIndenOverskrivelse)
+        {
+            Id = id;
+            RolleNavn = rolleNavn;
+            DagesVarselIndenOverskrivelse = dagesVarselIndenOverskrivelse;
+        }
     }
 }

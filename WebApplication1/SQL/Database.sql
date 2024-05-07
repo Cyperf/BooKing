@@ -8,7 +8,7 @@ CREATE TABLE Skole(
 
 CREATE TABLE BrugerRolle(
 	Id int IDENTITY(1,1) NOT NULL PRIMARY KEY,
-	RolleNavn varchar(30),
+	RolleNavn varchar(30) NOT NULL,
 	DagesVarselIndenOverskrivelse int NULL,
 );
 
