@@ -50,7 +50,7 @@ namespace WebApplication1.Pages.OurPages
             _lokale.MaxGrupperAdGangen = MaxGrupperAdGangen;
             _lokale.HarSmartBoard = HarSmartboard;
             _lokaleService.Create(_lokale);
-            return Page();
+            return RedirectToPage("/OurPages/OpretLokaler");
         }
 
     }
