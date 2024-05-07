@@ -5,5 +5,49 @@
 
 <h1>Alle lokaler (@Model.skole)</h1>
 
+@{
+    System.Collections.Generic.Dictionary<int, System.Collections.Generic.List<WebApplication1.Models.Lokale>> floorAndRooms = Model.GetRooms();
+    // we want to order the dictionary, based on the keys, so we go floor 0, floor 1. floor 2 etc.
+    List<int> indecies = new List<int>();
+    foreach (int floor in floorAndRooms.Keys)
+        indecies.Add(floor);
+    indecies.Sort();
+    foreach(int floor in indecies)
+    {
+        if (floor == 0)
+        {
+            <h2>Stueetage</h2>
+        }
+        else
+        {
+            <h2>Etage @floor</h2>
+        }
+        <div style="border-style: solid;">
+            @{
+                var lokaler = floorAndRooms[floor];
+                foreach (var lokale in lokaler)
+                {
+                    <div style="display:flex; justify-content:left;">
+                        @{
+                            string lokaleNummer = lokale.Id < 10 ? ("00" + lokale.Id) : (lokale.Id < 100 ? "0" + lokale.Id : (lokale.Id.ToString()));
+                            <p>Lokale nummer: @lokaleNummer</p>
+                        }
+                        @if (lokale.HarSmartBoard)
+                        {
+                            <p>, dette lokale har et smartboard</p>
+                        }
+                        else
+                        {
+                            <p>, dette lokale har ikke noget smartboard</p>
+                        }
+                    </div>
+                }
+            }
+        </div>
+    }
+
+}
+
+
 
 
