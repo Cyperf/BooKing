@@ -51,7 +51,7 @@ namespace WebApplication1.Pages.OurPages
                 // if j is equal to timeAvailable.Length, there wern't any available time
                 if (j == timeAvailable.Length)
                     continue;
-                // get etage
+                // Make sure a key exists, for the floor
                 if (!etageToRoomList.ContainsKey(room.Etage))
                     etageToRoomList.Add(room.Etage, new List<Lokale>());
                 etageToRoomList[room.Etage].Add(room);
