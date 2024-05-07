@@ -20,7 +20,7 @@
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		public T? Read(int id)
+		public virtual T? Read(int id)
 		{
 			T? item = default;
 			AdoNet.ExecuteQuery($"SELECT * FROM {_tableName} WHERE id={id}", (reader) =>

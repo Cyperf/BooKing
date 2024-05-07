@@ -7,6 +7,9 @@
     {
 		private static string _connectionString;
 
+		/// <summary>
+		/// Creates the connection string
+		/// </summary>
 		public static void Init()
         {
 			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
