@@ -20,7 +20,7 @@ namespace WebApplication1.Services
 
         protected override Func<Lokale, string> _fromItemToString { get; } = (lokale) =>
         {
-            return $"{lokale.Id}, {lokale.SkoleId}, {lokale.HarSmartBoard}";
+            return $"{lokale.Id}, {lokale.SkoleId}, {lokale.MaxGrupperAdGangen}, {(lokale.HarSmartBoard ? 1 : 0)}";
         };
 
 		protected override Func<SqlDataReader, Lokale> _fromReaderToItem { get; } = (reader) =>

@@ -8,6 +8,8 @@ WebApplication1.SQL.AdoNet.Init();
 //WebApplication1.SQL.AdoNet.ExecuteNonQuery("INSERT INTO Skole VALUES ('Roskilde')");
 //WebApplication1.SQL.AdoNet.ExecuteNonQuery("INSERT INTO Skole VALUES ('Sorø')");
 //new SkoleService().Create(new WebApplication1.Models.Skole(0, "Næstved"));
+//new LokaleService().Create(new WebApplication1.Models.Lokale(102, 1, 2, false));
+//new LokaleService().Create(new WebApplication1.Models.Lokale(103, 1, 2, true));
 
 var builder = WebApplication.CreateBuilder(args);
 
