@@ -3,7 +3,7 @@
     public class Booking
     {
         public int Id { get; set; }
-        public DateTime Dato { get; set; }
+        public DateOnly Dato { get; set; }
         public int TidFra {  get; set; }
         public int TidTil {  get; set; }
         public string Gruppemedlem { get; set; }
@@ -15,7 +15,7 @@
         {
 
         }
-		public Booking(int id, DateTime dato, int tidFra, int tidTil, string gruppeMedlem, int lokaleId, int skoleId, BookingType bookingType)
+		public Booking(int id, DateOnly dato, int tidFra, int tidTil, string gruppeMedlem, int lokaleId, int skoleId, BookingType bookingType)
 		{
             Id = id;
             Dato = dato;
