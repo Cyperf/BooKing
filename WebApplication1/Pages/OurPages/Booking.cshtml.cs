@@ -9,31 +9,36 @@ namespace WebApplication1.Pages.OurPages
 {
     public class BookingModel : PageModel
     {
+        public int _skoleId;
         private SkoleService _skoleService;
-
 		public string skole;
         public DateOnly date;
         public int StartInterval { get; set; } = 0; // 0 minutes after midnight
-        public int EndInterval { get; set; } = 1 * 60 * 60 * 24; // 24 hours after midnight (in minutes)
+        public int EndInterval { get; set; } = 1 * 60 * 24; // 24 hours after midnight (in minutes) (1 minute -> 1 hour -> 24 hours)
 		public BookingModel()
         {
             _skoleService = new SkoleService();
+            date = DateOnly.FromDateTime(DateTime.Now);
         }
-        public void OnGet(int startInterval = 0, int endInterval = 1 * 60 * 60 * 24)
+        public void OnGet(DateOnly? date = null, int startInterval = 0, int endInterval = 1 * 60 * 60 * 24)
         {
+            if (date != null)
+                this.date = date.Value;
             StartInterval = startInterval;
             EndInterval = endInterval;
             if (endInterval < StartInterval)
                 EndInterval = StartInterval;
             skole = _skoleService.Read(LoginManager.LoggedInUser.SkoleId).Location;
+            _skoleId = LoginManager.LoggedInUser.SkoleId;
 
-		}
+
+        }
         public Dictionary<int, List<Lokale>> GetRooms()
         {
             Dictionary<int, List<Lokale>> etageToRoomList = new Dictionary<int, List<Lokale>>();
 
             // get all bookings for the day
-            List<Booking> bookings = new BookingService().ReadAll($"date='{date.Year+"-"+date.Month+"-"+date.Day}'").ToList();
+            List<Booking> bookings = new BookingService().ReadAll($"Dato='{date.Year+"-"+date.Month+"-"+date.Day}' AND SkoleId={_skoleId}").ToList();
             // go thorough all rooms
             foreach (var room in new LokaleService().ReadAll())
             {

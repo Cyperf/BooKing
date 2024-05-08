@@ -2,3 +2,39 @@
 @model WebApplication1.Pages.OurPages.BookLokaleModel
 @{
 }
+
+<h1>Lokale @BookLokaleModel._lokaleId på @BookLokaleModel.Skole</h1>
+
+<p>Dette lokale er ledigt i følgende intervaller:</p>
+@{
+    foreach (var interval in Model.GetRoomAvailability(BookLokaleModel._date))
+    {
+        string height = (interval.End - interval.Start) / 5 + "px";
+        string backgroundColor = interval.Available ? "green" : "red";
+        <div style="background-color: @backgroundColor; min-height: @height; border: 1px solid #aaa; position:relative">
+            <span style="position:absolute; top:0px; padding-top:10px; padding-left:10px;">
+                <p>@Model.FromMinutesToTime(interval.Start)</p>
+            </span>
+            <span style="position:absolute; bottom:0px; padding-left:10px;">
+                <p>@Model.FromMinutesToTime(interval.End)</p>
+            </span>
+        </div>
+    }
+}
+@* Input when you want your booking to be at *@
+<form method="post">
+    <div>
+        <p>Hvornår skal din bookning starte? </p>
+        <p>Klokken <input asp-for="NewBookingStartHour" placeholder="timer" />:<input asp-for="NewBookingStartMinute" placeholder="minutter" /></p>
+    </div>
+    <div>
+        <p>Hvor lang tid vil du booke lokalet?</p>
+        <p><input asp-for="NewBookingEndHour" placeholder="timer" /> time(r) og <input asp-for="NewBookingEndMinute" placeholder="minutter" /> minut(ter)</p>
+    </div>
+    @* hvis der er en vejl meddelse *@
+    @if (Model.FejlMeddelse != null)
+    {
+        <p>@Model.FejlMeddelse</p>
+    }
+    <input type="submit" class="btn-primary" value="Book lokalet" />
+</form>
