@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using WebApplication1.Models;
 using WebApplication1.Services;
 
@@ -11,7 +12,9 @@ namespace WebApplication1.Pages.OurPages
         public BrugerService _brugerService { get; set; } = new BrugerService();
         public BrugerRolleService _brugerRolleService { get; set; } = new BrugerRolleService();
 
-        public List<BrugerRolle> brugerRoller { get; set; } = new List<BrugerRolle>();
+        public List<BrugerRolle> alleBrugerRoller { get; set; } = new List<BrugerRolle>();
+        public SkoleService skoleService { get; set; } = new SkoleService();
+        public List<Skole> AlleSkoler { get; set; } = new List<Skole>();
 
         [BindProperty]
         public Bruger _bruger { get; set; }
@@ -35,15 +38,21 @@ namespace WebApplication1.Pages.OurPages
         public IActionResult OnGet()
         {
             //KUN ADMINS PLEASE AND TY
-           
-            foreach(BrugerRolle rolle in _brugerRolleService.ReadAll())
+
+            foreach (Skole skole in skoleService.ReadAll())
             {
-                brugerRoller.Add(rolle);
+                AlleSkoler.Add(skole);
+            }
+
+            foreach (BrugerRolle rolle in _brugerRolleService.ReadAll())
+            {
+                alleBrugerRoller.Add(rolle);
             }
             return Page();
         }
         public IActionResult OnPost()
         {
+            Kodeord = "yeehaw";//Random password generator.. skal nok udbygges
             _bruger.Navn = Navn;
             _bruger.Email = Email;
             _bruger.Kodeord = Kodeord;
@@ -54,12 +63,6 @@ namespace WebApplication1.Pages.OurPages
             return RedirectToPage("/OurPages/OpretBrugerKonto");
         }
 
-   //     Navn = navn;
-   //         Email = email;
-   //         Kodeord = kodeord;
-   //         Rolle = rolle;
-   //         SkoleId = skoleId;
-			//SletningsDato = sletningsDato;
 
     }
 }

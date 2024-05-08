@@ -2,4 +2,80 @@
 @model WebApplication1.Pages.OurPages.OpretBrugerKontoModel
 @{
     ViewData["Title"] = "OpretBrugerKonto";
+
 }
+
+<body>
+    <form method="post">
+        <section class="h-100 h-custom gradient-custom-2">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12">
+                        <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                            <div class="card-body p-0">
+                                <div class="row g-0">
+
+                                    <div class="col-lg-6 bg-indigo text-dark">
+                                        <div class="p-5">
+                                            <h3 class="fw-normal mb-5">Add Product</h3>
+
+                                            <div class="col-md-7 mb-4 pb-2">
+
+                                                <div class="form-outline form-group form-white">
+                                                    <label asp-for="Navn" class="control-label"></label>
+                                                    <input asp-for="Navn" class="form-control" />
+                                                    <span asp-validation-for="Navn" class="text-danger"></span>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-7 mb-4 pb-2">
+
+                                                <div class="form-outline form-group form-white">
+                                                    <select name="Rolle">
+                                                        <option value="10">Vælg en Rolle</option>
+                                                        @foreach (Models.BrugerRolle Rolle in Model.alleBrugerRoller)
+                                                        {
+                                                            <option value="@Rolle.Id">@Rolle.RolleNavn</option>
+                                                        }
+                                                    </select>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-outline form-group form-white">
+
+                                                <select name="SkoleId">
+                                                    <option value="10">Vælg en skole</option>
+                                                    @foreach (Models.Skole Skole in Model.AlleSkoler)
+                                                    {
+                                                        <option value="@Skole.Id">@Skole.Location</option>
+                                                    }
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-7 mb-4 pb-2">
+
+                                                <div class="form-outline form-group form-white">
+                                                    <label asp-for="SletningsDato" class="control-label"></label>
+                                                    <input asp-for="SletningsDato" type="date" class="form-control" />
+                                                    <span asp-validation-for="SletningsDato" class="text-danger"></span>
+
+                                                </div>
+                                                
+                                            </div>
+
+                                            <input asp-page-handler="Add" type="submit" value="Add" class="btn btn-info btn-lg btn-block" name="Opret Bruger" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</body>
