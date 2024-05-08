@@ -45,28 +45,30 @@ namespace WebApplication1.Pages.OurPages
         {
             List<TidsInterval> availability = new List<TidsInterval>();
             // first we need to find every minute the room is available
-            bool[] minutesAvailable = new bool[1 * 60 * 24];
+            int[] minutesAvailable = new int[1 * 60 * 24];
             List<Booking> bookings = new BookingService().ReadAll($"Dato='{date.Year + "-" + date.Month + "-" + date.Day}' AND LokaleId = {_lokaleId} AND SkoleId={_skoleId}").ToList();
             foreach (var booking in bookings)
                 for (int i = booking.TidFra; i < booking.TidTil; i++)
-                    minutesAvailable[i] = true;
+                    minutesAvailable[i]++;
+            // get how many groups can be in the room at a given point in time
+            int maxGroups = new LokaleService().Read(_lokaleId).MaxGrupperAdGangen;
             // we then need to convert them to an interval of minutes
-            bool available = minutesAvailable[0];
+            int available = minutesAvailable[0];
             int startInterval = 0;
             for (int i = 0; i < minutesAvailable.Length-1; i++)
             {
                 if (minutesAvailable[i] != available)
                 {
                     int endInterval = i - 1;
-                    availability.Add(new TidsInterval(startInterval, endInterval, !available)); //minutesAvailable gives "false" when it is available
+                    availability.Add(new TidsInterval(startInterval, endInterval, available == 0 ? TidsInterval.AvailableType.Available : (available < maxGroups ? TidsInterval.AvailableType.PartiallyAvailable : TidsInterval.AvailableType.NotAvailable))); //minutesAvailable gives "false" when it is available
                     startInterval = i;
-                    available = !available;
+                    available = minutesAvailable[i];
                 }
             }
             // add final interval
             {
                 int endInterval = minutesAvailable.Length-1;
-                availability.Add(new TidsInterval(startInterval, endInterval, !available));
+                availability.Add(new TidsInterval(startInterval, endInterval, available == 0 ? TidsInterval.AvailableType.Available : (available < maxGroups ? TidsInterval.AvailableType.PartiallyAvailable : TidsInterval.AvailableType.NotAvailable)));
             }
             return availability;
         }
@@ -81,14 +83,19 @@ namespace WebApplication1.Pages.OurPages
         {
             public int Start { get; }
             public int End { get; }
-            public bool Available { get; }
-            public TidsInterval(int start, int end, bool available)
+            public AvailableType Available { get; }
+            public TidsInterval(int start, int end, AvailableType available)
             {
                 Start = start;
                 End = end;
                 Available = available;
             }
-
+            public enum AvailableType
+            {
+                Available,
+                PartiallyAvailable,
+                NotAvailable,
+            }
         }
     }
 

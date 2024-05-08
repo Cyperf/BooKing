@@ -36,14 +36,14 @@ namespace WebApplication1.Services
 			// check if the booking is valid
 			// check the booking time makes sense
 			int midnight = 1 * 60 * 24;
-			if (!(booking.TidFra < booking.TidTil && booking.TidFra > 0 && booking.TidTil < midnight))
+			if (!(booking.TidFra < booking.TidTil && booking.TidFra >= 0 && booking.TidTil <= midnight))
 				return false;
             // check the room is available in the time frame (no one else has booked it)
             var relevantBookings = ReadAll($"Dato='{booking.Dato.Year + "-" + booking.Dato.Month + "-" + booking.Dato.Day}' AND LokaleId = {booking.LokaleId} AND SkoleId={booking.SkoleId}");
 			int bookingsInInterval = 0;
 			foreach (var otherBooking in relevantBookings)
 				if ((booking.TidFra >= otherBooking.TidFra && booking.TidFra <= otherBooking.TidTil) ||
-					(booking.TidTil >= otherBooking.TidFra && booking.TidTil <= otherBooking.TidTil))
+					(booking.TidTil > otherBooking.TidFra && booking.TidTil < otherBooking.TidTil))
 					bookingsInInterval++;
 			// make sure the booking count is less that the room allows
 			if (bookingsInInterval >= new LokaleService().Read(booking.LokaleId).MaxGrupperAdGangen)

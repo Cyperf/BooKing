@@ -10,8 +10,8 @@
     foreach (var interval in Model.GetRoomAvailability(BookLokaleModel._date))
     {
         string height = (interval.End - interval.Start) / 5 + "px";
-        string backgroundColor = interval.Available ? "green" : "red";
-        <div style="background-color: @backgroundColor; min-height: @height; border: 1px solid #aaa; position:relative">
+        string backgroundColor = interval.Available == BookLokaleModel.TidsInterval.AvailableType.Available ? "green" : (interval.Available == BookLokaleModel.TidsInterval.AvailableType.PartiallyAvailable ? "yellow" :"red");
+        <div style="background-color: @backgroundColor; height: @height; border: 1px solid #aaa; position:relative; min-height:30px;">
             <span style="position:absolute; top:0px;">
                 <p>@Model.FromMinutesToTime(interval.Start) til @Model.FromMinutesToTime(interval.End)</p>
             </span>
