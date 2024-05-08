@@ -8,5 +8,10 @@
         {
 
         }
+        public BookingType(string type, int id = -1)
+        {
+            Id = id;
+            Type = type;
+        }
     }
 }
