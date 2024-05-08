@@ -9,7 +9,7 @@ namespace WebApplication1.Pages.OurPages //* Lavet af Roman
 {
     public class LogInModel : PageModel
     {
-        // private IUserDataService _userDataService;
+
         public static Bruger LoggedInBruger { get; set; }
 
         [BindProperty]
@@ -22,12 +22,16 @@ namespace WebApplication1.Pages.OurPages //* Lavet af Roman
         [BindProperty]
         public string Message { get; set; }
 
-       // [BindProperty]
-       // public BrugerRolle Rolle { get; set; }
+        // [BindProperty]
+        // public BrugerRolle Rolle { get; set; }
 
+        public void OnGet()
+        {
+            Message = ""; //sletter tidligere fejlmeddelse, når siden er loadet.
+        }
         public async Task<IActionResult> OnPost()
         {
-
+            // System.Diagnostics.Debug.WriteLine("tried to log in withabc:\n" + Email + " : " + Kodeord);
 
             if (!WebApplication1.Services.LoginManager.Login(Email, Kodeord))
             {
@@ -67,4 +71,5 @@ namespace WebApplication1.Pages.OurPages //* Lavet af Roman
         }
     }
 }
+  
 
