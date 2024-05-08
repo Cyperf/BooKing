@@ -12,12 +12,12 @@
         string height = (interval.End - interval.Start) / 5 + "px";
         string backgroundColor = interval.Available ? "green" : "red";
         <div style="background-color: @backgroundColor; min-height: @height; border: 1px solid #aaa; position:relative">
-            <span style="position:absolute; top:0px; padding-top:10px; padding-left:10px;">
-                <p>@Model.FromMinutesToTime(interval.Start)</p>
+            <span style="position:absolute; top:0px;">
+                <p>@Model.FromMinutesToTime(interval.Start) til @Model.FromMinutesToTime(interval.End)</p>
             </span>
-            <span style="position:absolute; bottom:0px; padding-left:10px;">
-                <p>@Model.FromMinutesToTime(interval.End)</p>
-            </span>
+            @* <span style="position:absolute; bottom:0px; padding-left:10px;">
+                 <p>@Model.FromMinutesToTime(interval.End)</p>
+             </span>*@
         </div>
     }
 }
