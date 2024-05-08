@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using WebApplication1.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WebApplication1.Services
 {
@@ -11,7 +12,7 @@ namespace WebApplication1.Services
 		}
 		protected override Func<Booking, string> _fromItemToString { get; } = (booking) => 
 		{ 
-			return $"{booking.Id}, {booking.Dato}, {booking.TidFra}, {booking.TidTil}, {booking.Gruppemedlem}, {booking.LokaleId}, {booking.SkoleId}, {booking.BookingType.Id}"; 
+			return $"'{booking.Dato.Year + "-" + booking.Dato.Month + "-" + booking.Dato.Day}', {booking.TidFra}, {booking.TidTil}, '{booking.Gruppemedlem}', {booking.LokaleId}, {booking.SkoleId}, {booking.BookingType.Id}"; 
 		};
 
 		protected override Func<SqlDataReader, Booking> _fromReaderToItem { get; } = (reader) =>
@@ -34,15 +35,27 @@ namespace WebApplication1.Services
 		{
 			// check if the booking is valid
 			// check the booking time makes sense
-			// check the room is available in the time frame
-			// 
-            base.Create(booking);
-			return true;
-        }
+			int midnight = 1 * 60 * 24;
+			if (!(booking.TidFra < booking.TidTil && booking.TidFra > 0 && booking.TidTil < midnight))
+				return false;
+            // check the room is available in the time frame (no one else has booked it)
+            var relevantBookings = ReadAll($"Dato='{booking.Dato.Year + "-" + booking.Dato.Month + "-" + booking.Dato.Day}' AND LokaleId = {booking.LokaleId} AND SkoleId={booking.SkoleId}");
+			int bookingsInInterval = 0;
+			foreach (var otherBooking in relevantBookings)
+				if ((booking.TidFra >= otherBooking.TidFra && booking.TidFra <= otherBooking.TidTil) ||
+					(booking.TidTil >= otherBooking.TidFra && booking.TidTil <= otherBooking.TidTil))
+					bookingsInInterval++;
+			// make sure the booking count is less that the room allows
+			if (bookingsInInterval >= new LokaleService().Read(booking.LokaleId).MaxGrupperAdGangen)
+				return false;
 
-		public override void Update(Booking item)
-		{
-			throw new NotImplementedException();
-		}
+            // check the user can place a booking in the time frame?
+            base.Create(booking);
+            return true;
+        }
+        public override void Update(Booking item)
+        {
+            throw new NotImplementedException();
+        }
 	}
 }

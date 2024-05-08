@@ -46,8 +46,8 @@ namespace WebApplication1.Pages.OurPages
             List<TidsInterval> availability = new List<TidsInterval>();
             // first we need to find every minute the room is available
             bool[] minutesAvailable = new bool[1 * 60 * 24];
-            List<Booking> bookings = new BookingService().ReadAll($"Dato='{date.Year + "-" + date.Month + "-" + date.Day}' AND SkoleId={_skoleId}").ToList();
-            foreach (var booking in bookings.Where(book => book.LokaleId == _lokaleId))
+            List<Booking> bookings = new BookingService().ReadAll($"Dato='{date.Year + "-" + date.Month + "-" + date.Day}' AND LokaleId = {_lokaleId} AND SkoleId={_skoleId}").ToList();
+            foreach (var booking in bookings)
                 for (int i = booking.TidFra; i < booking.TidTil; i++)
                     minutesAvailable[i] = true;
             // we then need to convert them to an interval of minutes
