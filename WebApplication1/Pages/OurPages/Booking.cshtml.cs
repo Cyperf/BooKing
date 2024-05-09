@@ -20,7 +20,7 @@ namespace WebApplication1.Pages.OurPages
             _skoleService = new SkoleService();
             date = DateOnly.FromDateTime(DateTime.Now);
         }
-        public void OnGet(DateOnly? date = null, int startInterval = 0, int endInterval = 1 * 60 * 60 * 24)
+        public void OnGet(DateOnly? date = null, int startInterval = BookingService.EarliestAllowedBooking, int endInterval = BookingService.LatestAllowedBooking)
         {
             if (date != null)
                 this.date = date.Value;
@@ -39,7 +39,7 @@ namespace WebApplication1.Pages.OurPages
 
             // get all bookings for the day
             List<Booking> bookings = new BookingService().ReadAll($"Dato='{date.Year+"-"+date.Month+"-"+date.Day}' AND SkoleId={_skoleId}").ToList();
-
+            //List<Booking> bookings = new BookingService().ReadAll($"Dato='{date.Year + "-" + date.Month + "-" + date.Day}'").ToList();
             System.Diagnostics.Debug.WriteLine("Stuff amount: " + bookings.Count);
             // go thorough all rooms
             foreach (var room in new LokaleService().ReadAll($"SkoleId={_skoleId}"))
