@@ -37,9 +37,10 @@ namespace WebApplication1.Pages.OurPages
 
         public IActionResult OnGet()
         {
-            //KUN ADMINS PLEASE AND TY
+            if (LogInModel.LoggedInBruger == null || LogInModel.LoggedInBruger.Rolle.RolleNavn != "admin")
+            { return RedirectToPage("/OurPages/LogIn"); }
 
-            foreach (Skole skole in skoleService.ReadAll())
+                foreach (Skole skole in skoleService.ReadAll())
             {
                 AlleSkoler.Add(skole);
             }
