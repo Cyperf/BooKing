@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using System.Data;
 using WebApplication1.Models;
 
 namespace WebApplication1.Services
@@ -15,7 +16,16 @@ namespace WebApplication1.Services
             return $"'{brugerRolle.RolleNavn.ToLower()}', {(brugerRolle.DagesVarselIndenOverskrivelse != null ? brugerRolle.DagesVarselIndenOverskrivelse.Value : "null")}";
         };
 
-        protected override Func<SqlDataReader, BrugerRolle> _fromReaderToItem => throw new NotImplementedException();
+
+        protected override Func<SqlDataReader, BrugerRolle> _fromReaderToItem { get; } = reader =>
+        {
+            return new BrugerRolle(reader.GetInt32(0),reader.GetString(1),reader.GetInt32(2));
+        };
+
+        //protected override Func<SqlDataReader, Bruger> _fromReaderToItem { get; } = reader =>
+        //{                                                                                    // not null, since it is a foreign key :)
+        //    return new Bruger(reader.GetString(0), reader.GetString(1), reader.GetString(2), new BrugerRolleService().Read(reader.GetInt32(3)), reader.GetInt32(4), DateOnly.FromDateTime(reader.GetDateTime(5)));
+        //};
 
         public override void Update(BrugerRolle item)
         {
