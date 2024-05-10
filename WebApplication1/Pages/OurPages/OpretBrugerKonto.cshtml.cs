@@ -26,7 +26,7 @@ namespace WebApplication1.Pages.OurPages
         public string Email { get; set; }
         [Display(Name = "Kodeord")]
         [BindProperty]
-        public string Kodeord { get; set; }
+        public string Kodeord { get; set; } = GetRandomPassword();
         [Display(Name = "Rolle")]
         [BindProperty]
         public BrugerRolle Rolle { get; set; }
@@ -75,6 +75,28 @@ namespace WebApplication1.Pages.OurPages
             _brugerService.Create(_bruger);
             Debug.WriteLine(Rolle.ToString());
             return RedirectToPage("/OurPages/OpretBrugerKonto");
+        }
+
+        private static string GetRandomPassword()
+        {
+            // setup an array, with all allowed chars
+            int alphabetSize = 'z' - 'a' + 1;
+            char[] allowedChars = new char[alphabetSize * 2 + '9' - '0' + 1];
+            for (int i = 0; i < alphabetSize; i++)
+                allowedChars[i] += (char)('a' + i);
+            for (int i = 0; i < alphabetSize; i++)
+                allowedChars[i + alphabetSize] += (char)('A' + i);
+            for (int i = 0; i < 10; i++)
+                allowedChars[i + alphabetSize * 2] += (char)('0' + i);
+
+            // create the password
+            Random random = new Random();
+            string password = "";
+            int passwordLength = 8;
+            for (int i = 0; i < passwordLength; i++)
+                password += allowedChars[random.Next(allowedChars.Length)];
+
+            return password;
         }
 
 
