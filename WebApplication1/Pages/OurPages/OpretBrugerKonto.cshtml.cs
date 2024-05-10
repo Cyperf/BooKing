@@ -29,7 +29,7 @@ namespace WebApplication1.Pages.OurPages
         public string Kodeord { get; set; } = GetRandomPassword();
         [Display(Name = "Rolle")]
         [BindProperty]
-        public BrugerRolle Rolle { get; set; }
+        public int Rolle { get; set; }
         [BindProperty]
         public int SkoleId { get; set; }
         [BindProperty]
@@ -69,7 +69,7 @@ namespace WebApplication1.Pages.OurPages
             _bruger.Navn = Navn;
             _bruger.Email = Email;
             _bruger.Kodeord = Kodeord;
-            _bruger.Rolle = Rolle;
+            _bruger.brugerId = Rolle;
             _bruger.SkoleId = SkoleId;
             _bruger.SletningsDato = SletningsDato;
             _brugerService.Create(_bruger);

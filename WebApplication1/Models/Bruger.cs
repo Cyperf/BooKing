@@ -8,6 +8,8 @@
         public BrugerRolle Rolle { get; set; }
         public int SkoleId { get; set; }
         public DateOnly SletningsDato;
+        public int brugerId { get; set; }
+        
 
         public Bruger()
         {
