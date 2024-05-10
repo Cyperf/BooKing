@@ -8,6 +8,7 @@ namespace WebApplication1.Services
 	{
 		public const int EarliestAllowedBooking = 60 * 6; // 06:00
 		public const int LatestAllowedBooking = 60 * 20; // 20:00
+		public const int MaxBookingLength = 60 * 2; // you can max book a room for 2 hours (120 minutes)
 		public BookingService()
 		{
 			_tableName = "Booking";
@@ -38,17 +39,19 @@ namespace WebApplication1.Services
 			// check the booking time makes sense
 			if (booking.TidFra >= booking.TidTil || booking.TidFra < EarliestAllowedBooking || booking.TidTil > LatestAllowedBooking)
 				return $"Vær sød at opret en booking mellem {FromMinutesToTime(EarliestAllowedBooking)} og {FromMinutesToTime(LatestAllowedBooking)}";
+			// check length of booking
+			if (booking.TidTil - booking.TidFra > MaxBookingLength)
+				return $"Din booking er lang, den må maksimalt være {MaxBookingLength}";
             // check the room is available in the time frame (no one else has booked it)
             {
                 var relevantBookings = ReadAll($"Dato='{booking.Dato.Year + "-" + booking.Dato.Month + "-" + booking.Dato.Day}' AND LokaleId = {booking.LokaleId} AND SkoleId={booking.SkoleId}");
-				//int[] bookingsInInterval = new int[booking.TidTil - booking.TidFra];
-				int bookingsInInterval = 0;
-                foreach (var otherBooking in relevantBookings)
-                    if ((booking.TidFra >= otherBooking.TidFra && booking.TidFra <= otherBooking.TidTil) ||
-                        (booking.TidTil > otherBooking.TidFra && booking.TidTil < otherBooking.TidTil))
-                        bookingsInInterval++;
+				int[] bookingsInInterval = new int[booking.TidTil - booking.TidFra];
+				foreach (var otherBooking in relevantBookings)
+					for (int i = (otherBooking.TidFra > booking.TidFra ? otherBooking.TidFra : booking.TidFra);
+					i < (otherBooking.TidTil < booking.TidTil ? otherBooking.TidTil : booking.TidTil); i++)
+						bookingsInInterval[i - booking.TidFra]++;
                 // make sure the booking count is less that the room allows
-                if (bookingsInInterval >= new LokaleService().Read(booking.LokaleId).MaxGrupperAdGangen)
+                if (bookingsInInterval.Max() >= new LokaleService().Read(booking.LokaleId).MaxGrupperAdGangen)
                     return $"Lokalet er desværre fuld optaget i det interval du har indsat";
             }
 
@@ -61,7 +64,7 @@ namespace WebApplication1.Services
 					{
 						if ((booking.TidFra >= otherBooking.TidFra && booking.TidFra <= otherBooking.TidTil) ||
 							(booking.TidTil > otherBooking.TidFra && booking.TidTil < otherBooking.TidTil))
-							return "You already have another booking, in this time frame";
+							return "Du har allerede en booking i denne tidsramme";
 
                     }
                 }
