@@ -88,16 +88,14 @@ h3 {
 </body>
 
 
-<head>
-    <style>
-        body
-    {
-            margin-left: auto;
-            margin-right: auto;
-    }
-    </style>
-</head>
-<body>
+@if(LogInModel.LoggedInBruger.Rolle.RolleNavn == "admin")
+{
+    <p><a class="btn btn-primary" href="OpretBrugerKonto" role="button">Opret Bruger</a></p>
+
+    <p><a class="btn btn-primary" href="OpretLokaler" role="button">Opret Lokaler</a></p>
+}
+
+
 <form action="https://localhost:7086/OurPages/Booking">
     <input type="submit" value="Book et lokale" />
 </form>
