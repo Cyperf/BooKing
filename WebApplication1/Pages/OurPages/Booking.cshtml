@@ -4,6 +4,13 @@
 }
 
 <h1>Alle lokaler (@Model.skole)</h1>
+@* vælg dag og interval (filtre) *@
+
+<form method="get">
+    <a asp-page="Booking"></a>
+</form>
+
+@* vis alle ledige rum *@
 
 @{
     System.Collections.Generic.Dictionary<int, System.Collections.Generic.List<WebApplication1.Models.Lokale>> floorAndRooms = Model.GetRooms();
