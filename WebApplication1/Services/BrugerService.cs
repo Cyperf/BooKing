@@ -44,7 +44,7 @@ namespace WebApplication1.Services
         public override void Update(Bruger item)
         {
             AdoNet.ExecuteNonQuery($"UPDATE {_tableName} " +
-                $"SET Name = '{item.Navn}', Kode = '{item.Kodeord}'" +
+                $"SET Name = '{item.Navn}', Kode = '{LoginManager.HashPassword(item.Email, item.Kodeord)}'" +
                 $" WHERE Email = '{item.Email}';");
         }
     }
