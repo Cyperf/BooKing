@@ -52,7 +52,19 @@ namespace WebApplication1.Pages.OurPages
         }
         public IActionResult OnPost()
         {
-            Kodeord = "yeehaw";//Random password generator.. skal nok udbygges
+           //for(int i= 0;  i > 8; i++)
+           // {
+           //     int o = Random(1, 61);
+
+           //     if (o < 10){
+           //         Kodeord = Kodeord + $"{o}";
+           //     } else if (o < 35)
+           //     {
+           //         Kodeord = Kodeord + " ";
+           //     } else if {
+           //         Kodeord = Kodeord "":
+           //     }
+           // }
             _bruger.Navn = Navn;
             _bruger.Email = Email;
             _bruger.Kodeord = Kodeord;
