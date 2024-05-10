@@ -14,21 +14,13 @@
     </style>
 </head>
 
-
-<form method="get">
-    <p>Start interval: <input class="TimeInput" asp-for="@Model.StartIntervalHours" />:<input class="TimeInput" asp-for="@Model.StartIntervalMinutes" /></p>
-    <p>End interval:   <input class="TimeInput" asp-for="@Model.EndIntervalHours"   />:<input class="TimeInput" asp-for="@Model.EndIntervalMinutes"   /></p>
-    <input asp-for="@Model.date" />
-    <a asp-page="Booking" asp-route-year="@Model.date.Year" asp-route-month="@Model.date.Month" asp-route-day="@Model.date.Day" asp-route-startInterval="@Model.FromHoursAndMinutesToOneInt(Model.StartIntervalHours, Model.StartIntervalMinutes)" asp-route-endInterval="@Model.FromHoursAndMinutesToOneInt(Model.EndIntervalHours, Model.EndIntervalMinutes)">
-        <input type="submit" value="Filtrer" />
-    </a>
-</form>
-
 <form method="post">
     <p>Start interval: <input class="TimeInput" asp-for="@Model.StartIntervalHours" />:<input class="TimeInput" asp-for="@Model.StartIntervalMinutes" /></p>
     <p>End interval:   <input class="TimeInput" asp-for="@Model.EndIntervalHours" />:<input class="TimeInput" asp-for="@Model.EndIntervalMinutes" /></p>
-    <input asp-for="@Model.date" />
-    <a asp-page="Booking" asp-route-year="@Model.date.Year" asp-route-month="@Model.date.Month" asp-route-day="@Model.date.Day" asp-route-startInterval="@Model.FromHoursAndMinutesToOneInt(Model.StartIntervalHours, Model.StartIntervalMinutes)" asp-route-endInterval="@Model.FromHoursAndMinutesToOneInt(Model.EndIntervalHours, Model.EndIntervalMinutes)">
+    <input type="date" asp-for="date" />
+    <a asp-page="Booking"
+       asp-route-startIntervalHours="@Model.StartIntervalHours Model.StartIntervalMinutes)" asp-route-startIntervalMinutes="@Model.StartIntervalHours Model.StartIntervalMinutes)"
+       asp-route-endIntervalHours="@Model.StartIntervalHours Model.EndIntervalMinutes)" asp-route-endIntervalMinutes="@Model.EndIntervalHours Model.StartIntervalMinutes)">
         <input type="submit" value="Filtrer" />
     </a>
 </form>

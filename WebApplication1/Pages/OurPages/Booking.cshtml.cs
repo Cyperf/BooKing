@@ -31,20 +31,7 @@ namespace WebApplication1.Pages.OurPages
         }
         public IActionResult OnGet(int year = 0, int month = 1, int day = 1, int startInterval = BookingService.EarliestAllowedBooking, int endInterval = BookingService.LatestAllowedBooking)
         {
-            //System.Diagnostics.Debug.WriteLine($"Rawest data:\n Date: {date}, startInterval: {startInterval}, endInterval: {endInterval}");
-            //System.Diagnostics.Debug.WriteLine($"Before:\n {StartIntervalHours} : {StartIntervalMinutes}, {EndIntervalHours} : {EndIntervalMinutes}");
-            ////if (StartIntervalHours == 0 && StartIntervalMinutes == 0 && EndIntervalHours == 0 && EndIntervalMinutes == 0)
-            ////{
-            ////    startInterval = BookingService.EarliestAllowedBooking;
-            ////    endInterval = BookingService.LatestAllowedBooking;
-            ////}
-            ////else
-            ////{
-            ////    startInterval = FromHoursAndMinutesToOneInt(StartIntervalHours, StartIntervalMinutes);
-            ////    endInterval = FromHoursAndMinutesToOneInt(EndIntervalHours, EndIntervalMinutes);
-            ////}
-            //System.Diagnostics.Debug.WriteLine($"After:\n {StartIntervalHours} : {StartIntervalMinutes}, {EndIntervalHours} : {EndIntervalMinutes}");
-            System.Diagnostics.Debug.WriteLine($"Raw data:\n Date: {date}, startInterval: {startInterval}, endInterval: {endInterval}");
+            // The first time you visit the page, it just defaults to the current day.
             if (year != 0)
                 date = new DateOnly(year, month, day);
             // making sure the intervals make sense
@@ -64,10 +51,9 @@ namespace WebApplication1.Pages.OurPages
             _skoleId = LoginManager.LoggedInUser.SkoleId;
             return Page();
         }
-        public IActionResult OnPost(int yeara, int montha, int daya, int startIntervala, int endIntervala)
+        public IActionResult OnPost(int startIntervalHours, int startIntervalMinutes, int endIntervalHours, int endIntervalMinutes)
         {
-            return Page();
-            //return RedirectToPage("", new { year  });
+            return RedirectToPage(null, new { year = date.Year, month = date.Month, day = date.Day, startInterval = FromHoursAndMinutesToOneInt(startIntervalHours, startIntervalMinutes), endInterval = FromHoursAndMinutesToOneInt(endIntervalHours, endIntervalMinutes) });
         }
 
         // converts from one int to represent time, to hours and minutes
