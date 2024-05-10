@@ -21,8 +21,17 @@
             Rolle = rolle;
             SkoleId = skoleId;
 			SletningsDato = sletningsDato;
-		}
-		public bool Ændrekodeord(string kode)
+        }
+        public Bruger(string navn, string email, string kodeord, int brugerId, int skoleId, DateOnly sletningsDato)
+        {
+            Navn = navn;
+            Email = email;
+            Kodeord = kodeord;
+            Rolle = new WebApplication1.Services.BrugerRolleService().Read(brugerId);
+            SkoleId = skoleId;
+            SletningsDato = sletningsDato;
+        }
+        public bool Ændrekodeord(string kode)
         {
             return true;
         }
