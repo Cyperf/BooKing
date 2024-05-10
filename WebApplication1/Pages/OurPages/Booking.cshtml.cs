@@ -12,9 +12,12 @@ namespace WebApplication1.Pages.OurPages
         public int _skoleId;
         private SkoleService _skoleService;
 		public string skole;
-        public DateOnly date;
-        public int StartInterval { get; set; } = 0; // 0 minutes after midnight
-        public int EndInterval { get; set; } = 1 * 60 * 24; // 24 hours after midnight (in minutes) (1 minute -> 1 hour -> 24 hours)
+        [BindProperty]
+        public DateOnly date { get; set; }
+        [BindProperty]
+        public int StartInterval { get; set; }
+        [BindProperty]
+        public int EndInterval { get; set; }
 		public BookingModel()
         {
             _skoleService = new SkoleService();
