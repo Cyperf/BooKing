@@ -75,6 +75,17 @@ namespace WebApplication1.Pages.OurPages
             return RedirectToPage("/OurPages/OpretBrugerKonto");
         }
 
+        private string GetRandomPassword()
+        {
+            Random random = new Random();
+            string password = "";
+
+            // allowed chars
+            char[] allowedChars = new char['z' - 'a' + 'Z' - 'A' + '9' - '0'];
+
+            return password;
+        }
+
 
     }
 }
