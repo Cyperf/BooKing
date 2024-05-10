@@ -18,7 +18,7 @@ namespace WebApplication1.Services
         protected override Func<SqlDataReader, Bruger> _fromReaderToItem { get; } = reader =>
         {                                                                                    // not null, since it is a foreign key :)
             return new Bruger(reader.GetString(0), reader.GetString(1), reader.GetString(2), new BrugerRolleService().Read(reader.GetInt32(3)), reader.GetInt32(4), DateOnly.FromDateTime(reader.GetDateTime(5)));
-        };s
+        };
 
         public Bruger Read(string email)
         {
