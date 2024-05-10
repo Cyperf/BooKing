@@ -39,17 +39,33 @@ namespace WebApplication1.Services
 			if (booking.TidFra >= booking.TidTil || booking.TidFra < EarliestAllowedBooking || booking.TidTil > LatestAllowedBooking)
 				return $"Vær sød at opret en booking mellem {FromMinutesToTime(EarliestAllowedBooking)} og {FromMinutesToTime(LatestAllowedBooking)}";
             // check the room is available in the time frame (no one else has booked it)
-            var relevantBookings = ReadAll($"Dato='{booking.Dato.Year + "-" + booking.Dato.Month + "-" + booking.Dato.Day}' AND LokaleId = {booking.LokaleId} AND SkoleId={booking.SkoleId}");
-			int bookingsInInterval = 0;
-			foreach (var otherBooking in relevantBookings)
-				if ((booking.TidFra >= otherBooking.TidFra && booking.TidFra <= otherBooking.TidTil) ||
-					(booking.TidTil > otherBooking.TidFra && booking.TidTil < otherBooking.TidTil))
-					bookingsInInterval++;
-			// make sure the booking count is less that the room allows
-			if (bookingsInInterval >= new LokaleService().Read(booking.LokaleId).MaxGrupperAdGangen)
-                return $"Lokalet er desværre fuld optaget i det interval du har indsat";
+            {
+                var relevantBookings = ReadAll($"Dato='{booking.Dato.Year + "-" + booking.Dato.Month + "-" + booking.Dato.Day}' AND LokaleId = {booking.LokaleId} AND SkoleId={booking.SkoleId}");
+				//int[] bookingsInInterval = new int[booking.TidTil - booking.TidFra];
+				int bookingsInInterval = 0;
+                foreach (var otherBooking in relevantBookings)
+                    if ((booking.TidFra >= otherBooking.TidFra && booking.TidFra <= otherBooking.TidTil) ||
+                        (booking.TidTil > otherBooking.TidFra && booking.TidTil < otherBooking.TidTil))
+                        bookingsInInterval++;
+                // make sure the booking count is less that the room allows
+                if (bookingsInInterval >= new LokaleService().Read(booking.LokaleId).MaxGrupperAdGangen)
+                    return $"Lokalet er desværre fuld optaget i det interval du har indsat";
+            }
 
-            // check the user can place a booking in the time frame?
+			// check if the user can place a booking in the time frame (if they are not an admin)
+			{
+				Bruger bruger = new BrugerService().Read(booking.Gruppemedlem);
+                if (bruger.Rolle.RolleNavn != "admin")
+                {
+					foreach (var otherBooking in ReadAll($"BrugerEmail={bruger.Email}"))
+					{
+						if ((booking.TidFra >= otherBooking.TidFra && booking.TidFra <= otherBooking.TidTil) ||
+							(booking.TidTil > otherBooking.TidFra && booking.TidTil < otherBooking.TidTil))
+							return "You already have another booking, in this time frame";
+
+                    }
+                }
+            }
             base.Create(booking);
 			return CreateAcceptMessage();
         }

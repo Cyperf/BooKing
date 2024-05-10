@@ -21,6 +21,7 @@
             Email = email;
             Kodeord = kodeord;
             Rolle = rolle;
+            brugerId = rolle.Id;
             SkoleId = skoleId;
 			SletningsDato = sletningsDato;
         }
@@ -30,6 +31,7 @@
             Email = email;
             Kodeord = kodeord;
             Rolle = new WebApplication1.Services.BrugerRolleService().Read(brugerId);
+            brugerId = Rolle.Id;
             SkoleId = skoleId;
             SletningsDato = sletningsDato;
         }

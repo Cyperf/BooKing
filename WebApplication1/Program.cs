@@ -5,7 +5,7 @@ using WebApplication1.Services;
 
 WebApplication1.SQL.AdoNet.Init();
 //new BookingTypeRepository().Create(new WebApplication1.Models.BookingType("Lokale"));
-//new BrugerService().Create(new WebApplication1.Models.Bruger("abc", "abc@gmail.com", "123abc", new BrugerRolleService().Read(1), 1, new DateOnly(2025, 12, 24)));
+//new BrugerService().Create(new WebApplication1.Models.Bruger("bruger", "bruger@gmail.com", "bruger", 2, 1, new DateOnly(2025, 12, 24)));
 LoginManager.Login("abc@gmail.com", "123abc");
 //Debug.WriteLine("PASSWORD LENGTH: \n" + new Microsoft.AspNetCore.Identity.PasswordHasher<string>().HashPassword("user", "password").Length);
 //WebApplication1.SQL.AdoNet.ExecuteNonQuery("INSERT INTO Skole VALUES ('Roskilde')");
