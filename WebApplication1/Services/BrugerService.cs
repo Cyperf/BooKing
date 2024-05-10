@@ -12,7 +12,7 @@ namespace WebApplication1.Services
         }
         protected override Func<Bruger, string> _fromItemToString { get; } = bruger =>
         {
-            return $"'{bruger.Navn}', '{bruger.Email}', '{LoginManager.HashPassword(bruger.Email, bruger.Kodeord)}', {bruger.Rolle.Id}, {bruger.SkoleId}, '{bruger.SletningsDato.Year+"-"+ bruger.SletningsDato.Month+"-"+ bruger.SletningsDato.Day}'";
+            return $"'{bruger.Navn}', '{bruger.Email}', '{LoginManager.HashPassword(bruger.Email, bruger.Kodeord)}', {bruger.brugerId}, {bruger.SkoleId}, '{bruger.SletningsDato.Year+"-"+ bruger.SletningsDato.Month+"-"+ bruger.SletningsDato.Day}'";
         };
 
         protected override Func<SqlDataReader, Bruger> _fromReaderToItem { get; } = reader =>
