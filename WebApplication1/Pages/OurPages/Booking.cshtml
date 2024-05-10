@@ -6,9 +6,16 @@
 <h1>Alle lokaler (@Model.skole)</h1>
 @* vælg dag og interval (filtre) *@
 
+
 <form method="get">
-    <a asp-page="Booking"></a>
+    <input asp-for="@Model.StartInterval" />
+    <input asp-for="@Model.EndInterval" />
+    <input asp-for="@Model.date" />
+    <a asp-page="Booking" asp-route-date="@Model.date" asp-route-startInterval="@Model.StartInterval" asp-route-endInterval="@Model.EndInterval">
+        <input type="submit" />
+    </a>
 </form>
+
 
 @* vis alle ledige rum *@
 
