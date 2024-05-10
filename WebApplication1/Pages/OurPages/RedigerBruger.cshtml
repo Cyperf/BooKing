@@ -19,7 +19,18 @@
                                             <div class="col-md-7 mb-4 pb-2">
 
                                                 <div class="form-outline form-group form-white">
-                                                    <label asp-for="Kodeord" placeholder="jens" class="control-label"></label>
+                                                    <label asp-for="GamleKodeord" class="control-label">Gamle Kodeord</label>
+                                                    <input asp-for="GamleKodeord" class="form-control" />
+                                                    <span asp-validation-for="GamleKodeord" class="text-danger"></span>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-7 mb-4 pb-2">
+
+                                                <div class="form-outline form-group form-white">
+                                                    <label asp-for="Kodeord" class="control-label"></label>
                                                     <input asp-for="Kodeord" class="form-control" />
                                                     <span asp-validation-for="Kodeord" class="text-danger"></span>
 
