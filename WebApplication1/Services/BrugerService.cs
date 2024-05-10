@@ -43,7 +43,7 @@ namespace WebApplication1.Services
 
         public override void Update(Bruger item)
         {
-            throw new NotImplementedException();
+            AdoNet.ExecuteNonQuery($"UPDATE {_tableName} SET Name = '{item.Navn}', Kode = '{item.Kodeord}', WHERE Email = '{item.Email}'");
         }
     }
 }

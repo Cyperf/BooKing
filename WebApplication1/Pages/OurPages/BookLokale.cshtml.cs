@@ -101,9 +101,4 @@ namespace WebApplication1.Pages.OurPages
             }
         }
     }
-
-    public class TidsInterval
-    {
-
-    }
 }

@@ -25,9 +25,16 @@ namespace WebApplication1.Pages.OurPages //* Lavet af Roman
         // [BindProperty]
         // public BrugerRolle Rolle { get; set; }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
-            Message = ""; //sletter tidligere fejlmeddelse, når siden er loadet.
+            if (LoggedInBruger != null)
+            { return RedirectToPage("/OurPages/BrugerSide"); }
+            else
+            {
+                Message = ""; //sletter tidligere fejlmeddelse, når siden er loadet.
+
+                return Page();
+            }
         }
         public async Task<IActionResult> OnPost()
         {

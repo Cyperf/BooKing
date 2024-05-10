@@ -10,8 +10,12 @@ namespace WebApplication1.Pages.OurPages
         //    public static WebApplication1.Models.Bruger? LoggedInUser { get; private set; } = null;
         //}
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
+            if(LogInModel.LoggedInBruger == null)
+            {
+                return RedirectToPage("/OurPages/LogIn");
+            } return Page();
         }
     }
 }
