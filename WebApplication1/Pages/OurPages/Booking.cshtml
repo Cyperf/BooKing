@@ -27,7 +27,7 @@
                 var lokaler = floorAndRooms[floor];
                 foreach (var lokale in lokaler)
                 {
-                    <a asp-page="BookLokale" asp-route-date="@Model.date" asp-route-lokaleId="@lokale.Id" asp-route-skoleId="@lokale.SkoleId">
+                    <a asp-page="BookLokale" asp-route-year="@Model.date.Year" asp-route-month="@Model.date.Month" asp-route-day="@Model.date.Day" asp-route-lokaleId="@lokale.Id" asp-route-skoleId="@lokale.SkoleId">
                         <form method="get" style="display:flex; justify-content:left;">
 
                             @{

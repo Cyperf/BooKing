@@ -8,14 +8,23 @@
 		public static bool Login(string email, string password)
 		{
 			var hasher = new Microsoft.AspNetCore.Identity.PasswordHasher<string>();
-            //string hashedPassword = hasher.HashPassword(email, password);
-
             bool b = false;
 
 			AdoNet.ExecuteQuery($"SELECT Name, Email, Kode, Rolle, SkoleId, SletningsDato FROM bruger WHERE Email='{email}'",
 				reader =>
 				{
-                    if (!reader.Read())
+                    // since the query is not case-sensitive, we need to confirm we got the right email, by compairing it to the one put into the function
+                    // for example if the input of the query is 'Abc@gmail.com', and the actual email is 'abc@gmail.com', it would still select it
+                    bool foundEmail = false;
+					while (foundEmail = reader.Read())
+					{
+						if (reader.GetString(1) == email)
+                        {
+                            foundEmail = true;
+                            break;
+                        }
+                    }
+                    if (!foundEmail)
 						return;
 					var result = hasher.VerifyHashedPassword(email, reader.GetString(2), password);
                     if (result != Microsoft.AspNetCore.Identity.PasswordVerificationResult.Success)

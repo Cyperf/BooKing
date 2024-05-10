@@ -20,7 +20,7 @@ namespace WebApplication1.Pages.OurPages
             _skoleService = new SkoleService();
             date = DateOnly.FromDateTime(DateTime.Now);
         }
-        public void OnGet(DateOnly? date = null, int startInterval = 0, int endInterval = 1 * 60 * 60 * 24)
+        public void OnGet(DateOnly? date = null, int startInterval = BookingService.EarliestAllowedBooking, int endInterval = BookingService.LatestAllowedBooking)
         {
             if (date != null)
                 this.date = date.Value;
@@ -39,20 +39,32 @@ namespace WebApplication1.Pages.OurPages
 
             // get all bookings for the day
             List<Booking> bookings = new BookingService().ReadAll($"Dato='{date.Year+"-"+date.Month+"-"+date.Day}' AND SkoleId={_skoleId}").ToList();
+            //List<Booking> bookings = new BookingService().ReadAll($"Dato='{date.Year + "-" + date.Month + "-" + date.Day}'").ToList();
+            System.Diagnostics.Debug.WriteLine("Stuff amount: " + bookings.Count);
             // go thorough all rooms
-            foreach (var room in new LokaleService().ReadAll())
+            foreach (var room in new LokaleService().ReadAll($"SkoleId={_skoleId}"))
             {
                 // check if the room booked in the time interval
                 bool[] timeAvailable = new bool[EndInterval - StartInterval];
                 // we fill the timeAvailable array, with all the bookings that are connected to the room
                 foreach (var booking in bookings.Where(book => book.LokaleId == room.Id))
+                {
+                    System.Diagnostics.Debug.WriteLine("Stuff: " + booking);
                     for (int i = booking.TidFra > StartInterval ? booking.TidFra : StartInterval; i < (booking.TidTil < EndInterval ? booking.TidTil : EndInterval); i++)
                         timeAvailable[i - StartInterval] = true;
+                }
                 int j;
                 // then we go through the timeAvailable array, if it a value is "false", it is available at at least one minut of time, in the given interval
                 for (j = 0; j < timeAvailable.Length; j++)
                     if (!timeAvailable[j])
                         break;
+                //if (room.Id == 1)
+                //{
+                //    System.Diagnostics.Debug.WriteLine("Stuff: " + j + " : " + timeAvailable.Length + " : " + timeAvailable[j]);
+                //    for (j = 0; j < timeAvailable.Length; j++)
+                //        if (!timeAvailable[j])
+                //            System.Diagnostics.Debug.WriteLine("yes: " + j);
+                //}
                 // if j is equal to timeAvailable.Length, there wern't any available time
                 if (j == timeAvailable.Length)
                     continue;

@@ -18,14 +18,14 @@ namespace WebApplication1.Pages.OurPages
         public static string Skole { get; private set; }
         public static int _lokaleId = -1, _skoleId = -1;
         public static DateOnly _date;
-        public IActionResult OnGet(DateOnly? date = null, int lokaleId = -1, int skoleId = -1)
+        public IActionResult OnGet(int year = 1, int month = 1, int day = 1, int lokaleId = -1, int skoleId = -1)
         {
             // check for invalid data
-            if (date == null || lokaleId == -1 || skoleId == -1)
+            if (lokaleId == -1 || skoleId == -1)
                 return RedirectToPage("Booking");
             _lokaleId = lokaleId;
             _skoleId = skoleId;
-            _date = date.Value;
+            _date = new DateOnly(year, month, day);
             Skole = new SkoleService().Read(skoleId).Location;
             return Page();
         }
@@ -34,10 +34,8 @@ namespace WebApplication1.Pages.OurPages
             System.Diagnostics.Debug.WriteLine(NewBookingStartHour + ":" + NewBookingStartMinute + " to " + NewBookingEndHour + ":" + NewBookingEndMinute);
             int start = NewBookingStartHour * 60 + NewBookingStartMinute;
             int end = start + NewBookingEndHour * 60 + NewBookingEndMinute;
-            if (new BookingService().TryCreate(new Booking(-1, _date, start, end, LoginManager.LoggedInUser.Email, _lokaleId, _skoleId, new BookingTypeRepository().Read(1))))
-                FejlMeddelse = "Oprettede succesfult bookningen";
-            else
-                FejlMeddelse = "Bookningen kunne desvære ikke oprettes.";
+            Booking newBooking = new Booking(-1, _date, start, end, LoginManager.LoggedInUser.Email, _lokaleId, _skoleId, new BookingTypeRepository().Read(1));
+            FejlMeddelse = new BookingService().TryCreate(newBooking);
             return Page();
         }
 
@@ -45,28 +43,32 @@ namespace WebApplication1.Pages.OurPages
         {
             List<TidsInterval> availability = new List<TidsInterval>();
             // first we need to find every minute the room is available
-            bool[] minutesAvailable = new bool[1 * 60 * 24];
+            int earliestAllowedBooking = BookingService.EarliestAllowedBooking;
+            int latestAllowedBooking = BookingService.LatestAllowedBooking;
+            int[] minutesAvailable = new int[latestAllowedBooking - earliestAllowedBooking];
             List<Booking> bookings = new BookingService().ReadAll($"Dato='{date.Year + "-" + date.Month + "-" + date.Day}' AND LokaleId = {_lokaleId} AND SkoleId={_skoleId}").ToList();
             foreach (var booking in bookings)
-                for (int i = booking.TidFra; i < booking.TidTil; i++)
-                    minutesAvailable[i] = true;
+                for (int i = booking.TidFra > earliestAllowedBooking ? booking.TidFra : earliestAllowedBooking; i < (booking.TidTil < latestAllowedBooking ? booking.TidTil : latestAllowedBooking); i++)
+                    minutesAvailable[i - earliestAllowedBooking]++;
+            // get how many groups can be in the room at a given point in time
+            int maxGroups = new LokaleService().Read(_lokaleId).MaxGrupperAdGangen;
             // we then need to convert them to an interval of minutes
-            bool available = minutesAvailable[0];
+            int available = minutesAvailable[0];
             int startInterval = 0;
             for (int i = 0; i < minutesAvailable.Length-1; i++)
             {
                 if (minutesAvailable[i] != available)
                 {
                     int endInterval = i - 1;
-                    availability.Add(new TidsInterval(startInterval, endInterval, !available)); //minutesAvailable gives "false" when it is available
+                    availability.Add(new TidsInterval(startInterval + earliestAllowedBooking, endInterval + earliestAllowedBooking, available == 0 ? TidsInterval.AvailableType.Available : (available < maxGroups ? TidsInterval.AvailableType.PartiallyAvailable : TidsInterval.AvailableType.NotAvailable))); //minutesAvailable gives "false" when it is available
                     startInterval = i;
-                    available = !available;
+                    available = minutesAvailable[i];
                 }
             }
             // add final interval
             {
                 int endInterval = minutesAvailable.Length-1;
-                availability.Add(new TidsInterval(startInterval, endInterval, !available));
+                availability.Add(new TidsInterval(startInterval + earliestAllowedBooking, endInterval + earliestAllowedBooking, available == 0 ? TidsInterval.AvailableType.Available : (available < maxGroups ? TidsInterval.AvailableType.PartiallyAvailable : TidsInterval.AvailableType.NotAvailable)));
             }
             return availability;
         }
@@ -81,14 +83,19 @@ namespace WebApplication1.Pages.OurPages
         {
             public int Start { get; }
             public int End { get; }
-            public bool Available { get; }
-            public TidsInterval(int start, int end, bool available)
+            public AvailableType Available { get; }
+            public TidsInterval(int start, int end, AvailableType available)
             {
                 Start = start;
                 End = end;
                 Available = available;
             }
-
+            public enum AvailableType
+            {
+                Available,
+                PartiallyAvailable,
+                NotAvailable,
+            }
         }
     }
 
