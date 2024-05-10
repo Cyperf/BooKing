@@ -21,6 +21,7 @@ namespace WebApplication1.Pages.OurPages
         public static DateOnly _date;
         public IActionResult OnGet(int year = 1, int month = 1, int day = 1, int lokaleId = -1, int skoleId = -1)
         {
+            System.Diagnostics.Debug.WriteLine($"y {year} m {month} d {day}");
             // check for invalid data
             if (lokaleId == -1 || skoleId == -1)
                 return RedirectToPage("Booking");

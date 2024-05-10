@@ -14,7 +14,7 @@
     </style>
 </head>
 
-<form method="post">
+<form method="post" asp-page-handler="Filter">
     <p>Start interval: <input class="TimeInput" asp-for="@Model.StartIntervalHours" />:<input class="TimeInput" asp-for="@Model.StartIntervalMinutes" /></p>
     <p>End interval:   <input class="TimeInput" asp-for="@Model.EndIntervalHours" />:<input class="TimeInput" asp-for="@Model.EndIntervalMinutes" /></p>
     <input type="date" asp-for="date" />
@@ -51,8 +51,9 @@
                 var lokaler = floorAndRooms[floor];
                 foreach (var lokale in lokaler)
                 {
-                    <a asp-page="BookLokale" asp-route-year="@Model.date.Year" asp-route-month="@Model.date.Month" asp-route-day="@Model.date.Day" asp-route-lokaleId="@lokale.Id" asp-route-skoleId="@lokale.SkoleId">
-                        <form method="get" style="display:flex; justify-content:left;">
+                    // <a asp-page="BookLokale" asp-route-year="@Model.date.Year" asp-route-month="@Model.date.Month" asp-route-day="@Model.date.Day" asp-route-lokaleId="@lokale.Id" asp-route-skoleId="@lokale.SkoleId">
+                    <a asp-page="Booking" asp-route-lokaleIdPost="@lokale.Id" asp-route-skoleIdPost="@lokale.SkoleId">
+                        <form method="post" asp-page-handler="BookLokale" style="display:flex; justify-content:left;">
 
                             @{
                                 string lokaleNummer = lokale.Id < 10 ? ("00" + lokale.Id) : (lokale.Id < 100 ? "0" + lokale.Id : (lokale.Id.ToString()));

@@ -4,6 +4,7 @@ using WebApplication1.Models;
 using WebApplication1.Services;
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Routing;
 
 namespace WebApplication1.Pages.OurPages
 {
@@ -51,9 +52,14 @@ namespace WebApplication1.Pages.OurPages
             _skoleId = LoginManager.LoggedInUser.SkoleId;
             return Page();
         }
-        public IActionResult OnPost(int startIntervalHours, int startIntervalMinutes, int endIntervalHours, int endIntervalMinutes)
+        public IActionResult OnPostFilter(int startIntervalHours, int startIntervalMinutes, int endIntervalHours, int endIntervalMinutes)
         {
             return RedirectToPage(null, new { year = date.Year, month = date.Month, day = date.Day, startInterval = FromHoursAndMinutesToOneInt(startIntervalHours, startIntervalMinutes), endInterval = FromHoursAndMinutesToOneInt(endIntervalHours, endIntervalMinutes) });
+        }
+        public IActionResult OnPostBookLokale(int lokaleIdPost, int skoleIdPost)
+        {
+            System.Diagnostics.Debug.WriteLine("\ndsafdsagfdsagdasfgas\n\n\n");
+            return RedirectToPage("BookLokale", new { year = date.Year, month = date.Month, day = date.Day, lokaleId = lokaleIdPost, skoleId = skoleIdPost });
         }
 
         // converts from one int to represent time, to hours and minutes
