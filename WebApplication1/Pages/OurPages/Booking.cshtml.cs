@@ -13,29 +13,72 @@ namespace WebApplication1.Pages.OurPages
         private SkoleService _skoleService;
 		public string skole;
         [BindProperty]
-        public DateOnly date { get; set; }
+        public DateOnly date { get; set; } = DateOnly.FromDateTime(DateTime.Now);
         [BindProperty]
+        public int StartIntervalHours { get; set; }
+        [BindProperty]
+        public int StartIntervalMinutes { get; set; }
+        [BindProperty]
+        public int EndIntervalHours { get; set; }
+        [BindProperty]
+        public int EndIntervalMinutes { get; set; }
+
         public int StartInterval { get; set; }
-        [BindProperty]
         public int EndInterval { get; set; }
 		public BookingModel()
         {
             _skoleService = new SkoleService();
-            date = DateOnly.FromDateTime(DateTime.Now);
         }
-        public void OnGet(DateOnly? date = null, int startInterval = BookingService.EarliestAllowedBooking, int endInterval = BookingService.LatestAllowedBooking)
+        public void OnGet(int year = 0, int month = 1, int day = 1, int startInterval = BookingService.EarliestAllowedBooking, int endInterval = BookingService.LatestAllowedBooking)
         {
-            if (date != null)
-                this.date = date.Value;
+            //System.Diagnostics.Debug.WriteLine($"Rawest data:\n Date: {date}, startInterval: {startInterval}, endInterval: {endInterval}");
+            //System.Diagnostics.Debug.WriteLine($"Before:\n {StartIntervalHours} : {StartIntervalMinutes}, {EndIntervalHours} : {EndIntervalMinutes}");
+            ////if (StartIntervalHours == 0 && StartIntervalMinutes == 0 && EndIntervalHours == 0 && EndIntervalMinutes == 0)
+            ////{
+            ////    startInterval = BookingService.EarliestAllowedBooking;
+            ////    endInterval = BookingService.LatestAllowedBooking;
+            ////}
+            ////else
+            ////{
+            ////    startInterval = FromHoursAndMinutesToOneInt(StartIntervalHours, StartIntervalMinutes);
+            ////    endInterval = FromHoursAndMinutesToOneInt(EndIntervalHours, EndIntervalMinutes);
+            ////}
+            //System.Diagnostics.Debug.WriteLine($"After:\n {StartIntervalHours} : {StartIntervalMinutes}, {EndIntervalHours} : {EndIntervalMinutes}");
+            System.Diagnostics.Debug.WriteLine($"Raw data:\n Date: {date}, startInterval: {startInterval}, endInterval: {endInterval}");
+            if (year != 0)
+                date = new DateOnly(year, month, day);
+            // making sure the intervals make sense
+            startInterval = startInterval < BookingService.EarliestAllowedBooking ? BookingService.EarliestAllowedBooking : startInterval;
+            endInterval = endInterval > BookingService.LatestAllowedBooking ? BookingService.LatestAllowedBooking : endInterval;
+            endInterval = endInterval < startInterval ? startInterval : endInterval;
+            System.Diagnostics.Debug.WriteLine($"Date: {date}, startInterval: {startInterval}, endInterval: {endInterval}");
             StartInterval = startInterval;
+            StartIntervalHours = FromOnlyMinutesToHours(StartInterval);
+            StartIntervalMinutes = FromOnlyMinutesToMinutes(StartInterval);
+
             EndInterval = endInterval;
-            if (endInterval < StartInterval)
-                EndInterval = StartInterval;
+            EndIntervalHours = FromOnlyMinutesToHours(EndInterval);
+            EndIntervalMinutes = FromOnlyMinutesToMinutes(EndInterval);
+
             skole = _skoleService.Read(LoginManager.LoggedInUser.SkoleId).Location;
             _skoleId = LoginManager.LoggedInUser.SkoleId;
-
-
         }
+
+        // converts from one int to represent time, to hours and minutes
+        public static int FromOnlyMinutesToHours(int minutes)
+        {
+            return minutes / 60;
+        }
+        public static int FromOnlyMinutesToMinutes(int minutes)
+        {
+            return minutes % 60;
+        }
+        // converts from hours and minutes to one single int to represent time
+        public int FromHoursAndMinutesToOneInt(int hours, int minutes)
+        {
+            return hours * 60 + minutes;
+        }
+
         public Dictionary<int, List<Lokale>> GetRooms()
         {
             Dictionary<int, List<Lokale>> etageToRoomList = new Dictionary<int, List<Lokale>>();
@@ -43,7 +86,6 @@ namespace WebApplication1.Pages.OurPages
             // get all bookings for the day
             List<Booking> bookings = new BookingService().ReadAll($"Dato='{date.Year+"-"+date.Month+"-"+date.Day}' AND SkoleId={_skoleId}").ToList();
             //List<Booking> bookings = new BookingService().ReadAll($"Dato='{date.Year + "-" + date.Month + "-" + date.Day}'").ToList();
-            System.Diagnostics.Debug.WriteLine("Stuff amount: " + bookings.Count);
             // go thorough all rooms
             foreach (var room in new LokaleService().ReadAll($"SkoleId={_skoleId}"))
             {
@@ -52,7 +94,6 @@ namespace WebApplication1.Pages.OurPages
                 // we fill the timeAvailable array, with all the bookings that are connected to the room
                 foreach (var booking in bookings.Where(book => book.LokaleId == room.Id))
                 {
-                    System.Diagnostics.Debug.WriteLine("Stuff: " + booking);
                     for (int i = booking.TidFra > StartInterval ? booking.TidFra : StartInterval; i < (booking.TidTil < EndInterval ? booking.TidTil : EndInterval); i++)
                         timeAvailable[i - StartInterval] = true;
                 }
