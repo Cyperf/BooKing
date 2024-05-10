@@ -13,16 +13,16 @@ namespace WebApplication1.Pages.OurPages
 
         private readonly BookingService _bookingService;
 
-        public BrugerSideModel(BookingService bookingService)
+        public BrugerSideModel()
         {
-            _bookingService = bookingService;
+            _bookingService = new BookingService();
         }
 
         public IActionResult OnGet()
         {
             if (LogInModel.LoggedInBruger == null)
             {
-                return RedirectToPage("/OurPages/LogIn");
+                return RedirectToPage("LogIn");
             }
             return Page();
         }
@@ -33,7 +33,7 @@ namespace WebApplication1.Pages.OurPages
             _bookingService.Delete(bookingId);
 
             
-            return RedirectToPage("/OurPages/BrugerSide");
+            return RedirectToPage("BrugerSide");
         }
     }
 }
