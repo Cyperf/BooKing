@@ -26,7 +26,7 @@ namespace WebApplication1.Pages.OurPages
         public string Email { get; set; } = LogInModel.LoggedInBruger.Email;
         [Display(Name = "Kodeord")]
         [BindProperty]
-        public string Kodeord { get; set; } = LogInModel.LoggedInBruger.Kodeord;
+        public string Kodeord { get; set; } 
         [Display(Name = "Rolle")]
         [BindProperty]
         public int Rolle { get; set; } = LogInModel.LoggedInBruger.brugerId;
@@ -60,7 +60,7 @@ namespace WebApplication1.Pages.OurPages
             _bruger.SkoleId = SkoleId;
             _bruger.SletningsDato = SletningsDato;
             _brugerService.Update(_bruger);
-            return RedirectToPage("/OurPages/OpretBrugerKonto");
+            return RedirectToPage("/OurPages/RedigerBruger");
         }
     }
 }
