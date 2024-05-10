@@ -34,7 +34,9 @@ namespace WebApplication1.Pages.OurPages
 
         public IActionResult OnGet()
         {
-            // make only admins allowed BG
+            if (LogInModel.LoggedInBruger == null || LogInModel.LoggedInBruger.Rolle.RolleNavn != "admin")
+            { return RedirectToPage("/OurPages/LogIn"); }
+
             foreach (Skole skole in skoleService.ReadAll())
             {
                 AlleSkoler.Add(skole);
