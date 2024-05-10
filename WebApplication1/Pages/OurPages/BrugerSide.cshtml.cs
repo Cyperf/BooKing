@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using WebApplication1.Services;
 
 namespace WebApplication1.Pages.OurPages
 {
@@ -10,12 +11,29 @@ namespace WebApplication1.Pages.OurPages
         //    public static WebApplication1.Models.Bruger? LoggedInUser { get; private set; } = null;
         //}
 
+        private readonly BookingService _bookingService;
+
+        public BrugerSideModel(BookingService bookingService)
+        {
+            _bookingService = bookingService;
+        }
+
         public IActionResult OnGet()
         {
-            if(LogInModel.LoggedInBruger == null)
+            if (LogInModel.LoggedInBruger == null)
             {
                 return RedirectToPage("/OurPages/LogIn");
-            } return Page();
+            }
+            return Page();
+        }
+
+        public IActionResult OnPostDeleteBooking(int bookingId)
+        {
+            
+            _bookingService.Delete(bookingId);
+
+            
+            return RedirectToPage("/OurPages/BrugerSide");
         }
     }
 }
