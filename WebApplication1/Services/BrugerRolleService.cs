@@ -15,7 +15,10 @@ namespace WebApplication1.Services
             return $"'{brugerRolle.RolleNavn.ToLower()}', {(brugerRolle.DagesVarselIndenOverskrivelse != null ? brugerRolle.DagesVarselIndenOverskrivelse.Value : "null")}";
         };
 
-        protected override Func<SqlDataReader, BrugerRolle> _fromReaderToItem => throw new NotImplementedException();
+        protected override Func<SqlDataReader, BrugerRolle> _fromReaderToItem { get; } = reader =>
+        {
+            return new BrugerRolle(reader.GetInt32(0), reader.GetString(1), reader.IsDBNull(2) ? null : reader.GetInt32(2));
+        };
 
         public override void Update(BrugerRolle item)
         {
