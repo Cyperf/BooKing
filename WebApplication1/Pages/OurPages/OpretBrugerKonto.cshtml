@@ -44,6 +44,17 @@
                                             <div class="col-md-7 mb-4 pb-2">
 
                                                 <div class="form-outline form-group form-white">
+                                                    <label asp-for="Email" class="control-label"></label>
+                                                    <input asp-for="Email" class="form-control" />
+                                                    <span asp-validation-for="Email" class="text-danger"></span>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-7 mb-4 pb-2">
+
+                                                <div class="form-outline form-group form-white">
                                                     <select name="Rolle">
                                                         <option value="10">Vælg en Rolle</option>
                                                         @foreach (Models.BrugerRolle Rolle in Model.alleBrugerRoller)

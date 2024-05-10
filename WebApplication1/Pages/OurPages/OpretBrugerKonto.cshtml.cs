@@ -44,9 +44,9 @@ namespace WebApplication1.Pages.OurPages
                 AlleSkoler.Add(skole);
             }
 
-            foreach (BrugerRolle rolle in _brugerRolleService.ReadAll())
+            foreach (BrugerRolle Rolle in _brugerRolleService.ReadAll())
             {
-                alleBrugerRoller.Add(rolle);
+                alleBrugerRoller.Add(Rolle);
             }
             return Page();
         }
@@ -65,6 +65,7 @@ namespace WebApplication1.Pages.OurPages
            //         Kodeord = Kodeord "":
            //     }
            // }
+
             _bruger.Navn = Navn;
             _bruger.Email = Email;
             _bruger.Kodeord = Kodeord;
@@ -72,6 +73,7 @@ namespace WebApplication1.Pages.OurPages
             _bruger.SkoleId = SkoleId;
             _bruger.SletningsDato = SletningsDato;
             _brugerService.Create(_bruger);
+            Debug.WriteLine(Rolle.ToString());
             return RedirectToPage("/OurPages/OpretBrugerKonto");
         }
 
