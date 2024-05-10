@@ -72,7 +72,11 @@ h3 {
                 <td>@booking.LokaleId</td>
                 <td>@booking.Dato</td>
                 <td>@booking.BookingType.Type</td>
+                <th>Action</th>
             </tr>
+            <form method="post" asp-page-handler="DeleteBooking" asp-route-bookingId="@booking.Id">
+                <button type="submit">Delete</button>
+            </form>
         }
 @*         <tr>
             <td>Arun</td>
