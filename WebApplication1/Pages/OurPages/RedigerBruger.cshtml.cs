@@ -15,7 +15,8 @@ namespace WebApplication1.Pages.OurPages
         public Bruger _bruger { get; set; }
         [Display(Name = "Kodeord")]
         [BindProperty]
-        public string Kodeord { get; set; } 
+        public string Kodeord { get; set; }
+        public string GamleKodeord { get; set; }
 
 
         public IActionResult OnGet()
@@ -27,9 +28,15 @@ namespace WebApplication1.Pages.OurPages
         }
         public IActionResult OnPost()
         {
+            if(GamleKodeord == LogInModel.LoggedInBruger.Kodeord) { 
             _bruger.Kodeord = Kodeord;
             _brugerService.Update(_bruger);
             return RedirectToPage("/OurPages/RedigerBruger");
         }
+            else
+            {
+                return Page();
+            }
+    }
     }
 }
