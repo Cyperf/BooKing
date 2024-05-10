@@ -43,7 +43,9 @@ namespace WebApplication1.Services
 
         public override void Update(Bruger item)
         {
-            AdoNet.ExecuteNonQuery($"UPDATE {_tableName} WHERE Email='{item.Email}' SET Name={item.Navn}, Kode={item.Kodeord}");
+            AdoNet.ExecuteNonQuery($"UPDATE {_tableName} " +
+                $"SET Name = '{item.Navn}', Kode = '{item.Kodeord}'" +
+                $" WHERE Email = '{item.Email}';");
         }
     }
 }

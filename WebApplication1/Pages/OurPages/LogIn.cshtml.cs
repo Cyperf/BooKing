@@ -42,7 +42,7 @@ namespace WebApplication1.Pages.OurPages //* Lavet af Roman
 
             if (!WebApplication1.Services.LoginManager.Login(Email, Kodeord))
             {
-                Message = "Fejl: Invalid login";
+                Message = "Fejl: Invalid login!";
                 return Page();
             }
             LoggedInBruger = WebApplication1.Services.LoginManager.LoggedInUser;
