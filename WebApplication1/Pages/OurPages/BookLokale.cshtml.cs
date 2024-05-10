@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using WebApplication1.Models;
 using WebApplication1.Services;
+using System.Security.Claims;
 
 namespace WebApplication1.Pages.OurPages
 {
@@ -38,6 +39,8 @@ namespace WebApplication1.Pages.OurPages
             FejlMeddelse = new BookingService().TryCreate(newBooking);
             return Page();
         }
+
+        
 
         public List<TidsInterval> GetRoomAvailability(DateOnly date)
         {

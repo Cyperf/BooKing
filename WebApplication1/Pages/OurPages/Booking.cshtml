@@ -14,17 +14,25 @@
     </style>
 </head>
 
+
 <form method="get">
-    <p>Start interval: <input class="TimeInput" asp-for="@Model.StartIntervalHours" />:<input class="TimeInput" asp-for="@Model.StartIntervalMinutes"  /></p>
-    <p>End interval:   <input class="TimeInput" asp-for="@Model.EndIntervalHours"   />:<input class="TimeInput" asp-for="@Model.EndIntervalMinutes"    /></p>
-    <input asp-for="@Model.date" value="@Model.date" />
+    <p>Start interval: <input class="TimeInput" asp-for="@Model.StartIntervalHours" />:<input class="TimeInput" asp-for="@Model.StartIntervalMinutes" /></p>
+    <p>End interval:   <input class="TimeInput" asp-for="@Model.EndIntervalHours"   />:<input class="TimeInput" asp-for="@Model.EndIntervalMinutes"   /></p>
+    <input asp-for="@Model.date" />
     <a asp-page="Booking" asp-route-year="@Model.date.Year" asp-route-month="@Model.date.Month" asp-route-day="@Model.date.Day" asp-route-startInterval="@Model.FromHoursAndMinutesToOneInt(Model.StartIntervalHours, Model.StartIntervalMinutes)" asp-route-endInterval="@Model.FromHoursAndMinutesToOneInt(Model.EndIntervalHours, Model.EndIntervalMinutes)">
-        <input type="submit" />
+        <input type="submit" value="Filtrer" />
     </a>
-    @* <a asp-page="Booking" asp-route-year="@Model.date.Year" asp-route-month="@Model.date.Month" asp-route-day="@Model.date.Day" asp-route-startInterval="@BookingModel.StartIntervalMinutes" asp-route-endInterval="@BookingModel.EndIntervalMinutes">
-        <input type="submit" />
-    </a> *@
 </form>
+
+<form method="post">
+    <p>Start interval: <input class="TimeInput" asp-for="@Model.StartIntervalHours" />:<input class="TimeInput" asp-for="@Model.StartIntervalMinutes" /></p>
+    <p>End interval:   <input class="TimeInput" asp-for="@Model.EndIntervalHours" />:<input class="TimeInput" asp-for="@Model.EndIntervalMinutes" /></p>
+    <input asp-for="@Model.date" />
+    <a asp-page="Booking" asp-route-year="@Model.date.Year" asp-route-month="@Model.date.Month" asp-route-day="@Model.date.Day" asp-route-startInterval="@Model.FromHoursAndMinutesToOneInt(Model.StartIntervalHours, Model.StartIntervalMinutes)" asp-route-endInterval="@Model.FromHoursAndMinutesToOneInt(Model.EndIntervalHours, Model.EndIntervalMinutes)">
+        <input type="submit" value="Filtrer" />
+    </a>
+</form>
+
 
 
 @* vis alle ledige rum *@

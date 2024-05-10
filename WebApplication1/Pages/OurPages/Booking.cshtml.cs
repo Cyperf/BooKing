@@ -29,7 +29,7 @@ namespace WebApplication1.Pages.OurPages
         {
             _skoleService = new SkoleService();
         }
-        public void OnGet(int year = 0, int month = 1, int day = 1, int startInterval = BookingService.EarliestAllowedBooking, int endInterval = BookingService.LatestAllowedBooking)
+        public IActionResult OnGet(int year = 0, int month = 1, int day = 1, int startInterval = BookingService.EarliestAllowedBooking, int endInterval = BookingService.LatestAllowedBooking)
         {
             //System.Diagnostics.Debug.WriteLine($"Rawest data:\n Date: {date}, startInterval: {startInterval}, endInterval: {endInterval}");
             //System.Diagnostics.Debug.WriteLine($"Before:\n {StartIntervalHours} : {StartIntervalMinutes}, {EndIntervalHours} : {EndIntervalMinutes}");
@@ -62,6 +62,12 @@ namespace WebApplication1.Pages.OurPages
 
             skole = _skoleService.Read(LoginManager.LoggedInUser.SkoleId).Location;
             _skoleId = LoginManager.LoggedInUser.SkoleId;
+            return Page();
+        }
+        public IActionResult OnPost(int yeara, int montha, int daya, int startIntervala, int endIntervala)
+        {
+            return Page();
+            //return RedirectToPage("", new { year  });
         }
 
         // converts from one int to represent time, to hours and minutes

@@ -72,6 +72,11 @@ h3 {
                 <td>@booking.LokaleId</td>
                 <td>@booking.Dato</td>
                 <td>@booking.BookingType.Type</td>
+                <th>
+                    <form method="post" asp-page-handler="DeleteBooking" asp-route-bookingId="@booking.Id">
+                        <button type="submit">Delete</button>
+                    </form>
+                </th>
             </tr>
         }
 @*         <tr>
@@ -106,14 +111,6 @@ h3 {
         }
     </style>
 </head>
-<body>
-<form action="https://localhost:7086/OurPages/Booking">
-    <input type="submit" value="Book et lokale" />
+<form action="Booking">
+        <input class="btn btn-primary" type="submit" role="button" value="Book et lokale" />
 </form>
-<br>
-
-<br/>
-<form action="https://localhost:7086/OurPages/LogIn">
-    <input type="submit" value="Logout" />
-</form>
-</body>
