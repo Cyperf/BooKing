@@ -61,47 +61,25 @@ h3 {
 <br />
 <br />
 
-<head>
-    <style>
-        h1 {
-            text-align: center;
-        }
-
-        h2 {
-            text-align: center;
-        }
-
-        h3 {
-            text-align: right;
-        }
-    </style>
-</head>
-@* <body>
-     @{string skole = new WebApplication1.Services.SkoleService().Read(WebApplication1.Services.LoginManager.LoggedInUser.SkoleId).Location;
-    <h2> Min Bookinger @skole</h2>
-     }
-</body> *@
-@* 
 <body>
-
-
     <table>
         <tr>
-            <th>e-mail</th>
-            <td>@webapplication1.services.bookingservice.</td>
+            <th>Mine Bookinger</th>
         </tr>
         <tr>
-            <th>rolle</th>
-            <td>@webapplication1.services.loginmanager.loggedinuser.rolle.rollenavn</td>
+            <td>@BookLokaleModel._lokaleId</td>
+            <td>Sharma</td>
+            <td>24</td>
         </tr>
         <tr>
-            <th>skole</th>
-            @{
-                string skole = new webapplication1.services.skoleservice().read(webapplication1.services.loginmanager.loggedinuser.skoleid).location;
-                <td>@skole</td>
-            }
+            <td>Arun</td>
+            <td>Singh</td>
+            <td>32</td>
+        </tr>
+        <tr>
+            <td>Sam</td>
+            <td>Watson</td>
+            <td>41</td>
         </tr>
     </table>
-
-</body> *@
-
+</body>
