@@ -17,7 +17,7 @@ namespace WebApplication1.Pages.OurPages
             await HttpContext.SignOutAsync(authScheme);
 
 
-            return RedirectToPage("/Login");
+            return RedirectToPage("/OurPages/Login");
         }
     }
 }

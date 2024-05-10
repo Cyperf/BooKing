@@ -5,15 +5,25 @@
 
 <h1>Alle lokaler (@Model.skole)</h1>
 @* vælg dag og interval (filtre) *@
-
+<head>
+    <style>
+        .TimeInput
+        {
+            width:50px;
+        }
+    </style>
+</head>
 
 <form method="get">
-    <input asp-for="@Model.StartInterval" />
-    <input asp-for="@Model.EndInterval" />
-    <input asp-for="@Model.date" />
-    <a asp-page="Booking" asp-route-date="@Model.date" asp-route-startInterval="@Model.StartInterval" asp-route-endInterval="@Model.EndInterval">
+    <p>Start interval: <input class="TimeInput" asp-for="@Model.StartIntervalHours" />:<input class="TimeInput" asp-for="@Model.StartIntervalMinutes"  /></p>
+    <p>End interval:   <input class="TimeInput" asp-for="@Model.EndIntervalHours"   />:<input class="TimeInput" asp-for="@Model.EndIntervalMinutes"    /></p>
+    <input asp-for="@Model.date" value="@Model.date" />
+    <a asp-page="Booking" asp-route-year="@Model.date.Year" asp-route-month="@Model.date.Month" asp-route-day="@Model.date.Day" asp-route-startInterval="@Model.FromHoursAndMinutesToOneInt(Model.StartIntervalHours, Model.StartIntervalMinutes)" asp-route-endInterval="@Model.FromHoursAndMinutesToOneInt(Model.EndIntervalHours, Model.EndIntervalMinutes)">
         <input type="submit" />
     </a>
+    @* <a asp-page="Booking" asp-route-year="@Model.date.Year" asp-route-month="@Model.date.Month" asp-route-day="@Model.date.Day" asp-route-startInterval="@BookingModel.StartIntervalMinutes" asp-route-endInterval="@BookingModel.EndIntervalMinutes">
+        <input type="submit" />
+    </a> *@
 </form>
 
 
