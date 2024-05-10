@@ -66,11 +66,14 @@ h3 {
         <tr>
             <th>Mine Bookinger</th>
         </tr>
-        <tr>
-            <td>@BookLokaleModel._lokaleId</td>
-            <td>Type</td>
-            <td>@BookLokaleModel._date</td>
-        </tr>
+        @foreach (var booking in new WebApplication1.Services.BookingService().ReadAll($"BrugerEmail='{WebApplication1.Services.LoginManager.LoggedInUser.Email}'"))
+        {
+            <tr>
+                <td>@booking.LokaleId</td>
+                <td>@booking.Dato</td>
+                <td>@booking.BookingType.Type</td>
+            </tr>
+        }
 @*         <tr>
             <td>Arun</td>
             <td>Singh</td>
@@ -83,6 +86,7 @@ h3 {
         </tr> *@
     </table>
 </body>
+
 
 <form action="https://localhost:7086/OurPages/Booking">
     <input type="submit" value="Book et lokale" />

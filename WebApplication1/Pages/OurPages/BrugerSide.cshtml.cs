@@ -12,7 +12,6 @@ namespace WebApplication1.Pages.OurPages
 
         public void OnGet()
         {
-            
         }
     }
 }
