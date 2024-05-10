@@ -64,6 +64,11 @@ namespace WebApplication1.Pages.OurPages
             _skoleId = LoginManager.LoggedInUser.SkoleId;
             return Page();
         }
+        public IActionResult OnPost(int yeara, int montha, int daya, int startIntervala, int endIntervala)
+        {
+            return Page();
+            //return RedirectToPage("", new { year  });
+        }
 
         // converts from one int to represent time, to hours and minutes
         public static int FromOnlyMinutesToHours(int minutes)
