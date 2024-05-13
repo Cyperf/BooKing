@@ -14,7 +14,7 @@ namespace WebApplication1.Pages.OurPages
         private SkoleService _skoleService;
 		public string skole;
         [BindProperty]
-        public DateOnly date { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+        public DateOnly date { get; set; }
         [BindProperty]
         public int StartIntervalHours { get; set; }
         [BindProperty]
@@ -29,12 +29,17 @@ namespace WebApplication1.Pages.OurPages
 		public BookingModel()
         {
             _skoleService = new SkoleService();
+            //date = DateOnly.FromDateTime(DateTime.Now);
         }
         public IActionResult OnGet(int year = 0, int month = 1, int day = 1, int startInterval = BookingService.EarliestAllowedBooking, int endInterval = BookingService.LatestAllowedBooking)
         {
             // The first time you visit the page, it just defaults to the current day.
-            if (year != 0)
-                date = new DateOnly(year, month, day);
+            if (year == 0)
+            {
+                DateOnly currentTime = DateOnly.FromDateTime(DateTime.Now);
+                return RedirectToPage(null, new { year= currentTime.Year, month = currentTime.Month, day = currentTime.Day });
+            }
+            date = new DateOnly(year, month, day);
             // making sure the intervals make sense
             startInterval = startInterval < BookingService.EarliestAllowedBooking ? BookingService.EarliestAllowedBooking : startInterval;
             endInterval = endInterval > BookingService.LatestAllowedBooking ? BookingService.LatestAllowedBooking : endInterval;
@@ -58,7 +63,7 @@ namespace WebApplication1.Pages.OurPages
         }
         public IActionResult OnPostBookLokale(int lokaleIdPost, int skoleIdPost)
         {
-            System.Diagnostics.Debug.WriteLine("\ndsafdsagfdsagdasfgas\n\n\n");
+            System.Diagnostics.Debug.WriteLine($"\ndsafdsagfdsagdasfgas\n {date.Year} : {date.Month} : {date.Day}\n\n\n");
             return RedirectToPage("BookLokale", new { year = date.Year, month = date.Month, day = date.Day, lokaleId = lokaleIdPost, skoleId = skoleIdPost });
         }
 

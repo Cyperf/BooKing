@@ -52,8 +52,8 @@
                 foreach (var lokale in lokaler)
                 {
                     // <a asp-page="BookLokale" asp-route-year="@Model.date.Year" asp-route-month="@Model.date.Month" asp-route-day="@Model.date.Day" asp-route-lokaleId="@lokale.Id" asp-route-skoleId="@lokale.SkoleId">
-                    <a asp-page="Booking" asp-route-lokaleIdPost="@lokale.Id" asp-route-skoleIdPost="@lokale.SkoleId">
-                        <form method="post" asp-page-handler="BookLokale" style="display:flex; justify-content:left;">
+                    //<a asp-page="Booking" asp-route-lokaleIdPost="@lokale.Id" asp-route-skoleIdPost="@lokale.SkoleId">
+                        <form method="post" style="display:flex; justify-content:left;">
 
                             @{
                                 string lokaleNummer = lokale.Id < 10 ? ("00" + lokale.Id) : (lokale.Id < 100 ? "0" + lokale.Id : (lokale.Id.ToString()));
@@ -67,9 +67,9 @@
                             {
                                 <p>, dette lokale har ikke noget smartboard</p>
                             }
-                            <input type="button" value="Book lokale">
+                            <input type="submit" asp-page-handler="BookLokale" asp-route-lokaleIdPost="@lokale.Id" asp-route-skoleIdPost="@lokale.SkoleId" value="Book lokale">
                         </form>
-                    </a>
+                    //</a>
                 }
             }
         </div>
