@@ -2,3 +2,115 @@
 @model WebApplication1.Pages.OurPages.BrugerSideModel
 @{
 }
+@* @WebApplication1.Services.LoginManager.LoggedInUser.Email *@
+
+
+<head>
+<style>
+h1 {
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+}
+
+h3 {
+  text-align: right;
+}
+</style>
+</head>
+<body>
+
+    <h2> Velkommen @WebApplication1.Services.LoginManager.LoggedInUser.Navn!</h2>
+
+</body>
+
+
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+
+
+    <table>
+        <tr>
+            <th>E-mail</th>
+            <td>@WebApplication1.Services.LoginManager.LoggedInUser.Email</td>
+        </tr>
+        <tr>
+            <th>Rolle</th>
+            <td>@WebApplication1.Services.LoginManager.LoggedInUser.Rolle.RolleNavn</td>
+        </tr>
+        <tr>
+            <th>Skole</th>
+            @{string skole = new WebApplication1.Services.SkoleService().Read(WebApplication1.Services.LoginManager.LoggedInUser.SkoleId).Location;
+                <td>@skole</td>
+            }
+        </tr>
+    </table>
+
+</body>
+
+<br />
+<br />
+
+<body>
+    <table>
+        <tr>
+            <th>Mine Bookinger</th>
+        </tr>
+        @foreach (var booking in new WebApplication1.Services.BookingService().ReadAll($"BrugerEmail='{WebApplication1.Services.LoginManager.LoggedInUser.Email}'"))
+        {
+            <tr>
+                <td>@booking.LokaleId</td>
+                <td>@booking.Dato</td>
+                <td>@booking.BookingType.Type</td>
+                <th>
+                    <form method="post" asp-page-handler="DeleteBooking" asp-route-bookingId="@booking.Id">
+                        <button type="submit">Delete</button>
+                    </form>
+                </th>
+            </tr>
+        }
+@*         <tr>
+            <td>Arun</td>
+            <td>Singh</td>
+            <td>32</td>
+        </tr>
+        <tr>
+            <td>Sam</td>
+            <td>Watson</td>
+            <td>41</td>
+        </tr> *@
+    </table>
+</body>
+
+
+@if(LogInModel.LoggedInBruger.Rolle.RolleNavn == "admin")
+{
+    <p><a class="btn btn-primary" href="OpretBrugerKonto" role="button">Opret Bruger</a></p>
+
+    <p><a class="btn btn-primary" href="OpretLokaler" role="button">Opret Lokaler</a></p>
+}
+
+<p><a class="btn btn-primary" href="RedigerBruger" role="button">Rediger Bruger</a></p>
+
+
+<head>
+    <style>
+        body {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<form action="Booking">
+        <input class="btn btn-primary" type="submit" role="button" value="Book et lokale" />
+</form>

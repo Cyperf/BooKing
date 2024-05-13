@@ -11,7 +11,7 @@
 		/// Adds an item to the database
 		/// </summary>
 		/// <param name="newItem"></param>
-		public void Create(T newItem)
+		public virtual void Create(T newItem)
 		{
 			AdoNet.ExecuteNonQuery($"INSERT INTO {_tableName} VALUES ({_fromItemToString(newItem)})");
 		}
@@ -20,7 +20,7 @@
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		public T? Read(int id)
+		public virtual T? Read(int id)
 		{
 			T? item = default;
 			AdoNet.ExecuteQuery($"SELECT * FROM {_tableName} WHERE id={id}", (reader) =>
@@ -38,7 +38,7 @@
 		public IEnumerable<T> ReadAll(string where = "")
 		{
 			List<T> items = new List<T>();
-			AdoNet.ExecuteQueryForEach($"SELECT * FROM {_tableName}" + ((!string.IsNullOrEmpty(where)) ? ("WHERE " + where) : ""), (reader) =>
+			AdoNet.ExecuteQueryForEach($"SELECT * FROM {_tableName}" + ((!string.IsNullOrEmpty(where)) ? (" WHERE " + where) : ""), (reader) =>
 			{
 				items.Add(_fromReaderToItem(reader));
 			});

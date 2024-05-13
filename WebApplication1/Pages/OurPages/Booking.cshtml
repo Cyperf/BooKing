@@ -4,4 +4,79 @@
 }
 
 <h1>Alle lokaler (@Model.skole)</h1>
+@* vælg dag og interval (filtre) *@
+<head>
+    <style>
+        .TimeInput
+        {
+            width:50px;
+        }
+    </style>
+</head>
+
+<form method="post" asp-page-handler="Filter">
+    <p>Start interval: <input class="TimeInput" asp-for="@Model.StartIntervalHours" />:<input class="TimeInput" asp-for="@Model.StartIntervalMinutes" /></p>
+    <p>End interval:   <input class="TimeInput" asp-for="@Model.EndIntervalHours" />:<input class="TimeInput" asp-for="@Model.EndIntervalMinutes" /></p>
+    <input type="date" asp-for="date" />
+    <a asp-page="Booking"
+       asp-route-startIntervalHours="@Model.StartIntervalHours Model.StartIntervalMinutes)" asp-route-startIntervalMinutes="@Model.StartIntervalHours Model.StartIntervalMinutes)"
+       asp-route-endIntervalHours="@Model.StartIntervalHours Model.EndIntervalMinutes)" asp-route-endIntervalMinutes="@Model.EndIntervalHours Model.StartIntervalMinutes)">
+        <input type="submit" value="Filtrer" />
+    </a>
+</form>
+
+
+
+@* vis alle ledige rum *@
+
+@{
+    System.Collections.Generic.Dictionary<int, System.Collections.Generic.List<WebApplication1.Models.Lokale>> floorAndRooms = Model.GetRooms();
+    // we want to order the dictionary, based on the keys, so we go floor 0, floor 1. floor 2 etc.
+    List<int> indecies = new List<int>();
+    foreach (int floor in floorAndRooms.Keys)
+        indecies.Add(floor);
+    indecies.Sort();
+    foreach(int floor in indecies)
+    {
+        if (floor == 0)
+        {
+            <h2>Stueetage</h2>
+        }
+        else
+        {
+            <h2>Etage @floor</h2>
+        }
+        <div style="border-style: solid;">
+            @{
+                var lokaler = floorAndRooms[floor];
+                foreach (var lokale in lokaler)
+                {
+                    // <a asp-page="BookLokale" asp-route-year="@Model.date.Year" asp-route-month="@Model.date.Month" asp-route-day="@Model.date.Day" asp-route-lokaleId="@lokale.Id" asp-route-skoleId="@lokale.SkoleId">
+                    //<a asp-page="Booking" asp-route-lokaleIdPost="@lokale.Id" asp-route-skoleIdPost="@lokale.SkoleId">
+                        <form method="post" style="display:flex; justify-content:left;">
+
+                            @{
+                                string lokaleNummer = lokale.Id < 10 ? ("00" + lokale.Id) : (lokale.Id < 100 ? "0" + lokale.Id : (lokale.Id.ToString()));
+                                <p>Lokale nummer: @lokaleNummer</p>
+                            }
+                            @if (lokale.HarSmartBoard)
+                            {
+                                <p>, dette lokale har et smartboard</p>
+                            }
+                            else
+                            {
+                                <p>, dette lokale har ikke noget smartboard</p>
+                            }
+                            <input type="submit" asp-page-handler="BookLokale" asp-route-lokaleIdPost="@lokale.Id" asp-route-skoleIdPost="@lokale.SkoleId" value="Book lokale">
+                        </form>
+                    //</a>
+                }
+            }
+        </div>
+    }
+
+}
+
+
+
 

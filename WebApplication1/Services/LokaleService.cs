@@ -20,12 +20,12 @@ namespace WebApplication1.Services
 
         protected override Func<Lokale, string> _fromItemToString { get; } = (lokale) =>
         {
-            return $"{lokale.Id}, {lokale.SkoleId}, {lokale.HarSmartBoard}";
+            return $"{lokale.Id}, {lokale.SkoleId}, {lokale.MaxGrupperAdGangen}, {(lokale.HarSmartBoard ? 1 : 0)}";
         };
 
 		protected override Func<SqlDataReader, Lokale> _fromReaderToItem { get; } = (reader) =>
 		{
-			return new Lokale(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetBoolean(3));
+			return new Lokale(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetByte(3) == 1 ? true : false);
 		};
 
 		//public void Create(Lokale lokale)

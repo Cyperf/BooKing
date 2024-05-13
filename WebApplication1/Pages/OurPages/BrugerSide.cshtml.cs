@@ -1,12 +1,39 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using WebApplication1.Services;
 
 namespace WebApplication1.Pages.OurPages
 {
     public class BrugerSideModel : PageModel
     {
-        public void OnGet()
+
+        //{
+        //    public static WebApplication1.Models.Bruger? LoggedInUser { get; private set; } = null;
+        //}
+
+        private readonly BookingService _bookingService;
+
+        public BrugerSideModel()
         {
+            _bookingService = new BookingService();
+        }
+
+        public IActionResult OnGet()
+        {
+            if (LogInModel.LoggedInBruger == null)
+            {
+                return RedirectToPage("LogIn");
+            }
+            return Page();
+        }
+
+        public IActionResult OnPostDeleteBooking(int bookingId)
+        {
+            
+            _bookingService.Delete(bookingId);
+
+            
+            return RedirectToPage("BrugerSide");
         }
     }
 }

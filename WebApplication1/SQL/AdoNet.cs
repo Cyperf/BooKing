@@ -7,6 +7,9 @@
     {
 		private static string _connectionString;
 
+		/// <summary>
+		/// Creates the connection string
+		/// </summary>
 		public static void Init()
         {
 			SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
@@ -19,6 +22,7 @@
 		}
         public static void ExecuteNonQuery(string nonQuery)
         {
+			Debug.WriteLine("Non query:\n" + nonQuery);
 			try
 			{
 				using SqlConnection connection = new SqlConnection(_connectionString);
@@ -38,6 +42,7 @@
 		/// <param name="action">use the data given from the database</param>
 		public static void ExecuteQuery(string query, Action<SqlDataReader> action)
 		{
+			Debug.WriteLine("Query:\n" + query);
 			try
 			{
 				using SqlConnection connection = new SqlConnection(_connectionString);
@@ -58,6 +63,7 @@
 		/// <param name="action">use an action, for one row in the database</param>
 		public static void ExecuteQueryForEach(string query, Action<SqlDataReader> action)
 		{
+			Debug.WriteLine("Query (foreach):\n" + query);
 			try
 			{
 				using SqlConnection connection = new SqlConnection(_connectionString);

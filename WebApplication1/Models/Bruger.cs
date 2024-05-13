@@ -8,6 +8,8 @@
         public BrugerRolle Rolle { get; set; }
         public int SkoleId { get; set; }
         public DateOnly SletningsDato;
+        public int brugerId { get; set; }
+        
 
         public Bruger()
         {
@@ -19,10 +21,21 @@
             Email = email;
             Kodeord = kodeord;
             Rolle = rolle;
+            brugerId = rolle.Id;
             SkoleId = skoleId;
 			SletningsDato = sletningsDato;
-		}
-		public bool Ændrekodeord(string kode)
+        }
+        public Bruger(string navn, string email, string kodeord, int brugerId, int skoleId, DateOnly sletningsDato)
+        {
+            Navn = navn;
+            Email = email;
+            Kodeord = kodeord;
+            Rolle = new WebApplication1.Services.BrugerRolleService().Read(brugerId);
+            brugerId = Rolle.Id;
+            SkoleId = skoleId;
+            SletningsDato = sletningsDato;
+        }
+        public bool Ændrekodeord(string kode)
         {
             return true;
         }

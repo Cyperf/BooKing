@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics;
 using WebApplication1.Models;
 using WebApplication1.Services;
 using WebApplication1.SQL;
@@ -11,9 +12,9 @@ namespace WebApplication1.Pages.OurPages
     public class OpretLokalerModel : PageModel
     {
 
-        public LokaleService _lokaleService { get; set; } = new LokaleService();
-        public List<Skole> AlleSkoler { get; set; }
-        public SkoleService skoleService { get; set; }
+        public LokaleService lokaleService { get; set; } = new LokaleService();
+        public List<Skole> AlleSkoler { get; set; } = new List<Skole>();
+        public SkoleService skoleService { get; set; } = new SkoleService();
         
         [BindProperty]
         public Lokale _lokale { get; set; }
@@ -33,12 +34,13 @@ namespace WebApplication1.Pages.OurPages
 
         public IActionResult OnGet()
         {
-            
-            // make only admins allowed BG
-            //foreach(Skole skole in skoleService.ReadAll())
-            //{
-            //    AlleSkoler.Add(skole);
-            //}
+            if (LogInModel.LoggedInBruger == null || LogInModel.LoggedInBruger.Rolle.RolleNavn != "admin")
+            { return RedirectToPage("/OurPages/LogIn"); }
+
+            foreach (Skole skole in skoleService.ReadAll())
+            {
+                AlleSkoler.Add(skole);
+            }
             return Page();
 
         }
@@ -49,8 +51,8 @@ namespace WebApplication1.Pages.OurPages
             _lokale.SkoleId = SkoleId;
             _lokale.MaxGrupperAdGangen = MaxGrupperAdGangen;
             _lokale.HarSmartBoard = HarSmartboard;
-            _lokaleService.Create(_lokale);
-            return Page();
+            lokaleService.Create(_lokale);
+            return RedirectToPage("/OurPages/OpretLokaler");
         }
 
     }

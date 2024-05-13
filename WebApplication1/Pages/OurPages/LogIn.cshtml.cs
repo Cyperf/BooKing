@@ -9,7 +9,7 @@ namespace WebApplication1.Pages.OurPages //* Lavet af Roman
 {
     public class LogInModel : PageModel
     {
-        // private IUserDataService _userDataService;
+
         public static Bruger LoggedInBruger { get; set; }
 
         [BindProperty]
@@ -22,16 +22,27 @@ namespace WebApplication1.Pages.OurPages //* Lavet af Roman
         [BindProperty]
         public string Message { get; set; }
 
-       // [BindProperty]
-       // public BrugerRolle Rolle { get; set; }
+        // [BindProperty]
+        // public BrugerRolle Rolle { get; set; }
 
+        public IActionResult OnGet()
+        {
+            if (LoggedInBruger != null)
+            { return RedirectToPage("/OurPages/BrugerSide"); }
+            else
+            {
+                Message = ""; //sletter tidligere fejlmeddelse, når siden er loadet.
+
+                return Page();
+            }
+        }
         public async Task<IActionResult> OnPost()
         {
-
+            // System.Diagnostics.Debug.WriteLine("tried to log in withabc:\n" + Email + " : " + Kodeord);
 
             if (!WebApplication1.Services.LoginManager.Login(Email, Kodeord))
             {
-                Message = "Fejl: Invalid login";
+                Message = "Fejl: Invalid login!";
                 return Page();
             }
             LoggedInBruger = WebApplication1.Services.LoginManager.LoggedInUser;
@@ -67,4 +78,5 @@ namespace WebApplication1.Pages.OurPages //* Lavet af Roman
         }
     }
 }
+  
 
