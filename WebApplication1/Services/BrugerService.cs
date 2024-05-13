@@ -41,6 +41,10 @@ namespace WebApplication1.Services
             return null;
         }
 
+        public void DeleteByEmail(string email)
+        {
+            AdoNet.ExecuteNonQuery($"DELETE FROM {_tableName} WHERE Email='{email}'");
+        }
         public override void Update(Bruger item)
         {
             AdoNet.ExecuteNonQuery($"UPDATE {_tableName} " +
