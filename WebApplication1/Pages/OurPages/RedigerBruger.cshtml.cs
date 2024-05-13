@@ -16,27 +16,30 @@ namespace WebApplication1.Pages.OurPages
         [Display(Name = "Kodeord")]
         [BindProperty]
         public string Kodeord { get; set; }
-        public string GamleKodeord { get; set; }
+        public string GentagKodeord { get; set; } 
+        public string Message { get; set; }
 
 
         public IActionResult OnGet()
         {
             if (LogInModel.LoggedInBruger == null)
             { return RedirectToPage("/OurPages/LogIn"); }
-
             return Page();
         }
         public IActionResult OnPost()
         {
-            if(GamleKodeord == LogInModel.LoggedInBruger.Kodeord) { 
+            _bruger = LogInModel.LoggedInBruger;
+            if(GentagKodeord == Kodeord) 
+            { 
             _bruger.Kodeord = Kodeord;
             _brugerService.Update(_bruger);
-            return RedirectToPage("/OurPages/RedigerBruger");
-        }
-            else
+            Message = $"{_bruger}";
+            return Page();
+            } else
             {
+                Message = $"Kodeord matcher ikke";
                 return Page();
             }
-    }
+        }
     }
 }

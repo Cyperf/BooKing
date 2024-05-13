@@ -3,6 +3,11 @@
 @{
 }
 <body>
+    <style>
+        .error-message {
+            color: red;
+        }
+    </style>
     <form method="post">
         <section class="h-100 h-custom gradient-custom-2">
             <div class="container py-5 h-100">
@@ -19,26 +24,32 @@
                                             <div class="col-md-7 mb-4 pb-2">
 
                                                 <div class="form-outline form-group form-white">
-                                                    <label asp-for="GamleKodeord" class="control-label">Gamle Kodeord</label>
-                                                    <input asp-for="GamleKodeord" class="form-control" />
-                                                    <span asp-validation-for="GamleKodeord" class="text-danger"></span>
-
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-md-7 mb-4 pb-2">
-
-                                                <div class="form-outline form-group form-white">
                                                     <label asp-for="Kodeord" class="control-label"></label>
-                                                    <input asp-for="Kodeord" class="form-control" />
+                                                    <input asp-for="Kodeord" class="form-control" required/>
                                                     <span asp-validation-for="Kodeord" class="text-danger"></span>
 
                                                 </div>
 
                                             </div>
 
+
+                                            <div class="col-md-7 mb-4 pb-2">
+
+                                                <div class="form-outline form-group form-white">
+                                                    <label asp-for="GentagKodeord" class="control-label">Gentag Kodeord</label>
+                                                    <input asp-for="GentagKodeord" class="form-control" required />
+                                                    <span asp-validation-for="GentagKodeord" class="text-danger"></span>
+
+                                                </div>
+
+                                            </div>
+
                                             <input asp-page-handler="Add" type="submit" value="Add" class="btn btn-info btn-lg btn-block" name="Ændring af kode" />
+                                            @if (!string.IsNullOrEmpty(Model.Message))
+                                            {
+                                                <li class="nav-item error-message">@Model.Message</li>
+
+                                            }
                                         </div>
                                     </div>
 

@@ -74,7 +74,6 @@ namespace WebApplication1.Pages.OurPages
             _bruger.SkoleId = SkoleId;
             _bruger.SletningsDato = SletningsDato;
             _brugerService.Create(_bruger);
-            Debug.WriteLine(Rolle.ToString());
             return RedirectToPage("/OurPages/OpretBrugerKonto");
         }
 

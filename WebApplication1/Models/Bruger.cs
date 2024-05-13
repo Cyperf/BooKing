@@ -39,5 +39,10 @@
         {
             return true;
         }
+
+        public override string ToString()
+        {
+            return $"Navn: {this.Navn}. Skole {this.SkoleId}. Email {this.Email}. BrugerId {this.brugerId}. Kodeord {this.Kodeord}. Sletningsdato {this.SletningsDato}";
+        }
     }
 }
