@@ -30,7 +30,8 @@
                     if (result != Microsoft.AspNetCore.Identity.PasswordVerificationResult.Success)
 						return;
 					b = true;
-					LoggedInUser = new Bruger(reader.GetString(0), reader.GetString(1), reader.GetString(2), GetUserRoleFromId(reader.GetInt32(3)), reader.GetInt32(4), DateOnly.FromDateTime(reader.GetDateTime(5)));
+					LoggedInUser = new BrugerService().Read(email);
+					//LoggedInUser = new Bruger(reader.GetString(0), reader.GetString(1), reader.GetString(2), GetUserRoleFromId(reader.GetInt32(3)), reader.GetInt32(4), DateOnly.FromDateTime(reader.GetDateTime(5)));
 				});
 			return b;
 		}
