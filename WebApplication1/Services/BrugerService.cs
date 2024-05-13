@@ -12,11 +12,13 @@ namespace WebApplication1.Services
         }
         protected override Func<Bruger, string> _fromItemToString { get; } = bruger =>
         {
-            return $"'{bruger.Navn}', '{bruger.Email}', '{LoginManager.HashPassword(bruger.Email, bruger.Kodeord)}', {bruger.brugerId}, {bruger.SkoleId}, '{bruger.SletningsDato.Year+"-"+ bruger.SletningsDato.Month+"-"+ bruger.SletningsDato.Day}'";
+            return $"'{bruger.Navn}', '{bruger.Email}', '{LoginManager.HashPassword(bruger.Email, bruger.Kodeord)}', {bruger.Rolle.Id}, {bruger.SkoleId}, '{bruger.SletningsDato.Year+"-"+ bruger.SletningsDato.Month+"-"+ bruger.SletningsDato.Day}'";
         };
 
         protected override Func<SqlDataReader, Bruger> _fromReaderToItem { get; } = reader =>
-        {                                                                                    // not null, since it is a foreign key :)
+        {
+            System.Diagnostics.Debug.WriteLine( new Bruger(reader.GetString(0), reader.GetString(1), reader.GetString(2), new BrugerRolleService().Read(reader.GetInt32(3)), reader.GetInt32(4), DateOnly.FromDateTime(reader.GetDateTime(5))).Rolle.RolleNavn);
+            // not null, since it is a foreign key :)
             return new Bruger(reader.GetString(0), reader.GetString(1), reader.GetString(2), new BrugerRolleService().Read(reader.GetInt32(3)), reader.GetInt32(4), DateOnly.FromDateTime(reader.GetDateTime(5)));
         };
 
@@ -41,6 +43,10 @@ namespace WebApplication1.Services
             return null;
         }
 
+        public void DeleteByEmail(string email)
+        {
+            AdoNet.ExecuteNonQuery($"DELETE FROM {_tableName} WHERE Email='{email}'");
+        }
         public override void Update(Bruger item)
         {
             AdoNet.ExecuteNonQuery($"UPDATE {_tableName} " +

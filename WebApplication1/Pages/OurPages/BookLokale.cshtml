@@ -5,22 +5,42 @@
 
 <h1>Lokale @BookLokaleModel._lokaleId på @BookLokaleModel.Skole</h1>
 
-<p>Dette lokale er ledigt i følgende intervaller:</p>
-@{
-    foreach (var interval in Model.GetRoomAvailability(BookLokaleModel._date))
-    {
-        string height = (interval.End - interval.Start) / 5 + "px";
-        string backgroundColor = interval.Available == BookLokaleModel.TidsInterval.AvailableType.Available ? "green" : (interval.Available == BookLokaleModel.TidsInterval.AvailableType.PartiallyAvailable ? "yellow" :"red");
-        <div style="background-color: @backgroundColor; height: @height; border: 1px solid #aaa; position:relative; min-height:30px;">
-            <span style="position:absolute; top:0px;">
-                <p>@Model.FromMinutesToTime(interval.Start) til @Model.FromMinutesToTime(interval.End)</p>
-            </span>
-            @* <span style="position:absolute; bottom:0px; padding-left:10px;">
-                 <p>@Model.FromMinutesToTime(interval.End)</p>
-             </span>*@
+<div style="display:flex;">
+    @{
+        <div style="width:33%;">
+            <p>Dette lokale er ledigt i følgende intervaller:</p>
+            @foreach (var interval in Model.GetRoomAvailability(BookLokaleModel._date, WebApplication1.Services.BookingService.LokaleName))
+            {
+                string height = (interval.End - interval.Start) / 5 + "px";
+                string backgroundColor = interval.Available == BookLokaleModel.TidsInterval.AvailableType.Available ? "green" : (interval.Available == BookLokaleModel.TidsInterval.AvailableType.PartiallyAvailable ? "yellow" :"red");
+                <div style="background-color: @backgroundColor; height: @height; border: 1px solid #aaa; position:relative; min-height:30px;">
+                    <span style="position:absolute; top:0px;">
+                        <p>@Model.FromMinutesToTime(interval.Start) til @Model.FromMinutesToTime(interval.End)</p>
+                    </span>
+                </div>
+            }
         </div>
+        if (new WebApplication1.Services.LokaleService().Read(BookLokaleModel._lokaleId, BookLokaleModel._skoleId).HarSmartBoard)
+        {
+            <div style="width:33%;">
+                <p>Lokalets smartboard er ledigt i følgende intervaller:</p>
+                @foreach (var interval in Model.GetRoomAvailability(BookLokaleModel._date, WebApplication1.Services.BookingService.SmartboardName))
+                {
+                    string height = (interval.End - interval.Start) / 5 + "px";
+                    string backgroundColor = interval.Available == BookLokaleModel.TidsInterval.AvailableType.Available ? "green" : (interval.Available == BookLokaleModel.TidsInterval.AvailableType.PartiallyAvailable ? "yellow" : "red");
+                    <div style="background-color: @backgroundColor; height: @height; border: 1px solid #aaa; position:relative; min-height:30px;">
+                        <span style="position:absolute; top:0px;">
+                            <p>@Model.FromMinutesToTime(interval.Start) til @Model.FromMinutesToTime(interval.End)</p>
+                        </span>
+                    </div>
+                }
+            </div>
+        } else
+        {
+            <p>Dette lokale har desværre ikke noget smartboard.</p>
+        }
     }
-}
+</div>
 @* Input when you want your booking to be at *@
 <form method="post">
     <div>
@@ -36,5 +56,11 @@
     {
         <p>@Model.FejlMeddelse</p>
     }
-    <input type="submit" class="btn-primary" value="Book lokalet" />
+    <div>
+        <input type="submit" asp-page-handler="BookLokale" class="btn-primary" value="Book lokalet" />
+        @if (new WebApplication1.Services.LokaleService().Read(BookLokaleModel._lokaleId, BookLokaleModel._skoleId).HarSmartBoard)
+        {
+            <input type="submit" asp-page-handler="BookSmartboard" class="btn-primary" value="Book smartboard" />
+        }
+    </div>
 </form>

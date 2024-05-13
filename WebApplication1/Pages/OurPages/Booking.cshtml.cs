@@ -45,7 +45,6 @@ namespace WebApplication1.Pages.OurPages
             startInterval = startInterval < BookingService.EarliestAllowedBooking ? BookingService.EarliestAllowedBooking : startInterval;
             endInterval = endInterval > BookingService.LatestAllowedBooking ? BookingService.LatestAllowedBooking : endInterval;
             endInterval = endInterval < startInterval ? startInterval : endInterval;
-            System.Diagnostics.Debug.WriteLine($"Date: {date}, startInterval: {startInterval}, endInterval: {endInterval}");
             StartInterval = startInterval;
             StartIntervalHours = FromOnlyMinutesToHours(StartInterval);
             StartIntervalMinutes = FromOnlyMinutesToMinutes(StartInterval);

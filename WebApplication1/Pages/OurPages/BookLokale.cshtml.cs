@@ -31,31 +31,44 @@ namespace WebApplication1.Pages.OurPages
             Skole = new SkoleService().Read(skoleId).Location;
             return Page();
         }
-        public IActionResult OnPost()
+        public IActionResult OnPostBookLokale()
         {
-            System.Diagnostics.Debug.WriteLine(NewBookingStartHour + ":" + NewBookingStartMinute + " to " + NewBookingEndHour + ":" + NewBookingEndMinute);
             int start = NewBookingStartHour * 60 + NewBookingStartMinute;
             int end = start + NewBookingEndHour * 60 + NewBookingEndMinute;
-            Booking newBooking = new Booking(-1, _date, start, end, LoginManager.LoggedInUser.Email, _lokaleId, _skoleId, new BookingTypeRepository().Read(1));
+            BookingTypeRepository bookingTypeRepository = new BookingTypeRepository();
+            Booking newBooking = new Booking(-1, _date, start, end, LoginManager.LoggedInUser.Email, _lokaleId, _skoleId, bookingTypeRepository.Read(bookingTypeRepository.GetIdByName(BookingService.LokaleName)));
+            FejlMeddelse = new BookingService().TryCreate(newBooking);
+            return Page();
+        }
+        public IActionResult OnPostBookSmartboard()
+        {
+            int start = NewBookingStartHour * 60 + NewBookingStartMinute;
+            int end = start + NewBookingEndHour * 60 + NewBookingEndMinute;
+            BookingTypeRepository bookingTypeRepository = new BookingTypeRepository();
+            Booking newBooking = new Booking(-1, _date, start, end, LoginManager.LoggedInUser.Email, _lokaleId, _skoleId, bookingTypeRepository.Read(bookingTypeRepository.GetIdByName(BookingService.SmartboardName)));
             FejlMeddelse = new BookingService().TryCreate(newBooking);
             return Page();
         }
 
-        
 
-        public List<TidsInterval> GetRoomAvailability(DateOnly date)
+
+        public List<TidsInterval> GetRoomAvailability(DateOnly date, string bookingType)
         {
             List<TidsInterval> availability = new List<TidsInterval>();
             // first we need to find every minute the room is available
             int earliestAllowedBooking = BookingService.EarliestAllowedBooking;
             int latestAllowedBooking = BookingService.LatestAllowedBooking;
             int[] minutesAvailable = new int[latestAllowedBooking - earliestAllowedBooking];
-            List<Booking> bookings = new BookingService().ReadAll($"Dato='{date.Year + "-" + date.Month + "-" + date.Day}' AND LokaleId = {_lokaleId} AND SkoleId={_skoleId}").ToList();
+            List<Booking> bookings = new BookingService().ReadAll($"Dato='{date.Year + "-" + date.Month + "-" + date.Day}' AND LokaleId = {_lokaleId} AND SkoleId={_skoleId} AND Type={new BookingTypeRepository().GetIdByName(bookingType)}").ToList();
             foreach (var booking in bookings)
                 for (int i = booking.TidFra > earliestAllowedBooking ? booking.TidFra : earliestAllowedBooking; i < (booking.TidTil < latestAllowedBooking ? booking.TidTil : latestAllowedBooking); i++)
                     minutesAvailable[i - earliestAllowedBooking]++;
             // get how many groups can be in the room at a given point in time
-            int maxGroups = new LokaleService().Read(_lokaleId).MaxGrupperAdGangen;
+            int maxGroups = -1;
+            if (bookingType == BookingService.LokaleName)
+                maxGroups = new LokaleService().Read(_lokaleId).MaxGrupperAdGangen;
+            else if (bookingType == BookingService.SmartboardName)
+                maxGroups = 1;
             // we then need to convert them to an interval of minutes
             int available = minutesAvailable[0];
             int startInterval = 0;
