@@ -15,6 +15,7 @@ namespace WebApplication1.Pages.OurPages
 		public string skole;
         [BindProperty]
         public DateOnly date { get; set; }
+        private static DateOnly staticDate { get; set; }
         [BindProperty]
         public int StartIntervalHours { get; set; }
         [BindProperty]
@@ -26,10 +27,9 @@ namespace WebApplication1.Pages.OurPages
 
         public int StartInterval { get; set; }
         public int EndInterval { get; set; }
-		public BookingModel()
+        public BookingModel()
         {
             _skoleService = new SkoleService();
-            //date = DateOnly.FromDateTime(DateTime.Now);
         }
         public IActionResult OnGet(int year = 0, int month = 1, int day = 1, int startInterval = BookingService.EarliestAllowedBooking, int endInterval = BookingService.LatestAllowedBooking)
         {
@@ -37,6 +37,7 @@ namespace WebApplication1.Pages.OurPages
             if (year == 0)
             {
                 DateOnly currentTime = DateOnly.FromDateTime(DateTime.Now);
+                staticDate = new DateOnly(currentTime.Year, currentTime.Month, currentTime.Day);
                 return RedirectToPage(null, new { year= currentTime.Year, month = currentTime.Month, day = currentTime.Day });
             }
             date = new DateOnly(year, month, day);
@@ -59,12 +60,12 @@ namespace WebApplication1.Pages.OurPages
         }
         public IActionResult OnPostFilter(int startIntervalHours, int startIntervalMinutes, int endIntervalHours, int endIntervalMinutes)
         {
+            staticDate = new DateOnly(date.Year, date.Month, date.Day);
             return RedirectToPage(null, new { year = date.Year, month = date.Month, day = date.Day, startInterval = FromHoursAndMinutesToOneInt(startIntervalHours, startIntervalMinutes), endInterval = FromHoursAndMinutesToOneInt(endIntervalHours, endIntervalMinutes) });
         }
         public IActionResult OnPostBookLokale(int lokaleIdPost, int skoleIdPost)
         {
-            System.Diagnostics.Debug.WriteLine($"\ndsafdsagfdsagdasfgas\n {date.Year} : {date.Month} : {date.Day}\n\n\n");
-            return RedirectToPage("BookLokale", new { year = date.Year, month = date.Month, day = date.Day, lokaleId = lokaleIdPost, skoleId = skoleIdPost });
+            return RedirectToPage("BookLokale", new { year = staticDate.Year, month = staticDate.Month, day = staticDate.Day, lokaleId = lokaleIdPost, skoleId = skoleIdPost });
         }
 
         // converts from one int to represent time, to hours and minutes
