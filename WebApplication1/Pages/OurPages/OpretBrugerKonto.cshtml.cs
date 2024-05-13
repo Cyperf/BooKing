@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
@@ -7,6 +8,7 @@ using WebApplication1.Services;
 
 namespace WebApplication1.Pages.OurPages
 {
+    [Authorize(Roles ="admin")]
     public class OpretBrugerKontoModel : PageModel
     {
         public BrugerService _brugerService { get; set; } = new BrugerService();

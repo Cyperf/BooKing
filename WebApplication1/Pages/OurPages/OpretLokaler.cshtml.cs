@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,6 +10,7 @@ using WebApplication1.SQL;
 
 namespace WebApplication1.Pages.OurPages
 {
+    [Authorize(Roles = "admin")]
     public class OpretLokalerModel : PageModel
     {
 
