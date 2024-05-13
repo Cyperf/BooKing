@@ -16,7 +16,10 @@ namespace WebApplication1.Pages.OurPages
         [Display(Name = "Kodeord")]
         [BindProperty]
         public string Kodeord { get; set; }
-        public string GentagKodeord { get; set; } 
+        [Display(Name = "GentagKodeord")]
+        [BindProperty]
+        public string GentagKodeord { get; set; }
+        [BindProperty]
         public string Message { get; set; }
 
 
@@ -33,7 +36,7 @@ namespace WebApplication1.Pages.OurPages
             { 
             _bruger.Kodeord = Kodeord;
             _brugerService.Update(_bruger);
-            Message = $"{_bruger}";
+            Message = "Kode skiftet";
             return Page();
             } else
             {
