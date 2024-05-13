@@ -36,7 +36,18 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 string authScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 builder.Services.AddAuthentication(authScheme).AddCookie(options =>
 { 
- options.LoginPath = "/Login/LoginPage";
+ options.LoginPath = "/OurPages/LogIn";
+});
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizePage("/OurPages/Booking");
+    options.Conventions.AuthorizePage("/OurPages/BookLokale");
+    options.Conventions.AuthorizePage("/OurPages/BrugerSide");
+    options.Conventions.AuthorizePage("/OurPages/Logout");
+    options.Conventions.AuthorizePage("/OurPages/OpretBrugerKonto");
+    options.Conventions.AuthorizePage("/OurPages/OpretLokaler");
+    options.Conventions.AuthorizePage("/OurPages/RedigerBruger");
+    options.Conventions.AuthorizePage("/OurPages/RumTyper");
 });
 
 var app = builder.Build();
@@ -54,6 +65,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
