@@ -29,11 +29,29 @@ namespace WebApplication1.Pages.OurPages
 
         public IActionResult OnPostDeleteBooking(int bookingId)
         {
-            
+
             _bookingService.Delete(bookingId);
 
-            
+
             return RedirectToPage("BrugerSide");
         }
+
+        public IActionResult OnPostDeleteBruger(string email)
+        {
+
+            var brugerService = new BrugerService();
+            brugerService.DeleteByEmail(email);
+            return RedirectToPage("/Login");
+        }
+
     }
 }
+
+
+
+
+
+
+
+
+
