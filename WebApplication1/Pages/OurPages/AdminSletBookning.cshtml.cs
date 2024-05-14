@@ -20,6 +20,8 @@ namespace WebApplication1.Pages.OurPages
         public string Message { get; set; } = string.Empty;
         public IActionResult OnGet(int year = 0, int month = 0, int day = 0, int schoolId = -1)
         {
+            if (LoginManager.LoggedInUser.Rolle.DagesVarselIndenOverskrivelse == null)
+                return RedirectToPage("../Account/AccessDenied");
             if (schoolId == -1)
                 schoolId = LoginManager.LoggedInUser.SkoleId;
             if (year==0 && month==0 && day==0)
