@@ -123,6 +123,6 @@ h3 {
         <input class="btn btn-primary" type="submit" role="button" value="Book et lokale" />
 </form>
 
-<form id="deleteUserForm" method="post" asp-page-handler="SletBruger" asp-route-email="@WebApplication1.Services.LoginManager.LoggedInUser.Email">
-    <button type="button" class="btn btn-primary" onclick="bekræftSletBruger()">Slet Bruger</button>
+<form id="deleteUserForm" method="post" >
+    <input asp-page-handler="SletBruger" asp-route-email="@WebApplication1.Services.LoginManager.LoggedInUser.Email" type="submit" class="btn btn-primary" onclick="bekræftSletBruger()">
 </form>

@@ -72,7 +72,7 @@ namespace WebApplication1.Pages.OurPages
             _bruger.Navn = Navn;
             _bruger.Email = Email;
             _bruger.Kodeord = Kodeord;
-            _bruger.brugerId = Rolle;
+            _bruger.Rolle = new BrugerRolleService().Read(Rolle);
             _bruger.SkoleId = SkoleId;
             _bruger.SletningsDato = SletningsDato;
             _brugerService.Create(_bruger);

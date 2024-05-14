@@ -36,12 +36,11 @@ namespace WebApplication1.Pages.OurPages
             return RedirectToPage("BrugerSide");
         }
 
-        public IActionResult OnPostDeleteBruger(string email)
+        public IActionResult OnPostSletBruger(string email)
         {
-
             var brugerService = new BrugerService();
             brugerService.DeleteByEmail(email);
-            return RedirectToPage("/Login");
+            return RedirectToPage("LogIn");
         }
 
     }
