@@ -103,6 +103,14 @@ h3 {
 <p><a class="btn btn-primary" href="RedigerBruger" role="button">Rediger Bruger</a></p>
 
 
+
+<script>
+    function bekræftSletBruger() {
+        if (confirm("Er du sikker på, at du vil slette din konto?")) {
+            document.getElementById("deleteUserForm").submit();
+        }
+    }
+</script>
 <head>
     <style>
         body {
@@ -113,4 +121,8 @@ h3 {
 </head>
 <form action="Booking">
         <input class="btn btn-primary" type="submit" role="button" value="Book et lokale" />
+</form>
+<form id="deleteUserForm" method="post" asp-page-handler="SletBruger" asp-route-email="@WebApplication1.Services.LoginManager.LoggedInUser.Email">
+    <button type="button" class="btn btn-primary" onclick="bekraeftSletBruger()">Slet Bruger</button>
+
 </form>
