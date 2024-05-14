@@ -124,5 +124,5 @@ h3 {
 </form>
 
 <form id="deleteUserForm" method="post" >
-    <input asp-page-handler="SletBruger" asp-route-email="@WebApplication1.Services.LoginManager.LoggedInUser.Email" type="submit" class="btn btn-primary" onclick="bekræftSletBruger()">
+    <input asp-page-handler="SletBruger" asp-route-email="@WebApplication1.Services.LoginManager.LoggedInUser.Email" type="submit" value="Slet bruger" class="btn btn-primary" onclick="bekræftSletBruger()">
 </form>
