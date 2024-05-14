@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
 using WebApplication1.Models;
 using WebApplication1.Services;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -9,9 +10,11 @@ namespace WebApplication1.Pages.OurPages
     public class AdminSletBookningModel : PageModel
     {
         [BindProperty]
+        [Display(Name = "Dato")]
         public DateOnly Date { get; set; }
         //private static DateOnly staticDate { get; set; }
         [BindProperty]
+        [Display(Name = "Skole")]
         public int SchoolId { get; set; }
         [BindProperty]
         public string Message { get; set; } = string.Empty;
@@ -30,7 +33,6 @@ namespace WebApplication1.Pages.OurPages
         }
         public IActionResult OnPostFilter()
         {
-            System.Diagnostics.Debug.WriteLine($"\n\n\nDate: {Date}, schoolId: {SchoolId}\n\n\n");
             return RedirectToPage(null, new { year = Date.Year, month = Date.Month, day = Date.Day, schoolId = SchoolId });
         }
         public IActionResult OnPostDeleteBooking(int bookingId)
@@ -39,11 +41,11 @@ namespace WebApplication1.Pages.OurPages
             if (booking == null)
             {
                 Message = $"Der er sket en fejl, vær sød at prøve igen.";
-                return Page();
+                return RedirectToPage("AdminSletBookning", new { year = Date.Year, month = Date.Month, day = Date.Day, schoolId = SchoolId });
             }
             Message = $"Succesfult slettede booking på {booking.LokaleId}.";
             new BookingService().Delete(bookingId);
-            return Page();
+            return RedirectToPage("AdminSletBookning", new { year = Date.Year, month = Date.Month, day = Date.Day, schoolId = SchoolId });
         }
 
         public IEnumerable<Booking> GetAllBookings()

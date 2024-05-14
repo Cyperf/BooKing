@@ -2,11 +2,19 @@
 @model WebApplication1.Pages.OurPages.AdminSletBookningModel
 @{
 }
+<head>
+    <style>
+        table, th, td {
+            border: 1px solid;
+        }
+    </style>
+</head>
 <h1>Slet en bookning</h1>
 
 @* Select date & school *@
 <form method="post">
-    <p>Dato</p>
+    <div>
+    @* <p>Dato</p> *@
     @* <label asp-for="Date" class="control-label"></label>
     <input asp-for="Date" type="date" value="@Model.Date" />
     <span asp-validation-for="Date" class="text-danger"></span> *@
@@ -15,7 +23,8 @@
     @if (WebApplication1.Services.LoginManager.LoggedInUser.Rolle.RolleNavn == "admin")
     {
         string currentlySelectedSchool = new WebApplication1.Services.SkoleService().Read(Model.SchoolId)?.Location ?? "vælg en skole";
-        <p>Skole</p>
+        @* <p>Skole</p> *@
+        <label asp-for="SchoolId" class="control-label"></label>
         <select name="SchoolId">
             <option value="@Model.SchoolId">@currentlySelectedSchool</option>
             @foreach (Models.Skole Skole in new WebApplication1.Services.SkoleService().ReadAll())
@@ -29,8 +38,8 @@
             }
         </select>
     }
-    <input type="submit" value="Filtrer" asp-page="AdminSletBooking" asp-page-handler="Filter" />
-</form> 
+    <input type="submit" value="Filtrer" asp-page-handler="Filter" />
+    </div>
 @* List all bookings *@
 
 <table>
@@ -52,10 +61,12 @@
             <td>@(booking.TidTil / 60):@(@booking.TidTil % 60)</td>
             <td>@booking.Gruppemedlem (@gruppeMedlemRolle)</td>
             <td>
-                <form method="post" >
+                @* <form method="post" > *@
                     <input asp-page-handler="DeleteBooking" asp-route-bookingId="@booking.Id" type="submit" value="Slet">
-                </form>
+                @* </form> *@
             </td>
         </tr>
     }
 </table>
+
+</form> 
