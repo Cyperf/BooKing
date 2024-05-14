@@ -1,0 +1,61 @@
+﻿@page
+@model WebApplication1.Pages.OurPages.AdminSletBookningModel
+@{
+}
+<h1>Slet en bookning</h1>
+
+@* Select date & school *@
+<form method="post">
+    <p>Dato</p>
+    @* <label asp-for="Date" class="control-label"></label>
+    <input asp-for="Date" type="date" value="@Model.Date" />
+    <span asp-validation-for="Date" class="text-danger"></span> *@
+    <label asp-for="Date" class="control-label"></label>
+    <input type="date" asp-for="Date" />
+    @if (WebApplication1.Services.LoginManager.LoggedInUser.Rolle.RolleNavn == "admin")
+    {
+        string currentlySelectedSchool = new WebApplication1.Services.SkoleService().Read(Model.SchoolId)?.Location ?? "vælg en skole";
+        <p>Skole</p>
+        <select name="SchoolId">
+            <option value="@Model.SchoolId">@currentlySelectedSchool</option>
+            @foreach (Models.Skole Skole in new WebApplication1.Services.SkoleService().ReadAll())
+            {
+                // We don't need the same school twice'
+                if (Skole.Id == Model.SchoolId)
+                {
+                    continue;
+                }
+                <option value="@Skole.Id">@Skole.Location</option>
+            }
+        </select>
+    }
+    <input type="submit" value="Filtrer" asp-page="AdminSletBooking" asp-page-handler="Filter" />
+</form> 
+@* List all bookings *@
+
+<table>
+    <tr>
+        <td>Alle bookinger</td>
+    </tr>
+    <tr>
+        <td>Lokale id</td>
+        <td>Tid fra</td>
+        <td>Tid til</td>
+        <td>Personens email</td>
+    </tr>
+    @foreach(var booking in Model.GetAllBookings())
+    {
+        string gruppeMedlemRolle = new WebApplication1.Services.BrugerService().Read(booking.Gruppemedlem).Rolle.RolleNavn;
+        <tr>
+            <td>@booking.LokaleId</td>
+            <td>@(booking.TidFra / 60):@(@booking.TidFra % 60)</td>
+            <td>@(booking.TidTil / 60):@(@booking.TidTil % 60)</td>
+            <td>@booking.Gruppemedlem (@gruppeMedlemRolle)</td>
+            <td>
+                <form method="post" >
+                    <input asp-page-handler="DeleteBooking" asp-route-bookingId="@booking.Id" type="submit" value="Slet">
+                </form>
+            </td>
+        </tr>
+    }
+</table>

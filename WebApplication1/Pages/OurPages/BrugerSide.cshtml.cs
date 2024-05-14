@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication1.Services;
@@ -29,11 +31,34 @@ namespace WebApplication1.Pages.OurPages
 
         public IActionResult OnPostDeleteBooking(int bookingId)
         {
-            
+
             _bookingService.Delete(bookingId);
 
-            
+
             return RedirectToPage("BrugerSide");
         }
+
+        public IActionResult OnPostSletBruger(string email)
+        {
+            LogInModel.LoggedInBruger = null;
+            LoginManager.Logout();
+
+            string authScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            HttpContext.SignOutAsync(authScheme);
+
+            var brugerService = new BrugerService();
+            brugerService.DeleteByEmail(email);
+            return RedirectToPage("LogIn");
+        }
+
     }
 }
+
+
+
+
+
+
+
+
+
