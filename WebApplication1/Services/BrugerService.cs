@@ -54,5 +54,14 @@ namespace WebApplication1.Services
                 $" WHERE Email = '{item.Email}';");
         }
 
+        public void CleanOldAccounts()
+        {
+            DateOnly currentDay = DateOnly.FromDateTime(DateTime.Now);
+            foreach (var booking in ReadAll($"SletningsDato<'{currentDay.Year + "-" + currentDay.Month + "-" + currentDay.Day}'"))
+            {
+                DeleteByEmail(booking.Email);
+            }
+        }
+
     }
 }

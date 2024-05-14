@@ -100,5 +100,14 @@ namespace WebApplication1.Services
         {
             throw new NotImplementedException();
         }
+
+		public void CleanOldBookings()
+		{
+			DateOnly currentDay = DateOnly.FromDateTime(DateTime.Now);
+			foreach (var booking in ReadAll($"Dato<'{currentDay.Year + "-" + currentDay.Month + "-" + currentDay.Day}'"))
+			{
+				Delete(booking.Id);
+			}
+		}
 	}
 }
