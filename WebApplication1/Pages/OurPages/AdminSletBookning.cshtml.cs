@@ -52,6 +52,9 @@ namespace WebApplication1.Pages.OurPages
 
         public IEnumerable<Booking> GetAllBookings()
         {
+            // make sure the date is before the user can delete the booking
+            if (Date < DateOnly.FromDateTime(DateTime.Now).AddDays(LoginManager.LoggedInUser.Rolle.DagesVarselIndenOverskrivelse.Value))
+                return new Booking[0];
             return new BookingService().ReadAll($"Dato='{Date.Year + "-" + Date.Month + "-" + Date.Day}' AND SkoleId={SchoolId}")
                 .OrderBy(booking => booking.LokaleId)
                 .ThenBy(booking => booking.TidFra);
