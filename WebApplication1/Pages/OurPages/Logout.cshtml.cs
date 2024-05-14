@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using WebApplication1.Services;
 
 namespace WebApplication1.Pages.OurPages
 {
@@ -11,6 +12,7 @@ namespace WebApplication1.Pages.OurPages
         {
 
             LogInModel.LoggedInBruger = null;
+            LoginManager.Logout();
 
 
             string authScheme = CookieAuthenticationDefaults.AuthenticationScheme;
