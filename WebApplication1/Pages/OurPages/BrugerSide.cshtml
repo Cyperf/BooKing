@@ -7,16 +7,8 @@
 
 <head>
 <style>
-h1 {
-  text-align: center;
-}
-
 h2 {
   text-align: center;
-}
-
-h3 {
-  text-align: right;
 }
 </style>
 </head>
@@ -26,7 +18,7 @@ h3 {
 
 </body>
 
-
+<br/>
 <head>
     <style>
         table, th, td {
@@ -34,34 +26,41 @@ h3 {
             margin-left: auto;
             margin-right: auto;
         }
+
+        .TableContainer div{
+            width: 35%;
+            float: inline-start;
+        }
+
+        .ButtonContainer div{
+
+            position: fixed;
+            bottom: 20%
+        }
     </style>
 </head>
+
 <body>
-
-
-    <table>
-        <tr>
-            <th>E-mail</th>
-            <td>@WebApplication1.Services.LoginManager.LoggedInUser.Email</td>
-        </tr>
-        <tr>
-            <th>Rolle</th>
-            <td>@WebApplication1.Services.LoginManager.LoggedInUser.Rolle.RolleNavn</td>
-        </tr>
-        <tr>
-            <th>Skole</th>
-            @{string skole = new WebApplication1.Services.SkoleService().Read(WebApplication1.Services.LoginManager.LoggedInUser.SkoleId).Location;
+  <div class="TableContainer">
+     <div>
+         <table>
+            <tr>
+              <th>E-mail</th>
+                   <td>@WebApplication1.Services.LoginManager.LoggedInUser.Email</td>
+            </tr>
+              <tr>
+              <th>Rolle</th>
+                   <td>@WebApplication1.Services.LoginManager.LoggedInUser.Rolle.RolleNavn</td>
+            </tr>
+             <tr>
+               <th>Skole</th>
+                    @{string skole = new WebApplication1.Services.SkoleService().Read(WebApplication1.Services.LoginManager.LoggedInUser.SkoleId).Location;
                 <td>@skole</td>
             }
-        </tr>
-    </table>
-
-</body>
-
-<br />
-<br />
-
-<body>
+            </tr>
+          </table>
+     </div>
+        <div>
     <table>
         <tr>
             <th>Mine Bookinger</th>
@@ -79,38 +78,39 @@ h3 {
                 </th>
             </tr>
         }
-@*         <tr>
-            <td>Arun</td>
-            <td>Singh</td>
-            <td>32</td>
-        </tr>
-        <tr>
-            <td>Sam</td>
-            <td>Watson</td>
-            <td>41</td>
-        </tr> *@
     </table>
+       </div>
+    </div>
 </body>
+<br />
+<div class="ButtonContainer">
 
+    <div>
+               @if (LogInModel.LoggedInBruger.Rolle.RolleNavn == "studerende")
+               {
+                <form action="Booking">
+                    <input class="btn btn-primary" type="submit" role="button" value="Book et lokale" />
+                </form>
+                <br />
 
-@if(LogInModel.LoggedInBruger.Rolle.RolleNavn == "admin")
-{
-    <p><a class="btn btn-primary" href="OpretBrugerKonto" role="button">Opret Bruger</a></p>
+                <p><a class="btn btn-primary" href="RedigerBruger" role="button">Ændre Adgangskode</a></p>
 
-    <p><a class="btn btn-primary" href="OpretLokaler" role="button">Opret Lokaler</a></p>
 }
+    </div>
 
-<p><a class="btn btn-primary" href="RedigerBruger" role="button">Rediger Bruger</a></p>
+    <div>
+        @if(LogInModel.LoggedInBruger.Rolle.RolleNavn == "admin")
+        {
+            <p><a class="btn btn-primary" href="OpretBrugerKonto" role="button">Opret Bruger</a></p>
 
+            <p><a class="btn btn-primary" href="OpretLokaler" role="button">Opret Lokaler</a></p>
 
-<head>
-    <style>
-        body {
-            margin-left: auto;
-            margin-right: auto;
+            <p><a class="btn btn-primary" href="RedigerBruger" role="button">Ændre Adgangskode</a></p>
+
+            <form action="Booking">
+                <input class="btn btn-primary" type="submit" role="button" value="Book et lokale" />
+            </form>
         }
-    </style>
-</head>
-<form action="Booking">
-        <input class="btn btn-primary" type="submit" role="button" value="Book et lokale" />
-</form>
+    </div>
+
+</div>
