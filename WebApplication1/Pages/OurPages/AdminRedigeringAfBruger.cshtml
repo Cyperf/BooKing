@@ -2,3 +2,37 @@
 @model WebApplication1.Pages.OurPages.AdminRedigeringAfBrugerModel
 @{
 }
+
+</style>
+<head>
+
+    <title>Liste over alle brugere</title>
+
+</head>
+
+<table class="table table-bordered table-hover table-striped table-opacity" width="60%">
+
+    <tbody>
+        <tr>
+            <td style="width: 250px;">Navn</td>
+            <td style="width: 250px;">Email</td>
+            <td style="width: 250px;">Rolle</td>
+            <td style="width: 250px;">SkoleId</td>
+            <td style="width: 250px;">SletningsDato</td>
+        </tr>
+
+        @foreach(Models.Bruger bruger in Model.brugerService.ReadAll())
+        {
+            <tr>
+                <td style="width: 250px;">@bruger.Navn</td>
+                <td style="width: 250px;">@bruger.Email</td>
+                <td style="width: 250px;">@bruger.Rolle.RolleNavn</td>
+                <td style="width: 250px;">@bruger.SkoleId</td>
+                <td style="width: 250px;">@bruger.SletningsDato</td>
+                <td><button class="btn btn-primary" asp-page-handler="RedigerBruger" type="submit" asp-route-itemTypeFilter="">Rediger</button></td>
+                <td><button class="btn btn-primary" asp-page-handler="SletBruger" type="submit">Slet Bruger</button></td>
+            </tr>
+
+
+        }
+</table>
