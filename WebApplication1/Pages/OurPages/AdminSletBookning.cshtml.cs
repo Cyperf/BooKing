@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication1.Models;
 using WebApplication1.Services;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WebApplication1.Pages.OurPages
 {
@@ -9,6 +10,7 @@ namespace WebApplication1.Pages.OurPages
     {
         [BindProperty]
         public DateOnly Date { get; set; }
+        //private static DateOnly staticDate { get; set; }
         [BindProperty]
         public int SchoolId { get; set; }
         [BindProperty]
@@ -25,6 +27,11 @@ namespace WebApplication1.Pages.OurPages
             Date = new DateOnly(year, month, day);
             SchoolId = schoolId;
             return Page();
+        }
+        public IActionResult OnPostFilter()
+        {
+            System.Diagnostics.Debug.WriteLine($"\n\n\nDate: {Date}, schoolId: {SchoolId}\n\n\n");
+            return RedirectToPage(null, new { year = Date.Year, month = Date.Month, day = Date.Day, schoolId = SchoolId });
         }
         public IActionResult OnPostDeleteBooking(int bookingId)
         {

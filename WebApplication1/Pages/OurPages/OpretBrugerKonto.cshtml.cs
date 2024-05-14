@@ -81,15 +81,8 @@ namespace WebApplication1.Pages.OurPages
 
         private static string GetRandomPassword()
         {
-            // setup an array, with all allowed chars
-            int alphabetSize = 'z' - 'a' + 1;
-            char[] allowedChars = new char[alphabetSize * 2 + '9' - '0' + 1];
-            for (int i = 0; i < alphabetSize; i++)
-                allowedChars[i] += (char)('a' + i);
-            for (int i = 0; i < alphabetSize; i++)
-                allowedChars[i + alphabetSize] += (char)('A' + i);
-            for (int i = 0; i < 10; i++)
-                allowedChars[i + alphabetSize * 2] += (char)('0' + i);
+            // setup a string, with all allowed chars
+            string allowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
             // create the password
             Random random = new Random();
