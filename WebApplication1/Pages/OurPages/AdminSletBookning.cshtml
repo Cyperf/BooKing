@@ -5,14 +5,14 @@
 <h1>Slet en bookning</h1>
 
 @* Select date & school *@
-<form method="post" asp-page-handler="Filter">
+@* <form method="post" asp-page-handler="Filter">
     <input type="date" asp-for="date" />
     <a asp-page="Booking"
        asp-route-startIntervalHours="@Model.StartIntervalHours Model.StartIntervalMinutes)" asp-route-startIntervalMinutes="@Model.StartIntervalHours Model.StartIntervalMinutes)"
        asp-route-endIntervalHours="@Model.StartIntervalHours Model.EndIntervalMinutes)" asp-route-endIntervalMinutes="@Model.EndIntervalHours Model.StartIntervalMinutes)">
         <input type="submit" value="Filtrer" />
     </a>
-</form>
+</form> *@
 @* List all bookings *@
 
 <table>
