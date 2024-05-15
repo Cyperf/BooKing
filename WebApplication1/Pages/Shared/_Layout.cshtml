@@ -27,7 +27,10 @@
                         </li>
                     </ul>
                 </div>
-                <a class="nav-link text-dark" asp-area="" asp-page="/ourpages/logout">Log Ud</a>
+                @if (WebApplication1.Services.LoginManager.LoggedInUser != null)
+                {
+                    <a class="nav-link text-dark" asp-area="" asp-page="/ourpages/logout">Log Ud</a>
+                }
             </div>
         </nav>
     </header>
