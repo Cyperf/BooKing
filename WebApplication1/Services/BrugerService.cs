@@ -62,6 +62,5 @@ namespace WebApplication1.Services
                 DeleteByEmail(booking.Email);
             }
         }
-
     }
 }
