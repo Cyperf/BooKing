@@ -26,7 +26,7 @@ namespace WebApplication1.Pages.OurPages
         [Display(Name ="SkoleId")]
         [BindProperty]
         public int SkoleId { get; set; }
-        [Display(Name="MaxGrupperAdGangen")]
+        [Display(Name="Max grupper ad gangen")]
         [BindProperty]
         public int MaxGrupperAdGangen { get; set; }
         [Display(Name="Har Smartboard")]
