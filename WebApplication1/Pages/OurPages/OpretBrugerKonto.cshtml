@@ -54,7 +54,8 @@
                                                 </div>
                                                 @if (!string.IsNullOrEmpty(Model.Message))
                                                 {
-                                                    <p>@Model.Message</p>
+                                                    string textColor = Model.Message == "Brugeren blev oprettet" ? "green" : "red";
+                                                    <p style="color: @textColor;">@Model.Message</p>
                                                 }
                                                 <input asp-page-handler="Add" type="submit" value="Add" class="btn btn-info btn-lg btn-block" name="Opret Bruger" />
                                             </div>

@@ -72,17 +72,26 @@ namespace WebApplication1.Pages.OurPages
            //         Kodeord = Kodeord "":
            //     }
            // }
-
-            _bruger.Navn = Navn;
-            _bruger.Email = Email;
-            _bruger.Kodeord = Kodeord;
+           if (string.IsNullOrEmpty(Navn))
+                return RedirectToPage("/OurPages/OpretBrugerKonto", new { message = "Du skal skrive et navn" });
+           // make sure the email most likely makes sense
+            if (Email == null || !(Email.Length > 5 && Email.Contains('@') && Email.Contains('.')))
+                return RedirectToPage("/OurPages/OpretBrugerKonto", new { message = "Du skal indtaste en valid email" });
+            if (Kodeord == null || Kodeord.Length < 5)
+                return RedirectToPage("/OurPages/OpretBrugerKonto", new { message = "Du skal skrive en kode med mindst 5 karaktere" });
             // make sure the role exists
             if (new BrugerRolleService().Read(Rolle) == null)
                 return RedirectToPage("/OurPages/OpretBrugerKonto", new { message = "Du skal vælge en rolle" });
-            _bruger.Rolle = new BrugerRolleService().Read(Rolle);
             // make sure the school exists
             if (new SkoleService().Read(SkoleId) == null)
                 return RedirectToPage("/OurPages/OpretBrugerKonto", new { message = "Du skal vælge en skole" });
+            // Make sure the deletion date is not today, or prior to today
+            if (SletningsDato <= DateOnly.FromDateTime(DateTime.Now))
+                return RedirectToPage("/OurPages/OpretBrugerKonto", new { message = "Du skal vælge sletningsdatoen mindst 1 dag i fremtiden" });
+            _bruger.Navn = Navn;
+            _bruger.Email = Email;
+            _bruger.Kodeord = Kodeord;
+            _bruger.Rolle = new BrugerRolleService().Read(Rolle);
             _bruger.SkoleId = SkoleId;
             _bruger.SletningsDato = SletningsDato;
             _brugerService.Create(_bruger);
