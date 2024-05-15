@@ -18,7 +18,7 @@
                                     <div class="col-lg-6 bg-indigo text-dark">
                                         <div class="p-5">
                                             <h3 class="fw-normal mb-5">Opret Lokaler</h3>
-                                            <div style="float:left;">
+                                            <div style="float:left; width:50%;">
 
                                                 <div class="col-md-7 mb-4 pb-2">
 
@@ -48,10 +48,14 @@
                                                         </select>
                                                     </div>
                                                 </div>
+                                                @if (!string.IsNullOrEmpty(Model.Message))
+                                                {
+                                                    <p>@Model.Message</p>
+                                                }
                                                 <input asp-page-handler="Add" type="submit" value="Add" class="btn btn-info btn-lg btn-block" name="Opret Lokale" />
                                             </div>
 
-                                            <div style="float:left;">
+                                            <div style="float:left; width:50%;">
                                                 <div class="col-md-7 mb-4 pb-2">
 
                                                     <div class="form-outline form-group form-white">
