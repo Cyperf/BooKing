@@ -5,6 +5,11 @@
 	public class LoginManager
 	{
 		public static WebApplication1.Models.Bruger? LoggedInUser { get; private set; } = null;
+
+		public static void Logout()
+		{
+			LoggedInUser = null;
+        }
 		public static bool Login(string email, string password)
 		{
 			var hasher = new Microsoft.AspNetCore.Identity.PasswordHasher<string>();
