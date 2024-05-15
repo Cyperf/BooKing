@@ -20,7 +20,7 @@ namespace WebApplication1.Pages.OurPages
         
         [BindProperty]
         public Lokale _lokale { get; set; }
-        [Display(Name = "Id")]
+        [Display(Name = "Lokale nummer")]
         [BindProperty]
         public int Id { get; set; }
         [Display(Name ="SkoleId")]
