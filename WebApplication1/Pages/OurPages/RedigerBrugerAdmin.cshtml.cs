@@ -26,11 +26,11 @@ namespace WebApplication1.Pages.OurPages
         public void OnGet(string email)
         {
             _bruger = _brugerService.Read(email);
-            Debug.WriteLine(_bruger);
+            Debug.WriteLine("\n1\n\n" + _bruger + " Email: " + email);
         }
         public IActionResult OnPost()
         {
-            Debug.WriteLine(_bruger);
+            Debug.WriteLine("\n2\n\n" + _bruger);
             if (GentagKodeord == Kodeord)
             {
                 _bruger.Kodeord = Kodeord;

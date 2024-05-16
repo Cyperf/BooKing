@@ -11,8 +11,8 @@ namespace WebApplication1.Pages.OurPages
     {
         [BindProperty] public int NewBookingStartHour { get; set; } = BookingService.EarliestAllowedBooking / 60;
         [BindProperty] public int NewBookingStartMinute { get; set; } = BookingService.EarliestAllowedBooking % 60;
-        [BindProperty] public int NewBookingEndHour { get; set; } = BookingService.MaxBookingLength;
-        [BindProperty] public int NewBookingEndMinute { get; set; }
+        [BindProperty] public int NewBookingEndHour { get; set; } = BookingService.MaxBookingLength / 60;
+        [BindProperty] public int NewBookingEndMinute { get; set; } = BookingService.MaxBookingLength % 60;
 
 
         public string? FejlMeddelse = null;
