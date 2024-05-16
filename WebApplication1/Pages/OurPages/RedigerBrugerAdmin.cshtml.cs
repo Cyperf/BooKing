@@ -10,7 +10,6 @@ namespace WebApplication1.Pages.OurPages
     public class RedigerBrugerAdminModel : PageModel
     {
         public BrugerService _brugerService { get; set; } = new BrugerService();
-        private string _email = "";
 
         [BindProperty]
         public Bruger _bruger { get; set; } = null;
@@ -26,14 +25,13 @@ namespace WebApplication1.Pages.OurPages
 
         public void OnGet(string email = "")
         {
-            _email = email;
             _bruger = _brugerService.Read(email);
-            Debug.WriteLine("\n1\n\n" + _bruger + " \nEmail: " + _email);
+            Debug.WriteLine("\n1\n\n" + _bruger + " \nEmail: " + email);
         }
         public IActionResult OnPost()
         {
             _bruger = _brugerService.Read(_bruger.Email);
-            Debug.WriteLine("\n2\n\n" + _bruger + " \nEmail: " + _email);
+            Debug.WriteLine("\n2\n\n" + _bruger + " \nEmail: ");
             if (GentagKodeord == Kodeord)
             {
                 _bruger.Kodeord = Kodeord;
