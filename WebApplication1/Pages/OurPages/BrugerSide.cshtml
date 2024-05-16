@@ -23,12 +23,15 @@ h2 {
     <style>
         table, th, td {
             border: 1px solid;
-            margin-left: auto;
-            margin-right: auto;
+            align-content:center;
+            padding: 5px;
+/*             margin-left: auto;
+            margin-right: auto; */
         }
 
         .TableContainer div{
-            width: 35%;
+            width: 35% ;
+            align-items: center;
             float: inline-start;
         }
 
@@ -40,6 +43,14 @@ h2 {
 
         .Adgangskode p{
         }
+
+        .Button1{
+
+            background-color: lightyellow;
+            color: black;
+            border: 2px solid #fff387;
+        }
+
     </style>
 </head>
 
@@ -63,10 +74,11 @@ h2 {
 
                 </tr>
           </table>
-            <p class="Adgangskode"><a class="btn btn-primary" href="RedigerBruger" role="button">Ændre Adgangskode</a></p>
+          <br />
+            <p><a class="btn btn-warning" href="RedigerBruger" role="button">Ændre Adgangskode</a></p>
      </div>
         <div>
-    <table>
+    <table style="position:center; min-width:50%;">
         @{
             var myBookings = new WebApplication1.Services.BookingService().ReadAll($"BrugerEmail='{WebApplication1.Services.LoginManager.LoggedInUser.Email}'");
         
@@ -80,7 +92,7 @@ h2 {
                         }
                     <th>
                         <form action="Booking">
-                            <input class="btn btn-primary" type="submit" role="button" value="Book et lokale" />
+                            <input class="btn btn-warning" type="submit" role="button" value="Book et lokale" />
                         </form>
                     </th>
         </tr>
@@ -92,7 +104,7 @@ h2 {
                 <td>@booking.BookingType.Type</td>
                 <th>
                     <form method="post" asp-page-handler="DeleteBooking" asp-route-bookingId="@booking.Id">
-                        <button type="submit">Delete</button>
+                        <button class="Button1" type="submit">Delete</button>
                     </form>
                 </th>
             </tr>
@@ -103,31 +115,32 @@ h2 {
     </div>
 </body>
 <br />
-<div class="ButtonContainer">
+@* <div class="ButtonContainer">
 
     <div>
                @if (LogInModel.LoggedInBruger.Rolle.RolleNavn == "studerende")
                {
 
 }
-    </div>
+    </div> *@
+    
     <br />
     <br />
-    <div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <hr />
+
         @if(LogInModel.LoggedInBruger.Rolle.RolleNavn == "admin")
         {
-            <p><a class="btn btn-primary" href="OpretBrugerKonto" role="button">Opret Bruger</a></p>
+            <p><a class="btn btn-warning" href="OpretBrugerKonto" role="button">Opret Bruger</a></p>
 
-            <p><a class="btn btn-primary" href="OpretLokaler" role="button">Opret Lokaler</a></p>
+            <p><a class="btn btn-warning" href="OpretLokaler" role="button">Opret Lokaler</a></p>
 
-            <p><a class="btn btn-primary" href="RedigerBruger" role="button">Ændre Adgangskode</a></p>
+            <p><a class="btn btn-warning" href="RedigerBruger" role="button">Ændre Adgangskode</a></p>
 
-            <p><a class="btn btn-primary" href="Rediger Lokale" role="button">Rediger Lokale</a></p>
+            <p><a class="btn btn-warning" href="Rediger Lokale" role="button">Rediger Lokale</a></p>
                 
         }
-    </div>
-
-
-
-
-</div>
+ 
