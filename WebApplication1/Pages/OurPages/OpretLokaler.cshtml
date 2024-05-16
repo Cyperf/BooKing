@@ -18,53 +18,61 @@
                                     <div class="col-lg-6 bg-indigo text-dark">
                                         <div class="p-5">
                                             <h3 class="fw-normal mb-5">Opret Lokaler</h3>
+                                            <div style="float:left; width:50%;">
 
-                                            <div class="col-md-7 mb-4 pb-2">
+                                                <div class="col-md-7 mb-4 pb-2">
 
-                                                <div class="form-outline form-group form-white">
-                                                    <label asp-for="Id" class="control-label"></label>
-                                                    <input asp-for="Id" class="form-control" />
-                                                    <span asp-validation-for="Id" class="text-danger"></span>
+                                                    <div class="form-outline form-group form-white">
+                                                        <label asp-for="Id" class="control-label"></label>
+                                                        <input asp-for="Id" class="form-control" />
+                                                        <span asp-validation-for="Id" class="text-danger"></span>
 
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-md-7 mb-4 pb-2">
-
-                                                <div class="form-outline form-group form-white">
-                                                  @*   <label asp-for="SkoleId" class="control-label"></label>
-                                                    <input asp-for="SkoleId" class="form-control" />
-                                                    <span asp-validation-for="SkoleId" class="text-danger"></span> *@
-                                                    <select name="SkoleId">
-                                                        <option value="10">Vælg en skole</option>
-                                                       @*  <option value="1">Roskilde</option>
-                                                        <option value="2">Næstved</option> *@
-                                                        @foreach(Models.Skole Skole in Model.AlleSkoler)
-                                                        {
-                                                            <option value="@Skole.Id">@Skole.Location</option>
-                                                        }
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-7 mb-4 pb-2">
-
-                                                <div class="form-outline form-group form-white">
-                                                    <label asp-for="MaxGrupperAdGangen" class="control-label"></label>
-                                                    <input asp-for="MaxGrupperAdGangen" class="form-control" />
-                                                    <span asp-validation-for="MaxGrupperAdGangen" class="text-danger"></span>
+                                                    </div>
 
                                                 </div>
 
+                                                <div class="col-md-7 mb-4 pb-2">
+
+                                                    <div class="form-outline form-group form-white">
+                                                      @*   <label asp-for="SkoleId" class="control-label"></label>
+                                                        <input asp-for="SkoleId" class="form-control" />
+                                                        <span asp-validation-for="SkoleId" class="text-danger"></span> *@
+                                                        <select name="SkoleId">
+                                                            <option value="10">Vælg en skole</option>
+                                                           @*  <option value="1">Roskilde</option>
+                                                            <option value="2">Næstved</option> *@
+                                                            @foreach(Models.Skole Skole in Model.AlleSkoler)
+                                                            {
+                                                                <option value="@Skole.Id">@Skole.Location</option>
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                @if (!string.IsNullOrEmpty(Model.Message))
+                                                {
+                                                    <p>@Model.Message</p>
+                                                }
+                                                <input asp-page-handler="Add" type="submit" value="Add" class="btn btn-info btn-lg btn-block" name="Opret Lokale" />
                                             </div>
 
-                                            <div class="mb-4 pb-2 form-group">
-                                                <label asp-for="HarSmartboard" class="control-label"></label>
-                                                <input asp-for="HarSmartboard" type="checkbox">
+                                            <div style="float:left; width:50%;">
+                                                <div class="col-md-7 mb-4 pb-2">
+
+                                                    <div class="form-outline form-group form-white">
+                                                        <label asp-for="MaxGrupperAdGangen" class="control-label"></label>
+                                                        <input asp-for="MaxGrupperAdGangen" class="form-control" />
+                                                        <span asp-validation-for="MaxGrupperAdGangen" class="text-danger"></span>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="mb-4 pb-2 form-group">
+                                                    <label asp-for="HarSmartboard" class="control-label"></label>
+                                                    <input asp-for="HarSmartboard" type="checkbox">
+                                                </div>
                                             </div>
 
-                                            <input asp-page-handler="Add" type="submit" value="Add" class="btn btn-info btn-lg btn-block" name="Opret Lokale" />
                                         </div>
                                     </div>
 

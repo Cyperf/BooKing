@@ -74,7 +74,7 @@ namespace WebApplication1.Services
 			{
                 if (!isAdmin)
                 {
-                    foreach (var otherBooking in ReadAll($"BrugerEmail='{bruger.Email}' AND Type={booking.BookingType.Id}"))
+                    foreach (var otherBooking in ReadAll($"BrugerEmail='{bruger.Email}' AND Type={booking.BookingType.Id} AND Dato='{booking.Dato.Year + "-" + booking.Dato.Month + "-" + booking.Dato.Day}'"))
 					{
 						if ((booking.TidFra >= otherBooking.TidFra && booking.TidFra < otherBooking.TidTil) ||
 							(booking.TidTil > otherBooking.TidFra && booking.TidTil <= otherBooking.TidTil))
@@ -83,6 +83,26 @@ namespace WebApplication1.Services
                     }
                 }
             }
+
+			// If we are booking a smartboard, we need to make sure we are also booking the room itself
+			{
+				if (booking.BookingType.Type == SmartboardName)
+				{
+					bool hasBooking = false;
+                    foreach (var otherBooking in ReadAll($"BrugerEmail='{bruger.Email}' AND Type={new BookingTypeRepository().GetIdByName(LokaleName)} AND Dato='{booking.Dato.Year + "-" + booking.Dato.Month + "-" + booking.Dato.Day}' AND LokaleId = {booking.LokaleId} AND SkoleId={booking.SkoleId}"))
+                    {
+                        if ((booking.TidFra >= otherBooking.TidFra && booking.TidFra <= otherBooking.TidTil) &&
+                            (booking.TidTil >= otherBooking.TidFra && booking.TidTil <= otherBooking.TidTil))
+						{
+							hasBooking = true;
+							break;
+
+                        }
+                    }
+					if (!hasBooking)
+						return "Du skal også booke lokalet, for at kunne booke smartboardet";
+                }
+			}
             base.Create(booking);
 			return CreateAcceptMessage();
         }
