@@ -32,7 +32,7 @@
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine(ex.ToString());
+				Debug.WriteLine("\nERROR\n" + ex.ToString());
 			}
         }
 		/// <summary>
@@ -77,7 +77,7 @@
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine(ex.ToString());
+				Debug.WriteLine("\nERROR\n" + ex.ToString());
 			}
 		}
 	}
