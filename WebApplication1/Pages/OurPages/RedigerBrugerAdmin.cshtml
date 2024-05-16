@@ -1,0 +1,65 @@
+﻿@page
+@model WebApplication1.Pages.OurPages.RedigerBrugerAdminModel
+@{
+}
+
+<body>
+    <style>
+        .error-message {
+            color: red;
+        }
+    </style>
+    <form method="post">
+        <section class="h-100 h-custom gradient-custom-2">
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-12">
+                        <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                            <div class="card-body p-0">
+                                <div class="row g-0">
+
+                                    <div class="col-lg-6 bg-indigo text-dark">
+                                        <div class="p-5">
+                                            <h3 class="fw-normal mb-5">Ændre kode</h3>
+
+                                            <div class="col-md-7 mb-4 pb-2">
+
+                                                <div class="form-outline form-group form-white">
+                                                    <label asp-for="Kodeord" class="control-label"></label>
+                                                    <input asp-for="Kodeord" type="password" class="form-control" required />
+                                                    <span asp-validation-for="Kodeord" class="text-danger"></span>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="col-md-7 mb-4 pb-2">
+
+                                                <div class="form-outline form-group form-white">
+                                                    <label asp-for="GentagKodeord" class="control-label">Gentag Kodeord</label>
+                                                    <input asp-for="GentagKodeord" type="password" class="form-control" required />
+                                                    <span asp-validation-for="GentagKodeord" class="text-danger"></span>
+
+                                                </div>
+
+                                            </div>
+
+                                            <input asp-page-handler="Add" type="submit" value="Add" class="btn btn-info btn-lg btn-block" name="Ændring af kode" />
+                                            @if (!string.IsNullOrEmpty(Model.Message))
+                                            {
+                                                <li class="nav-item error-message">@Model.Message</li>
+
+                                            }
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</body>
