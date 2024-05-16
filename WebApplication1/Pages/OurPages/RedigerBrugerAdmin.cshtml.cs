@@ -12,7 +12,7 @@ namespace WebApplication1.Pages.OurPages
         public BrugerService _brugerService { get; set; } = new BrugerService();
 
         [BindProperty]
-        public Bruger _bruger { get; set; }
+        public Bruger _bruger { get; set; } 
         [Display(Name = "Kodeord")]
         [BindProperty]
         public string Kodeord { get; set; }
