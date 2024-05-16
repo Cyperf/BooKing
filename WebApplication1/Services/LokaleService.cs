@@ -24,7 +24,7 @@ namespace WebApplication1.Services
 		};
         public override void Update(Lokale item)
         {
-			AdoNet.ExecuteNonQuery($"UPDATE {_tableName} SET MaxGrupperAfGangen={item.MaxGrupperAdGangen}, HarSmartboard={item.HarSmartBoard} WHERE Id={item.Id} AND SkoleId={item.SkoleId}");
+			AdoNet.ExecuteNonQuery($"UPDATE {_tableName} SET MaxGrupperAfGangen={item.MaxGrupperAdGangen}, HarSmartboard={(item.HarSmartBoard ? 1 : 0)} WHERE Id={item.Id} AND SkoleId={item.SkoleId}");
         }
 
 
