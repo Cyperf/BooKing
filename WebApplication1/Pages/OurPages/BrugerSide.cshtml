@@ -132,16 +132,20 @@ h2 {
     <br />
     <hr />
 
-        @if(LogInModel.LoggedInBruger.Rolle.RolleNavn == "admin")
-        {
-            <p><a class="btn btn-warning" href="OpretBrugerKonto" role="button">Opret Bruger</a></p>
+@if(LogInModel.LoggedInBruger.Rolle.RolleNavn == "admin")
+{
+    <p><a class="btn btn-warning" href="OpretBrugerKonto" role="button">Opret Bruger</a></p>
 
-            <p><a class="btn btn-warning" href="OpretLokaler" role="button">Opret Lokaler</a></p>
+    <p><a class="btn btn-warning" href="OpretLokaler" role="button">Opret Lokaler</a></p>
 
-            <p><a class="btn btn-warning" href="RedigerBruger" role="button">Ændre Adgangskode</a></p>
+    <p><a class="btn btn-warning" href="RedigerBruger" role="button">Ændre Adgangskode</a></p>
 
-            <p><a class="btn btn-warning" href="RedigerLokale" role="button">Rediger Lokale</a></p>
-            <p><a class="btn btn-warning" href="AdminRedigeringAfBruger" role="button">Rediger anden Konto</a></p>
+    <p><a class="btn btn-warning" href="RedigerLokale" role="button">Rediger Lokale</a></p>
+    <p><a class="btn btn-warning" href="AdminRedigeringAfBruger" role="button">Rediger anden Konto</a></p>
                 
         }
- 
+@if (LogInModel.LoggedInBruger.Rolle.DagesVarselIndenOverskrivelse != null)
+{
+    <p><a class="btn btn-warning" href="AdminSletBookning" role="button">Slet en anden bruger booking</a></p>
+}
+
