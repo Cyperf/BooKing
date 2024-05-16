@@ -2,3 +2,52 @@
 @model WebApplication1.Pages.OurPages.RedigerLokale
 @{
 }
+<h1>Rediger lokale</h1>
+
+<div>
+    <form method="get" asp-page="RedigerLokale">
+        @{
+            WebApplication1.Services.SkoleService skoleService = new WebApplication1.Services.SkoleService();
+            
+            <select name="SkoleId">
+                <option value="@Model.SkoleId">@skoleService.Read(Model.SkoleId).Location</option>
+                @*  <option value="1">Roskilde</option>
+                <option value="2">Næstved</option> *@
+                @foreach (Models.Skole Skole in new WebApplication1.Services.SkoleService().ReadAll())
+                {
+                    <option value="@Skole.Id">@Skole.Location</option>
+                }
+            </select>
+            <input type="submit" asp-route-SkoleId="@Model.SkoleId" value="Vælg skole" />
+        }
+    </form>
+    <form method="post">
+
+        <div>
+            <div>
+                <select name="Id">
+                    <option value="-1">Vælg lokale</option>
+                    @foreach (var lokale in new WebApplication1.Services.LokaleService().ReadAll($"SkoleId={Model.SkoleId}"))
+                    {
+                        <option value="@lokale.Id">@lokale.Id</option>
+                    }
+                </select>
+            </div>
+
+            <label asp-for="MaxGrupperAdGangen" class="control-label"></label>
+            <input asp-for="MaxGrupperAdGangen" value="1" class="form-control" />
+            <span asp-validation-for="MaxGrupperAdGangen" class="text-danger"></span>
+
+
+            <label asp-for="HarSmartboard" class="control-label"></label>
+            <input asp-for="HarSmartboard" type="checkbox">
+
+            @if (!string.IsNullOrEmpty(Model.Message))
+            {
+                <p>@Model.Message</p>
+            }
+            <input asp-page-handler="Change" type="submit" value="Færdiggør redigering" class="btn btn-info btn-lg btn-block" />
+            <input asp-page-handler="Delete" type="submit" value="Slet lokalet" class="btn btn-info btn-lg btn-block"/>
+        </div>
+    </form>
+</div>

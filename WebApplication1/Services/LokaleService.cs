@@ -13,11 +13,6 @@ namespace WebApplication1.Services
             _tableName = "Lokale";
         }
 
-        public override void Update(Lokale item)
-        {
-            throw new NotImplementedException();
-        }
-
         protected override Func<Lokale, string> _fromItemToString { get; } = (lokale) =>
         {
             return $"{lokale.Id}, {lokale.SkoleId}, {lokale.MaxGrupperAdGangen}, {(lokale.HarSmartBoard ? 1 : 0)}";
@@ -27,6 +22,15 @@ namespace WebApplication1.Services
 		{
 			return new Lokale(reader.GetInt32(0), reader.GetInt32(1), reader.GetInt32(2), reader.GetByte(3) == 1 ? true : false);
 		};
+        public override void Update(Lokale item)
+        {
+			AdoNet.ExecuteNonQuery($"UPDATE {_tableName} SET MaxGrupperAfGangen={item.MaxGrupperAdGangen}, HarSmartboard={(item.HarSmartBoard ? 1 : 0)} WHERE Id={item.Id} AND SkoleId={item.SkoleId}");
+        }
+        public void Delete(int id, int skoleId)
+        {
+            AdoNet.ExecuteNonQuery($"DELETE FROM {_tableName} WHERE id={id} AND SkoleId={skoleId}");
+        }
+
 
         public override Lokale? Read(int id)
         {

@@ -11,7 +11,6 @@
             Location = location;
         }
 
-
         public override string ToString()
         {
             return $"Id: {Id}, Location: {Location}";
