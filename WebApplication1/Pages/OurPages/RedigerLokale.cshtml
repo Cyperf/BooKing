@@ -34,18 +34,18 @@
                 </select>
             </div>
 
-            @if (!string.IsNullOrEmpty(Model.Message))
-            {
-                <p>@Model.Message</p>
-            }
             <label asp-for="MaxGrupperAdGangen" class="control-label"></label>
-            <input asp-for="MaxGrupperAdGangen" class="form-control" />
+            <input asp-for="MaxGrupperAdGangen" value="1" class="form-control" />
             <span asp-validation-for="MaxGrupperAdGangen" class="text-danger"></span>
 
 
             <label asp-for="HarSmartboard" class="control-label"></label>
             <input asp-for="HarSmartboard" type="checkbox">
-            <br />
+
+            @if (!string.IsNullOrEmpty(Model.Message))
+            {
+                <p>@Model.Message</p>
+            }
             <input asp-page-handler="Change" type="submit" value="Færdiggør redigering" class="btn btn-info btn-lg btn-block" />
             <input asp-page-handler="Delete" type="submit" value="Slet lokalet" class="btn btn-info btn-lg btn-block"/>
         </div>

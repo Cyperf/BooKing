@@ -17,6 +17,7 @@ namespace WebApplication1.Pages.OurPages
         public int SkoleId { get; set; }
         [Display(Name = "Max grupper ad gangen")]
         [BindProperty]
+        [Range(1, 100)]
         public int MaxGrupperAdGangen { get; set; }
         [Display(Name = "Har Smartboard")]
         [BindProperty]
