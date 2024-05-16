@@ -28,7 +28,7 @@ namespace WebApplication1.Pages.OurPages
         public IActionResult OnPost()
         {
             
-            return RedirectToPage("/Lokale");
+            return RedirectToPage("/Brugerside");
         }
     }
 }
