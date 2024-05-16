@@ -2,6 +2,18 @@
 @model WebApplication1.Pages.OurPages.BookLokaleModel
 @{
 }
+<head>
+
+    <style>
+
+        .BookButton input{
+            type="color"
+
+
+        }
+ 
+    </style>
+</head>
 
 <h1>Lokale @BookLokaleModel._lokaleId på @BookLokaleModel.Skole</h1>
 
@@ -57,10 +69,10 @@
         <p>@Model.FejlMeddelse</p>
     }
     <div>
-        <input type="submit" asp-page-handler="BookLokale" class="btn-primary" value="Book lokalet" />
+        <input type="submit" asp-page-handler="BookLokale" class="btn btn-warning" role="button" value="Book lokalet" />
         @if (new WebApplication1.Services.LokaleService().Read(BookLokaleModel._lokaleId, BookLokaleModel._skoleId).HarSmartBoard)
         {
-            <input type="submit" asp-page-handler="BookSmartboard" class="btn-primary" value="Book smartboard" />
+            <input type="submit" asp-page-handler="BookSmartboard" class="BookButton" value="Book smartboard" />
         }
     </div>
 </form>
