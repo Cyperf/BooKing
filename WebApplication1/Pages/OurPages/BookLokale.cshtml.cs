@@ -9,10 +9,11 @@ namespace WebApplication1.Pages.OurPages
 {
     public class BookLokaleModel : PageModel
     {
-        [BindProperty] public int NewBookingStartHour { get; set; }
-        [BindProperty] public int NewBookingStartMinute { get; set; }
-        [BindProperty] public int NewBookingEndHour { get; set; } = 2;
+        [BindProperty] public int NewBookingStartHour { get; set; } = BookingService.EarliestAllowedBooking / 60;
+        [BindProperty] public int NewBookingStartMinute { get; set; } = BookingService.EarliestAllowedBooking % 60;
+        [BindProperty] public int NewBookingEndHour { get; set; } = BookingService.MaxBookingLength;
         [BindProperty] public int NewBookingEndMinute { get; set; }
+
 
         public string? FejlMeddelse = null;
 
