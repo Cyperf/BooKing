@@ -2,3 +2,46 @@
 @model WebApplication1.Pages.OurPages.AdminRedigeringAfBrugerModel
 @{
 }
+
+</style>
+<head>
+
+    <title>Liste over alle brugere</title>
+
+</head>
+
+<table class="table table-bordered table-hover table-striped table-opacity" width="60%">
+
+    <tbody>
+        <tr>
+            <td style="width: 250px;">Navn</td>
+            <td style="width: 250px;">Email</td>
+            <td style="width: 250px;">Rolle</td>
+            <td style="width: 250px;">SkoleId</td>
+            <td style="width: 250px;">SletningsDato</td>
+        </tr>
+
+        @foreach(Models.Bruger bruger in Model.brugerService.ReadAll())
+        {
+            <tr>
+                <td style="width: 250px;">@bruger.Navn</td>
+                <td style="width: 250px;">@bruger.Email</td>
+                <td style="width: 250px;">@bruger.Rolle.RolleNavn</td>
+                <td style="width: 250px;">@bruger.SkoleId</td>
+                <td style="width: 250px;">@bruger.SletningsDato</td>
+                <td><a class="nav-link text-dark" asp-area="" asp-page="/OurPages/RedigerBrugerAdmin" asp-route-email="@bruger.Email">
+                    <div class="card" style="width: 100%">
+                            <button class="btn btn-primary">Rediger bruger</button>
+                    </div>
+                </a>
+                </td>
+                <td>
+                    <form id="deleteUserForm" method="post">
+                        <input asp-page-handler="SletBruger" asp-route-email="@bruger.Email" type="submit" value="Slet bruger" class="btn btn-danger">
+                    </form>
+                </td>
+            </tr>
+
+            @* <a href="LogIn" class="btn btn-info" role="button">Link Button</a> Ved ikke hvad det her er så har bare udkommenteret det?*@
+        }
+</table>
