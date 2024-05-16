@@ -26,6 +26,10 @@ namespace WebApplication1.Services
         {
 			AdoNet.ExecuteNonQuery($"UPDATE {_tableName} SET MaxGrupperAfGangen={item.MaxGrupperAdGangen}, HarSmartboard={(item.HarSmartBoard ? 1 : 0)} WHERE Id={item.Id} AND SkoleId={item.SkoleId}");
         }
+        public void Delete(int id, int skoleId)
+        {
+            AdoNet.ExecuteNonQuery($"DELETE FROM {_tableName} WHERE id={id} AND SkoleId={skoleId}");
+        }
 
 
         public override Lokale? Read(int id)

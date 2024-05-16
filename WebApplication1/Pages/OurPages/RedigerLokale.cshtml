@@ -23,25 +23,21 @@
     </form>
     <form method="post">
 
-    <div style="float:left; width:50%;">
         <div>
-            <select name="Id">
-                <option value="-1">Vælg lokale</option>
-                @foreach (var lokale in new WebApplication1.Services.LokaleService().ReadAll($"SkoleId={Model.SkoleId}"))
-                {
-                    <option value="@lokale.Id">@lokale.Id</option>
-                }
-            </select>
-        </div>
+            <div>
+                <select name="Id">
+                    <option value="-1">Vælg lokale</option>
+                    @foreach (var lokale in new WebApplication1.Services.LokaleService().ReadAll($"SkoleId={Model.SkoleId}"))
+                    {
+                        <option value="@lokale.Id">@lokale.Id</option>
+                    }
+                </select>
+            </div>
 
-        @if (!string.IsNullOrEmpty(Model.Message))
-        {
-            <p>@Model.Message</p>
-        }
-        <input asp-page-handler="Change" type="submit" value="Færdiggør redigering" class="btn btn-info btn-lg btn-block" />
-        <input asp-page-handler="Delete" type="submit" value="Slet lokalet" class="btn btn-info btn-lg btn-block"/>
-        </div>
-        <div>
+            @if (!string.IsNullOrEmpty(Model.Message))
+            {
+                <p>@Model.Message</p>
+            }
             <label asp-for="MaxGrupperAdGangen" class="control-label"></label>
             <input asp-for="MaxGrupperAdGangen" class="form-control" />
             <span asp-validation-for="MaxGrupperAdGangen" class="text-danger"></span>
@@ -49,6 +45,9 @@
 
             <label asp-for="HarSmartboard" class="control-label"></label>
             <input asp-for="HarSmartboard" type="checkbox">
+            <br />
+            <input asp-page-handler="Change" type="submit" value="Færdiggør redigering" class="btn btn-info btn-lg btn-block" />
+            <input asp-page-handler="Delete" type="submit" value="Slet lokalet" class="btn btn-info btn-lg btn-block"/>
         </div>
     </form>
 </div>
