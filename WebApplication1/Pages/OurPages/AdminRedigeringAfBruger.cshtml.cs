@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication1.Models;
@@ -16,10 +18,21 @@ namespace WebApplication1.Pages.OurPages
             brugerService = new BrugerService();
         }
 
-        public IActionResult OnPostSletBruger(Bruger bruger)
+        public IActionResult OnPostSletBruger(string email)
         {
-            brugerService.DeleteByEmail(bruger.Email);
+            string authScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            var brugerService = new BrugerService();
+            brugerService.DeleteByEmail(email);
             return Page();
         }
+
+        public IActionResult OnPostRedigerBruger(string email)
+        {
+            string authScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            var brugerService = new BrugerService();
+            brugerService.DeleteByEmail(email);
+            return RedirectToPage("RedigerBrugerAdmin");
+        }
+
     }
 }

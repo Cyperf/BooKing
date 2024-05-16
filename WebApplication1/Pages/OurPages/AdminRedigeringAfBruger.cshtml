@@ -29,10 +29,19 @@
                 <td style="width: 250px;">@bruger.Rolle.RolleNavn</td>
                 <td style="width: 250px;">@bruger.SkoleId</td>
                 <td style="width: 250px;">@bruger.SletningsDato</td>
-                <td><button class="btn btn-primary" asp-page-handler="RedigerBruger" type="submit" asp-route-itemTypeFilter="">Rediger</button></td>
-                <td><button class="btn btn-primary" asp-page-handler="SletBruger" type="submit">Slet Bruger</button></td>
+                <td><a class="nav-link text-dark" asp-area="" asp-page="/OurPages/RedigerBrugerAdmin" asp-route-email="@bruger.Email">
+                    <div class="card" style="width: 100%">
+                            <button class="btn btn-primary">Rediger bruger</button>
+                    </div>
+                </a>
+                </td>
+                <td>
+                    <form id="deleteUserForm" method="post">
+                        <input asp-page-handler="SletBruger" asp-route-email="@bruger.Email" type="submit" value="Slet bruger" class="btn btn-danger">
+                    </form>
+                </td>
             </tr>
 
-
+            @* <a href="LogIn" class="btn btn-info" role="button">Link Button</a> Ved ikke hvad det her er så har bare udkommenteret det?*@
         }
 </table>
