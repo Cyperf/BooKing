@@ -17,6 +17,7 @@ namespace WebApplication1.Pages.OurPages
         public int SkoleId { get; set; }
         [Display(Name = "Max grupper ad gangen")]
         [BindProperty]
+        [Range(1, 100)]
         public int MaxGrupperAdGangen { get; set; }
         [Display(Name = "Har Smartboard")]
         [BindProperty]
@@ -48,7 +49,6 @@ namespace WebApplication1.Pages.OurPages
 
         public IActionResult OnPostChange()
         {
-            System.Diagnostics.Debug.WriteLine("\n\n" + Id + " : " + SkoleId + " -> " +  MaxGrupperAdGangen + " -> " + HarSmartboard + "\n\n");
             // make sure we picked a valid room
             LokaleService lokaleService = new LokaleService();
             if (lokaleService.Read(Id, SkoleId) == null)
@@ -69,8 +69,9 @@ namespace WebApplication1.Pages.OurPages
                 Message = "Lokalet kunne ikke findes";
                 return Page();
             }
+            lokaleService.Delete(Id, SkoleId);
 
-            Message = "Lokalet blev redigeret";
+            Message = "Lokalet blev slettet";
             return Page();
         }
     }
