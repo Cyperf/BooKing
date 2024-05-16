@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color: #FFF387;">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-page="/Index">Boo King Zealand</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -27,7 +27,10 @@
                         </li>
                     </ul>
                 </div>
-                <a class="nav-link text-dark" asp-area="" asp-page="/ourpages/logout">Log Ud</a>
+                @if (WebApplication1.Services.LoginManager.LoggedInUser != null)
+                {
+                    <a class="nav-link text-dark" asp-area="" asp-page="/ourpages/logout">Log Ud</a>
+                }
             </div>
         </nav>
     </header>

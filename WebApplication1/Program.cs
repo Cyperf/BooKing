@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Options;
 using WebApplication1.Services;
+using WebApplication1.SQL;
 
 WebApplication1.SQL.AdoNet.Init();
 //new BookingTypeRepository().Create(new WebApplication1.Models.BookingType("Lokale"));
@@ -31,7 +32,6 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 {
     options.MinimumSameSitePolicy = SameSiteMode.None;
 });
-
 
 string authScheme = CookieAuthenticationDefaults.AuthenticationScheme;
 builder.Services.AddAuthentication(authScheme).AddCookie(options =>
