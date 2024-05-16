@@ -37,6 +37,9 @@ h2 {
             position: fixed;
             bottom: 20%
         }
+
+        .Adgangskode p{
+        }
     </style>
 </head>
 
@@ -53,19 +56,35 @@ h2 {
                    <td>@WebApplication1.Services.LoginManager.LoggedInUser.Rolle.RolleNavn</td>
             </tr>
              <tr>
-               <th>Skole</th>
+               <th>Skole</th> 
                     @{string skole = new WebApplication1.Services.SkoleService().Read(WebApplication1.Services.LoginManager.LoggedInUser.SkoleId).Location;
-                <td>@skole</td>
-            }
-            </tr>
+                        <td>@skole</td>
+                     }
+
+                </tr>
           </table>
+            <p class="Adgangskode"><a class="btn btn-primary" href="RedigerBruger" role="button">Ændre Adgangskode</a></p>
      </div>
         <div>
     <table>
+        @{
+            var myBookings = new WebApplication1.Services.BookingService().ReadAll($"BrugerEmail='{WebApplication1.Services.LoginManager.LoggedInUser.Email}'");
+        
         <tr>
-            <th>Mine Bookinger</th>
+                    <th>Mine Bookinger</th>
+                        @if (myBookings.Count() != 0)
+                        {
+                            <th></th>
+                            <th></th>
+                            
+                        }
+                    <th>
+                        <form action="Booking">
+                            <input class="btn btn-primary" type="submit" role="button" value="Book et lokale" />
+                        </form>
+                    </th>
         </tr>
-        @foreach (var booking in new WebApplication1.Services.BookingService().ReadAll($"BrugerEmail='{WebApplication1.Services.LoginManager.LoggedInUser.Email}'"))
+                    @foreach (var booking in myBookings)
         {
             <tr>
                 <td>@booking.LokaleId</td>
@@ -78,6 +97,7 @@ h2 {
                 </th>
             </tr>
         }
+        }
     </table>
        </div>
     </div>
@@ -88,12 +108,6 @@ h2 {
     <div>
                @if (LogInModel.LoggedInBruger.Rolle.RolleNavn == "studerende")
                {
-                <form action="Booking">
-                    <input class="btn btn-primary" type="submit" role="button" value="Book et lokale" />
-                </form>
-                <br />
-
-                <p><a class="btn btn-primary" href="RedigerBruger" role="button">Ændre Adgangskode</a></p>
 
 }
     </div>
@@ -109,10 +123,7 @@ h2 {
             <p><a class="btn btn-primary" href="RedigerBruger" role="button">Ændre Adgangskode</a></p>
 
             <p><a class="btn btn-primary" href="Rediger Lokale" role="button">Rediger Lokale</a></p>
-            
-            <form action="Booking">
-                <input class="btn btn-primary" type="submit" role="button" value="Book et lokale" />
-            </form>
+                
         }
     </div>
 
