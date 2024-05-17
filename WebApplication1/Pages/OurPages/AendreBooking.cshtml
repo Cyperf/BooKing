@@ -9,7 +9,11 @@
         <p>Min booking starter:</p>
         <p><input asp-for="StartTidHour" />:<input asp-for="StartTidMin" /></p>
         <p>Min booking varer:</p>
-        <p><input asp-for="StartTidHour" />timer og <input asp-for="StartTidMin" /> minutter</p>
-        <input class="btn btn-warning" type="submit" asp-page="AendreBooking" />
+        <p><input asp-for="EndTidHour" />timer og <input asp-for="EndTidMin" /> minutter</p>
+        @if (!string.IsNullOrEmpty(Model.Message))
+        {
+            <p>@Model.Message</p>
+        }
+        <input class="btn btn-warning" type="submit" asp-route-bookingId="@Model.BookingId" value="Færdiggør ændring" />
     </form>
 </div>
