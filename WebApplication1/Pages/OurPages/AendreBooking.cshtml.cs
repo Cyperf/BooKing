@@ -28,7 +28,7 @@ namespace WebApplication1.Pages.OurPages
         public int EndTidMin { get; set; }
         public IActionResult OnGet(int bookingId)
         {
-            System.Diagnostics.Debug.WriteLine("\n" + bookingId + "\n");
+            System.Diagnostics.Debug.WriteLine("\nBooking id: " + bookingId + "\n");
             SelectedBooking = new Services.BookingService().Read(bookingId);
             if (SelectedBooking == null)
                 return RedirectToPage("BrugerSide");
