@@ -70,12 +70,15 @@ h2 {
                <th>Skole</th> 
                     @{string skole = new WebApplication1.Services.SkoleService().Read(WebApplication1.Services.LoginManager.LoggedInUser.SkoleId).Location;
                         <td>@skole</td>
-                     }
+                    }
 
                 </tr>
-          </table>
-          <br />
-            <p><a class="btn btn-warning" href="RedigerBruger" role="button">Ændre Adgangskode</a></p>
+            </table>
+            <br />
+            @if (LogInModel.LoggedInBruger.Rolle.RolleNavn == "student")
+            {
+                <p><a class="btn btn-warning" href="RedigerBruger" role="button">Ændre Adgangskode</a></p>
+            }
      </div>
         <div>
     <table style="position:center; min-width:50%;">
