@@ -88,33 +88,42 @@
         @{
             var myBookings = new WebApplication1.Services.BookingService().ReadAll($"BrugerEmail='{WebApplication1.Services.LoginManager.LoggedInUser.Email}'");
         
-        <tr>
+            <tr>
                     <th>Mine Bookinger</th>
-                        @if (myBookings.Count() != 0)
-                        {
-                            <th></th>
-                            <th></th>
-                            
-                        }
+                        @* @if (myBookings.Count() != 0)
+                         {
+                             <th></th>
+                             <th></th>
+                             <th></th>
+                             <th></th>
+                             <th></th>
+                         }*@
                     <th>
                         <form action="Booking">
                             <input class="btn btn-warning" type="submit" role="button" value="Book et lokale" />
                         </form>
                     </th>
-        </tr>
-                    @foreach (var booking in myBookings)
-        {
-            <tr>
-                <td>@booking.LokaleId</td>
-                <td>@booking.Dato</td>
-                <td>@booking.BookingType.Type</td>
-                <th>
-                    <form method="post" asp-page-handler="DeleteBooking" asp-route-bookingId="@booking.Id">
-                        <button class="Button1" type="submit">Delete</button>
-                    </form>
-                </th>
             </tr>
-        }
+                @foreach (var booking in myBookings)
+                {
+                    <tr>
+                        <td>@booking.LokaleId</td>
+                        <td>@booking.Dato</td>
+                        <td>@(booking.TidFra / 60):@(booking.TidFra % 60)</td>
+                        <td>@(booking.TidTil / 60):@(booking.TidTil % 60)</td>
+                        <td>@booking.BookingType.Type</td>
+                        <th>
+                            <form method="post" asp-page-handler="DeleteBooking" asp-route-bookingId="@booking.Id">
+                                <button class="Button1" type="submit">Delete</button>
+                            </form>
+                            </th>
+                            <th>
+                                <form method="get" asp-page="AendreBookingBooking" asp-route-bookingId="@booking.Id">
+                                    <button class="Button1" type="submit">Ændre</button>
+                                </form>
+                            </th>
+                    </tr>
+                }
         }
     </table>
        </div>
