@@ -7,9 +7,12 @@
 
 <head>
 <style>
-h2 {
-  text-align: center;
-}
+    .adminButtons {
+        padding: 10px;
+    }
+    h2 {
+      text-align: center;
+    }
 </style>
 </head>
 <body>
@@ -118,37 +121,35 @@ h2 {
     </div>
 </body>
 <br />
-@* <div class="ButtonContainer">
-
-    <div>
-               @if (LogInModel.LoggedInBruger.Rolle.RolleNavn == "studerende")
-               {
-
-}
-    </div> *@
-    
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <hr />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<hr />
 
 @if(LogInModel.LoggedInBruger.Rolle.RolleNavn == "Admin")
 {
-    <p><a class="btn btn-warning" href="OpretBrugerKonto" role="button">Opret Bruger</a></p>
+    <h2>Admin privilegier</h2>
+    <div style="display:flex; width:100%; align-content: flex-start; align-items:center; border-top:solid; border-block-width:1px; border-color:gray;">
 
-    <p><a class="btn btn-warning" href="OpretLokaler" role="button">Opret Lokaler</a></p>
+        <p class="adminButtons"><a class="btn btn-warning" href="OpretBrugerKonto" role="button">Opret Bruger</a></p>
 
-    <p><a class="btn btn-warning" href="RedigerBruger" role="button">Ændre Adgangskode</a></p>
+        <p class="adminButtons"><a class="btn btn-warning" href="OpretLokaler" role="button">Opret Lokaler</a></p>
 
-    <p><a class="btn btn-warning" href="RedigerLokale" role="button">Rediger Lokale</a></p>
-    <p><a class="btn btn-warning" href="AdminRedigeringAfBruger" role="button">Rediger anden Konto</a></p>
+        <p class="adminButtons"><a class="btn btn-warning" href="RedigerLokale" role="button">Rediger Lokale</a></p>
+
+        <p class="adminButtons"><a class="btn btn-warning" href="AdminRedigeringAfBruger" role="button">Rediger anden Konto</a></p>
+
+        <p class="adminButtons"><a class="btn btn-warning" href="AdminSletBookning" role="button">Slet en anden brugers booking</a></p>
+    </div>
+
                 
-        }
-@if (LogInModel.LoggedInBruger.Rolle.DagesVarselIndenOverskrivelse != null)
+}
+else if (LogInModel.LoggedInBruger.Rolle.DagesVarselIndenOverskrivelse != null)
 {
-    <p><a class="btn btn-warning" href="AdminSletBookning" role="button">Slet en anden bruger booking</a></p>
+    <h2>Rolle privilegier</h2>
+    <p class="adminButtons"><a class="btn btn-warning" href="AdminSletBookning" role="button">Slet en anden brugers booking</a></p>
 }
 
