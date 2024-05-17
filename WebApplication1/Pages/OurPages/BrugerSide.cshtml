@@ -105,32 +105,31 @@
                     </th>
         </tr>
                     @foreach (var booking in myBookings)
-        {
-            <tr>
-                <td>@booking.LokaleId</td>
-                <td>@booking.Dato</td>
-                <td>@booking.BookingType.Type</td>
-                <th>
-                                <form id="deleteForm" method="post" asp-page-handler="DeleteBooking" asp-route-bookingId="@booking.Id">
-                                    <button class="Button1" type="button" onclick="confirmDelete()">Slet Booking</button>
-                                </form>
+                    {
+                        <tr>
+                            <td>@booking.LokaleId</td>
+                            <td>@booking.Dato</td>
+                            <td>@booking.BookingType.Type</td>
+                            <th>
+                                            <form id="deleteForm" method="post" asp-page-handler="DeleteBooking" asp-route-bookingId="@booking.Id">
+                                                <button class="Button1" type="button" onclick="confirmDelete()">Slet Booking</button>
+                                            </form>
 
-                                <script>
-                                    function confirmDelete() {
-                                        if (confirm("Er du sikker på, at du gerne vil slette booking?")) {
+                                            <script>
+                                                function confirmDelete() {
+                                                    if (confirm("Er du sikker på, at du gerne vil slette booking?")) {
                                             
-                                            document.getElementById("deleteForm").submit();
-                                        } else {
+                                                        document.getElementById("deleteForm").submit();
+                                                    } else {
                                             
-                                            return false;
-                                        }
-                                    }
-                                </script>
+                                                        return false;
+                                                    }
+                                                }
+                                            </script>
 
-                </th>
-            </tr>
-        }
-            </tr>
+                            </th>
+                        </tr>
+                    }
                 @foreach (var booking in myBookings)
                 {
                     <tr>
