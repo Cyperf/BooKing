@@ -103,6 +103,33 @@
                             <input class="btn btn-warning" type="submit" role="button" value="Book et lokale" />
                         </form>
                     </th>
+        </tr>
+                    @foreach (var booking in myBookings)
+        {
+            <tr>
+                <td>@booking.LokaleId</td>
+                <td>@booking.Dato</td>
+                <td>@booking.BookingType.Type</td>
+                <th>
+                                <form id="deleteForm" method="post" asp-page-handler="DeleteBooking" asp-route-bookingId="@booking.Id">
+                                    <button class="Button1" type="button" onclick="confirmDelete()">Slet Booking</button>
+                                </form>
+
+                                <script>
+                                    function confirmDelete() {
+                                        if (confirm("Er du sikker på, at du gerne vil slette booking?")) {
+                                            
+                                            document.getElementById("deleteForm").submit();
+                                        } else {
+                                            
+                                            return false;
+                                        }
+                                    }
+                                </script>
+
+                </th>
+            </tr>
+        }
             </tr>
                 @foreach (var booking in myBookings)
                 {
@@ -129,9 +156,12 @@
                             </script>
                             </th>
                             <th>
-                                <form method="get" asp-page="AendreBookingBooking" asp-route-bookingId="@booking.Id">
-                                    <button class="Button1" type="submit">Ændre</button>
-                                </form>
+                                <form method="get" style="display:flex; justify-content: center; align-items:center;">
+                                    <a href="AendreBooking?bookingId=@booking.Id" style="padding:0px; margin:0px;border:0px;"><p class="btn btn-warning Button1" style="padding:5px; margin:0px;">Ændre</p></a>
+                                        
+                                     @*<input asp-page="AendreBooking" asp-page-handler="" asp-route-bookingId="@booking.Id" class="Button1" type="submit" value="Ændre">*@
+                                    
+                                    </form>
                             </th>
                     </tr>
                 }
