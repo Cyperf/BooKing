@@ -25,6 +25,17 @@
                                             <div class="col-md-7 mb-4 pb-2">
 
                                                 <div class="form-outline form-group form-white">
+                                                    <label asp-for="Navn" class="control-label"></label>
+                                                    <input asp-for="Navn" class="form-control" required />
+                                                    <span asp-validation-for="Navn" class="text-danger"></span>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-7 mb-4 pb-2">
+
+                                                <div class="form-outline form-group form-white">
                                                     <label asp-for="Kodeord" class="control-label"></label>
                                                     <input asp-for="Kodeord" type="password" class="form-control" required />
                                                     <span asp-validation-for="Kodeord" class="text-danger"></span>
@@ -45,7 +56,54 @@
 
                                             </div>
 
-                                            <input type="submit" value="Add" class="btn btn-info btn-lg btn-block" name="Ændring af kode" />
+                                            <div class="col-md-7 mb-4 pb-2">
+
+                                                <div class="form-outline form-group form-white">
+                                                    <label asp-for="Email" class="control-label"></label>
+                                                    <input asp-for="Email" class="form-control" />
+                                                    <span asp-validation-for="Email" class="text-danger"></span>
+
+                                                </div>
+
+                                            </div>
+
+                                            <div style="float: right; width=100%;">
+
+                                                @* <div class="col-md-7 mb-4 pb-2"> *@
+                                                <br />
+                                                <div class="form-outline form-group form-white">
+                                                    <select name="Rolle">
+                                                        <option value="10">Vælg en Rolle</option>
+                                                        @foreach (Models.BrugerRolle Rolle in Model.alleBrugerRoller)
+                                                        {
+                                                            <option value="@Rolle.Id">@Rolle.RolleNavn</option>
+                                                        }
+                                                    </select>
+                                                </div>
+
+                                                @* </div> *@
+                                                <br />
+                                                <div class="form-outline form-group form-white">
+
+                                                    <select name="SkoleId">
+                                                        <option value="10">Vælg en skole</option>
+                                                        @foreach (Models.Skole Skole in Model.AlleSkoler)
+                                                        {
+                                                            <option value="@Skole.Id">@Skole.Location</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                           
+                                                @* <div class="col-md-7 mb-4 pb-2"> *@
+                                                <br />
+                                                <div class="form-outline form-group form-white">
+                                                    <label asp-for="SletningsDato" class="control-label"></label>
+                                                    <input asp-for="SletningsDato" type="date" class="form-control" />
+                                                    <span asp-validation-for="SletningsDato" class="text-danger"></span>
+
+                                                </div>
+
+                                            <input type="submit" class="btn btn-info btn-lg btn-block" name="Ændring af bruger" />
                                             @if (!string.IsNullOrEmpty(Model.Message))
                                             {
                                                 <li class="nav-item error-message">@Model.Message</li>
