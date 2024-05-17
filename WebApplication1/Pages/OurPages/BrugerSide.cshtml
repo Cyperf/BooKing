@@ -113,9 +113,20 @@
                         <td>@(booking.TidTil / 60):@(booking.TidTil % 60)</td>
                         <td>@booking.BookingType.Type</td>
                         <th>
-                            <form method="post" asp-page-handler="DeleteBooking" asp-route-bookingId="@booking.Id">
+                            <form id="deleteForm" method="post" asp-page-handler="DeleteBooking" asp-route-bookingId="@booking.Id">
                                 <button class="Button1" type="submit">Delete</button>
                             </form>
+                            <script>
+                                function confirmDelete() {
+                                    if (confirm("Er du sikker på, at du gerne vil slette booking?")) {
+            
+                                        document.getElementById("deleteForm").submit();
+                                    } else {
+            
+                                        return false;
+                                    }
+                                }
+                            </script>
                             </th>
                             <th>
                                 <form method="get" asp-page="AendreBookingBooking" asp-route-bookingId="@booking.Id">
