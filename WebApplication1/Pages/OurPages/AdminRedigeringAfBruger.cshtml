@@ -39,9 +39,18 @@
                     <form id="deleteUserForm" method="post">
                         <input asp-page-handler="SletBruger" asp-route-email="@bruger.Email" type="submit" value="Slet bruger" class="btn btn-danger">
                     </form>
+                    <script>
+                        function bekræftSletBruger() {
+                            if (confirm("Er du sikker på, at du vil slette din konto?")) {
+                                document.getElementById("deleteUserForm").submit();
+                            }
+                        }
+                    </script>
                 </td>
             </tr>
 
             @* <a href="LogIn" class="btn btn-info" role="button">Link Button</a> Ved ikke hvad det her er så har bare udkommenteret det?*@
         }
 </table>
+
+        

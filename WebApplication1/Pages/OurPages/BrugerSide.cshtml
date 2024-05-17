@@ -7,9 +7,12 @@
 
 <head>
 <style>
-h2 {
-  text-align: center;
-}
+    .adminButtons {
+        padding: 10px;
+    }
+    h2 {
+      text-align: center;
+    }
 </style>
 </head>
 <body>
@@ -23,12 +26,15 @@ h2 {
     <style>
         table, th, td {
             border: 1px solid;
-            margin-left: auto;
-            margin-right: auto;
+            align-content:center;
+            padding: 5px;
+/*             margin-left: auto;
+            margin-right: auto; */
         }
 
         .TableContainer div{
-            width: 35%;
+            width: 35% ;
+            align-items: center;
             float: inline-start;
         }
 
@@ -40,6 +46,14 @@ h2 {
 
         .Adgangskode p{
         }
+
+        .Button1{
+
+            background-color: lightyellow;
+            color: black;
+            border: 2px solid #fff387;
+        }
+
     </style>
 </head>
 
@@ -59,14 +73,18 @@ h2 {
                <th>Skole</th> 
                     @{string skole = new WebApplication1.Services.SkoleService().Read(WebApplication1.Services.LoginManager.LoggedInUser.SkoleId).Location;
                         <td>@skole</td>
-                     }
+                    }
 
                 </tr>
-          </table>
-            <p class="Adgangskode"><a class="btn btn-primary" href="RedigerBruger" role="button">Ændre Adgangskode</a></p>
+            </table>
+            <br />
+            @* @if (LogInModel.LoggedInBruger.Rolle.RolleNavn == "studerende")
+            { *@
+                <p><a class="btn btn-warning" href="RedigerBruger" role="button">Ændre Adgangskode</a></p>
+            @* } *@
      </div>
         <div>
-    <table>
+    <table style="position:center; min-width:50%;">
         @{
             var myBookings = new WebApplication1.Services.BookingService().ReadAll($"BrugerEmail='{WebApplication1.Services.LoginManager.LoggedInUser.Email}'");
         
@@ -80,7 +98,7 @@ h2 {
                         }
                     <th>
                         <form action="Booking">
-                            <input class="btn btn-primary" type="submit" role="button" value="Book et lokale" />
+                            <input class="btn btn-warning" type="submit" role="button" value="Book et lokale" />
                         </form>
                     </th>
         </tr>
@@ -91,9 +109,22 @@ h2 {
                 <td>@booking.Dato</td>
                 <td>@booking.BookingType.Type</td>
                 <th>
-                    <form method="post" asp-page-handler="DeleteBooking" asp-route-bookingId="@booking.Id">
-                        <button type="submit">Delete</button>
-                    </form>
+                                <form id="deleteForm" method="post" asp-page-handler="DeleteBooking" asp-route-bookingId="@booking.Id">
+                                    <button class="Button1" type="button" onclick="confirmDelete()">Delete</button>
+                                </form>
+
+                                <script>
+                                    function confirmDelete() {
+                                        if (confirm("Er du sikker på, at du gerne vil slette booking?")) {
+                                            
+                                            document.getElementById("deleteForm").submit();
+                                        } else {
+                                            
+                                            return false;
+                                        }
+                                    }
+                                </script>
+
                 </th>
             </tr>
         }
@@ -103,32 +134,37 @@ h2 {
     </div>
 </body>
 <br />
-<div class="ButtonContainer">
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<hr />
 
-    <div>
-               @if (LogInModel.LoggedInBruger.Rolle.RolleNavn == "studerende")
-               {
+@if(LogInModel.LoggedInBruger.Rolle.RolleNavn == "admin")
+{
+    <h2>Admin privilegier</h2>
+    @* <hr /> *@
+    <div style="display:flex; width:100%; align-content: flex-start; align-items:center;">
 
+        <p class="adminButtons"><a class="btn btn-warning" href="OpretBrugerKonto" role="button">Opret Bruger</a></p>
+
+        <p class="adminButtons"><a class="btn btn-warning" href="OpretLokaler" role="button">Opret Lokaler</a></p>
+
+        <p class="adminButtons"><a class="btn btn-warning" href="RedigerLokale" role="button">Rediger Lokale</a></p>
+
+        <p class="adminButtons"><a class="btn btn-warning" href="AdminRedigeringAfBruger" role="button">Rediger anden Konto</a></p>
+
+        <p class="adminButtons"><a class="btn btn-warning" href="AdminSletBookning" role="button">Slet en anden brugers booking</a></p>
+    </div>
+
+                
 }
-    </div>
-    <br />
-    <br />
-    <div>
-        @if(LogInModel.LoggedInBruger.Rolle.RolleNavn == "admin")
-        {
-            <p><a class="btn btn-primary" href="OpretBrugerKonto" role="button">Opret Bruger</a></p>
+else if (LogInModel.LoggedInBruger.Rolle.DagesVarselIndenOverskrivelse != null)
+{
+    <h2>Rolle privilegier</h2>
+    @* <hr /> *@
+    <p class="adminButtons"><a class="btn btn-warning" href="AdminSletBookning" role="button">Slet en anden brugers booking</a></p>
+}
 
-            <p><a class="btn btn-primary" href="OpretLokaler" role="button">Opret Lokaler</a></p>
-
-            <p><a class="btn btn-primary" href="RedigerBruger" role="button">Ændre Adgangskode</a></p>
-
-            <p><a class="btn btn-primary" href="Rediger Lokale" role="button">Rediger Lokale</a></p>
-
-            <p><a class="btn btn-primary" href="AdminRedigeringAfBruger" role="button">Rediger anden Konto</a></p>
-        }
-    </div>
-
-
-
-
-</div>
