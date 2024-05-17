@@ -37,8 +37,8 @@ namespace WebApplication1.Pages.OurPages
         public DateOnly SletningsDato { get; set; }
         [BindProperty]
         public string Message { get; set; }
-        [BindProperty]
-        public string GammelEmail { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public string GammelEmail { get; set; } 
 
 
         public void OnGet(string email = "")
@@ -62,22 +62,28 @@ namespace WebApplication1.Pages.OurPages
 
             Debug.WriteLine($"GammelEmail: {GammelEmail} STOP");
         }
-        public IActionResult OnPost()
+        public void OnPost()
         {
             //_bruger = _brugerService.Read(GammelEmail);
-            Debug.WriteLine($"GammelEmail: {GammelEmail} STOP");
+            Debug.WriteLine($"GammelEmail: {GammelEmail} STOP ");
             Debug.WriteLine("\n2\n\n" + _bruger + " \nEmail: "  );
             if (GentagKodeord == Kodeord)
             {
                 _bruger.Kodeord = Kodeord;
+                _bruger.Navn = Navn;
+                _bruger.Email = Email;
+                _bruger.Kodeord = Kodeord;
+                _bruger.Rolle = new BrugerRolleService().Read(Rolle);
+                _bruger.SkoleId = SkoleId;
+                _bruger.SletningsDato = SletningsDato;
                 _brugerService.AdminUpdate(_bruger, GammelEmail);
                 Message = $"Kode skiftet {_bruger.Email}";
-                return Page();
+                //return Page();
             }
             else
             {
                 Message = $"Kodeord matcher ikke{_bruger.Email}";
-                return Page();
+                //return Page();
             }
         }
     }
