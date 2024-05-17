@@ -78,10 +78,10 @@
                 </tr>
             </table>
             <br />
-            @if (LogInModel.LoggedInBruger.Rolle.RolleNavn == "Studerende")
-            {
+            @* @if (LogInModel.LoggedInBruger.Rolle.RolleNavn == "studerende")
+            { *@
                 <p><a class="btn btn-warning" href="RedigerBruger" role="button">Ændre Adgangskode</a></p>
-            }
+            @* } *@
      </div>
         <div>
     <table style="position:center; min-width:50%;">
@@ -132,7 +132,8 @@
 @if(LogInModel.LoggedInBruger.Rolle.RolleNavn == "admin")
 {
     <h2>Admin privilegier</h2>
-    <div style="display:flex; width:100%; align-content: flex-start; align-items:center; border-top:solid; border-block-width:1px; border-color:gray;">
+    @* <hr /> *@
+    <div style="display:flex; width:100%; align-content: flex-start; align-items:center;">
 
         <p class="adminButtons"><a class="btn btn-warning" href="OpretBrugerKonto" role="button">Opret Bruger</a></p>
 
@@ -150,6 +151,7 @@
 else if (LogInModel.LoggedInBruger.Rolle.DagesVarselIndenOverskrivelse != null)
 {
     <h2>Rolle privilegier</h2>
+    @* <hr /> *@
     <p class="adminButtons"><a class="btn btn-warning" href="AdminSletBookning" role="button">Slet en anden brugers booking</a></p>
 }
 
