@@ -54,6 +54,19 @@ namespace WebApplication1.Services
                 $" WHERE Email = '{item.Email}';");
         }
 
+        public void AdminUpdate(Bruger item, string gammelEmail)
+        {
+            AdoNet.ExecuteNonQuery($"UPDATE {_tableName} " +
+                $"SET Kode = '{LoginManager.HashPassword(item.Email, item.Kodeord)}'," +
+                $" Navn = '{item.Navn}'," +
+                $" Email = '{item.Email}'," +
+                $" Rolle = '{item.Rolle.Id}'," +
+                $" Skole = '{item.SkoleId}'," +
+                $" SletningsDato = '{item.SletningsDato}'," +
+                $" WHERE Email = '{gammelEmail}';");
+
+        }
+
         public void CleanOldAccounts()
         {
             DateOnly currentDay = DateOnly.FromDateTime(DateTime.Now);
