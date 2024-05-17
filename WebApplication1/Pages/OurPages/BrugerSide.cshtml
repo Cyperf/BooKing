@@ -40,7 +40,7 @@
 
         .ButtonContainer div{
 
-            position: fixed;
+            position:page;
             bottom: 20%
         }
 
@@ -58,6 +58,8 @@
 </head>
 
 <body>
+    @{
+        var myBookings = new WebApplication1.Services.BookingService().ReadAll($"BrugerEmail='{WebApplication1.Services.LoginManager.LoggedInUser.Email}'");
   <div class="TableContainer">
      <div>
          <table>
@@ -84,9 +86,9 @@
             @* } *@
      </div>
         <div>
+        
+            
     <table style="position:center; min-width:50%;">
-        @{
-            var myBookings = new WebApplication1.Services.BookingService().ReadAll($"BrugerEmail='{WebApplication1.Services.LoginManager.LoggedInUser.Email}'");
         
             <tr>
                     <th>Mine Bookinger</th>
@@ -103,33 +105,7 @@
                             <input class="btn btn-warning" type="submit" role="button" value="Book et lokale" />
                         </form>
                     </th>
-        </tr>
-                    @foreach (var booking in myBookings)
-                    {
-                        <tr>
-                            <td>@booking.LokaleId</td>
-                            <td>@booking.Dato</td>
-                            <td>@booking.BookingType.Type</td>
-                            <th>
-                                            <form id="deleteForm" method="post" asp-page-handler="DeleteBooking" asp-route-bookingId="@booking.Id">
-                                                <button class="Button1" type="button" onclick="confirmDelete()">Slet Booking</button>
-                                            </form>
-
-                                            <script>
-                                                function confirmDelete() {
-                                                    if (confirm("Er du sikker på, at du gerne vil slette booking?")) {
-                                            
-                                                        document.getElementById("deleteForm").submit();
-                                                    } else {
-                                            
-                                                        return false;
-                                                    }
-                                                }
-                                            </script>
-
-                            </th>
-                        </tr>
-                    }
+            </tr>
                 @foreach (var booking in myBookings)
                 {
                     <tr>
@@ -164,43 +140,50 @@
                             </th>
                     </tr>
                 }
-        }
     </table>
        </div>
-    </div>
-</body>
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<hr />
+        </div>
+        int brs = myBookings.Count() * 2 + 3;
+        brs = (brs < 7 ? 7 : brs);
+        @for (int i = 0; i < brs; i++)
+        {
+            <br />
+        }
+    }
+    <div style="position:relative;">
+        @if(LogInModel.LoggedInBruger.Rolle.RolleNavn == "admin")
+        {
+            <div style="width:100%;">
+                <hr />
+                <h2>Admin privilegier</h2>
+                <div style="display:flex; width:100%; align-content: flex-start; align-items:center;">
 
-@if(LogInModel.LoggedInBruger.Rolle.RolleNavn == "admin")
-{
-    <h2>Admin privilegier</h2>
-    @* <hr /> *@
-    <div style="display:flex; width:100%; align-content: flex-start; align-items:center;">
+                    <p class="adminButtons"><a class="btn btn-warning" href="OpretBrugerKonto" role="button">Opret Bruger</a></p>
 
-        <p class="adminButtons"><a class="btn btn-warning" href="OpretBrugerKonto" role="button">Opret Bruger</a></p>
+                    <p class="adminButtons"><a class="btn btn-warning" href="OpretLokaler" role="button">Opret Lokaler</a></p>
 
-        <p class="adminButtons"><a class="btn btn-warning" href="OpretLokaler" role="button">Opret Lokaler</a></p>
+                    <p class="adminButtons"><a class="btn btn-warning" href="RedigerLokale" role="button">Rediger Lokale</a></p>
 
-        <p class="adminButtons"><a class="btn btn-warning" href="RedigerLokale" role="button">Rediger Lokale</a></p>
+                    <p class="adminButtons"><a class="btn btn-warning" href="AdminRedigeringAfBruger" role="button">Rediger anden Konto</a></p>
 
-        <p class="adminButtons"><a class="btn btn-warning" href="AdminRedigeringAfBruger" role="button">Rediger anden Konto</a></p>
+                    <p class="adminButtons"><a class="btn btn-warning" href="AdminSletBookning" role="button">Slet en anden brugers booking</a></p>
+                    </div>
 
-        <p class="adminButtons"><a class="btn btn-warning" href="AdminSletBookning" role="button">Slet en anden brugers booking</a></p>
-    </div>
+            </div>
 
                 
-}
-else if (LogInModel.LoggedInBruger.Rolle.DagesVarselIndenOverskrivelse != null)
-{
-    <h2>Rolle privilegier</h2>
-    @* <hr /> *@
-    <p class="adminButtons"><a class="btn btn-warning" href="AdminSletBookning" role="button">Slet en anden brugers booking</a></p>
-}
+        }
+        else if (LogInModel.LoggedInBruger.Rolle.DagesVarselIndenOverskrivelse != null)
+        {
+            <div style="width:100%;">
+                <hr />
+                <h2>Rolle privilegier</h2>
+                <div style="display:flex; align-content: flex-start; align-items:center;">
+                @* <hr /> *@
+                <p class="adminButtons"><a class="btn btn-warning" href="AdminSletBookning" role="button">Slet en anden brugers booking</a></p>
+                </div>
+            </div>
+        }
+    </div>
 
+</body>
