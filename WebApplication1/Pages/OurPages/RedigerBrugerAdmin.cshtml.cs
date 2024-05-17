@@ -37,8 +37,10 @@ namespace WebApplication1.Pages.OurPages
         public DateOnly SletningsDato { get; set; }
         [BindProperty]
         public string Message { get; set; }
-        [BindProperty(SupportsGet = true)]
-        public string GammelEmail { get; set; } 
+
+        [BindProperty]
+        public string GammelEmail { get; set; }
+        
 
 
         public void OnGet(string email = "")

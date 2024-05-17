@@ -102,8 +102,9 @@
                                                     <span asp-validation-for="SletningsDato" class="text-danger"></span>
 
                                                 </div>
-
+                                            <form method="post">
                                             <input type="submit" class="btn btn-info btn-lg btn-block" name="Ændring af bruger" />
+                                                </form>
                                             @if (!string.IsNullOrEmpty(Model.Message))
                                             {
                                                 <li class="nav-item error-message">@Model.Message</li>
