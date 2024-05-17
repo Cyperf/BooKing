@@ -1,0 +1,15 @@
+﻿@page
+@model WebApplication1.Pages.OurPages.AendreBookingModel
+@{
+}
+<h1>Ændre booking af lokale @Model.LokaleNummer på dagen @Model.Dato</h1>
+
+<div>
+    <form method="post">
+        <p>Min booking starter:</p>
+        <p><input asp-for="StartTidHour" />:<input asp-for="StartTidMin" /></p>
+        <p>Min booking varer:</p>
+        <p><input asp-for="StartTidHour" />timer og <input asp-for="StartTidMin" /> minutter</p>
+        <input class="btn btn-warning" type="submit" asp-page="AendreBooking" />
+    </form>
+</div>
