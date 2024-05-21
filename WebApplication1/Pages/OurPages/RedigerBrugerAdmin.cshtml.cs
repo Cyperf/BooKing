@@ -37,15 +37,11 @@ namespace WebApplication1.Pages.OurPages
         public DateOnly SletningsDato { get; set; }
         [BindProperty]
         public string Message { get; set; }
-
-        [BindProperty]
-        public string GammelEmail { get; set; }
         
 
 
         public void OnGet(string email = "")
         {
-            GammelEmail = email;
             _bruger = _brugerService.Read(email);
             Debug.WriteLine("\n1\n\n" + _bruger + " \nEmail: " + email);
             foreach (Skole skole in skoleService.ReadAll())
@@ -62,12 +58,11 @@ namespace WebApplication1.Pages.OurPages
             SkoleId = _bruger.SkoleId;
             SletningsDato = _bruger.SletningsDato;
 
-            Debug.WriteLine($"GammelEmail: {GammelEmail} STOP");
         }
         public void OnPost()
         {
             //_bruger = _brugerService.Read(GammelEmail);
-            Debug.WriteLine($"GammelEmail: {GammelEmail} STOP ");
+
             Debug.WriteLine("\n2\n\n" + _bruger + " \nEmail: "  );
             if (GentagKodeord == Kodeord)
             {
@@ -78,7 +73,7 @@ namespace WebApplication1.Pages.OurPages
                 _bruger.Rolle = new BrugerRolleService().Read(Rolle);
                 _bruger.SkoleId = SkoleId;
                 _bruger.SletningsDato = SletningsDato;
-                _brugerService.AdminUpdate(_bruger, GammelEmail);
+                _brugerService.AdminUpdate(_bruger);
                 Message = $"Kode skiftet {_bruger.Email}";
                 //return Page();
             }

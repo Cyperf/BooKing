@@ -54,16 +54,16 @@ namespace WebApplication1.Services
                 $" WHERE Email = '{item.Email}';");
         }
 
-        public void AdminUpdate(Bruger item, string gammelEmail)
+        public void AdminUpdate(Bruger item)
         {
             AdoNet.ExecuteNonQuery($"UPDATE {_tableName} " +
                 $"SET Kode = '{LoginManager.HashPassword(item.Email, item.Kodeord)}'," +
-                $" Navn = '{item.Navn}'," +
+                $" Name = '{item.Navn}'," +
                 $" Email = '{item.Email}'," +
                 $" Rolle = '{item.Rolle.Id}'," +
-                $" Skole = '{item.SkoleId}'," +
-                $" SletningsDato = '{item.SletningsDato}'," +
-                $" WHERE Email = '{gammelEmail}';");
+                $" SkoleId = '{item.SkoleId}'," +
+                $" SletningsDato = '{item.SletningsDato}'" +
+                $" WHERE Email = '{item.Email}';");
 
         }
 
