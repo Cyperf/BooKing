@@ -59,10 +59,14 @@ namespace WebApplication1.Pages.OurPages
             SletningsDato = _bruger.SletningsDato;
 
         }
-        public void OnPost()
+        public IActionResult OnPost()
         {
             //_bruger = _brugerService.Read(GammelEmail);
-
+            if (new BrugerRolleService().Read(Rolle) == null)
+                return RedirectToPage("/OurPages/RedigerBrugerAdmin", new { message = "Du skal vælge en rolle" });
+            // make sure the school exists
+            if (new SkoleService().Read(SkoleId) == null)
+                return RedirectToPage("/OurPages/RedigerBrugerAdmin", new { message = "Du skal vælge en skole" });
             Debug.WriteLine("\n2\n\n" + _bruger + " \nEmail: "  );
             if (GentagKodeord == Kodeord)
             {
@@ -74,13 +78,13 @@ namespace WebApplication1.Pages.OurPages
                 _bruger.SkoleId = SkoleId;
                 _bruger.SletningsDato = SletningsDato;
                 _brugerService.AdminUpdate(_bruger);
-                Message = $"Kode skiftet {_bruger.Email}";
-                //return Page();
+                Message = $"Bruger skiftet";
+                return Page();
             }
             else
             {
                 Message = $"Kodeord matcher ikke{_bruger.Email}";
-                //return Page();
+                return Page();
             }
         }
     }

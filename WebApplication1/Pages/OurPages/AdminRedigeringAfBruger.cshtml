@@ -35,14 +35,19 @@
                     </div>
                 </a>
                 </td>
+
                 <td>
                     <form id="deleteUserForm" method="post">
-                        <input asp-page-handler="SletBruger" asp-route-email="@bruger.Email" type="submit" value="Slet bruger" class="btn btn-danger">
+                        <input asp-page-handler="SletBruger" asp-route-email="@bruger.Email" type="submit" onclick="confirmDelete()" value="Slet bruger" class="btn btn-danger">
                     </form>
                     <script>
-                        function bekræftSletBruger() {
-                            if (confirm("Er du sikker på, at du vil slette din konto?")) {
-                                document.getElementById("deleteUserForm").submit();
+                        function confirmDelete() {
+                            if (confirm("Er du sikker på, at du gerne vil slette brugeren?")) {
+                                
+                                document.getElementById("deleteForm").submit();
+                            } else {
+
+                                return Page();
                             }
                         }
                     </script>
