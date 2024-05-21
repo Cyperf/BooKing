@@ -45,6 +45,12 @@ namespace WebApplication1.Services
 
         public void DeleteByEmail(string email)
         {
+            // delete all the persons bookings, since we use a foreign key
+            var bookingService = new BookingService();
+            foreach (var booking in bookingService.ReadAll($"BrugerEmail='{email}'"))
+            {
+                bookingService.Delete(booking.Id);
+            }
             AdoNet.ExecuteNonQuery($"DELETE FROM {_tableName} WHERE Email='{email}'");
         }
         public override void Update(Bruger item)
