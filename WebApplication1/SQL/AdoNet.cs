@@ -22,7 +22,6 @@
 		}
         public static void ExecuteNonQuery(string nonQuery)
         {
-			Debug.WriteLine("Non query:\n" + nonQuery);
 			try
 			{
 				using SqlConnection connection = new SqlConnection(_connectionString);
@@ -42,7 +41,6 @@
 		/// <param name="action">use the data given from the database</param>
 		public static void ExecuteQuery(string query, Action<SqlDataReader> action)
 		{
-			Debug.WriteLine("Query:\n" + query);
 			try
 			{
 				using SqlConnection connection = new SqlConnection(_connectionString);
@@ -53,7 +51,7 @@
 			}
 			catch (Exception ex)
 			{
-				Debug.WriteLine("\nERROR\n" + ex.ToString());  
+				Debug.WriteLine("\nERROR\n" + ex.ToString());
 			}
 		}
 		/// <summary>
@@ -63,7 +61,6 @@
 		/// <param name="action">use an action, for one row in the database</param>
 		public static void ExecuteQueryForEach(string query, Action<SqlDataReader> action)
 		{
-			Debug.WriteLine("Query (foreach):\n" + query);
 			try
 			{
 				using SqlConnection connection = new SqlConnection(_connectionString);
