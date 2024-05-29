@@ -1,8 +1,8 @@
-﻿@page
+﻿@* Kodo og Roman *@
+@page
 @model WebApplication1.Pages.OurPages.BrugerSideModel
 @{
 }
-@* @WebApplication1.Services.LoginManager.LoggedInUser.Email *@
 
 
 <head>
@@ -28,8 +28,6 @@
             border: 1px solid;
             align-content:center;
             padding: 5px;
-/*             margin-left: auto;
-            margin-right: auto; */
         }
 
         .TableContainer div{
@@ -80,10 +78,7 @@
                 </tr>
             </table>
             <br />
-            @* @if (LogInModel.LoggedInBruger.Rolle.RolleNavn == "studerende")
-            { *@
                 <p><a class="btn btn-warning" href="RedigerBruger" role="button">Ændre Adgangskode</a></p>
-            @* } *@
      </div>
         <div>
         
@@ -92,14 +87,6 @@
         
             <tr>
                     <th>Mine Bookinger</th>
-                        @* @if (myBookings.Count() != 0)
-                         {
-                             <th></th>
-                             <th></th>
-                             <th></th>
-                             <th></th>
-                             <th></th>
-                         }*@
                     <th>
                         <form action="Booking">
                             <input class="btn btn-warning" type="submit" role="button" value="Book et lokale" />
@@ -133,9 +120,6 @@
                             <th>
                                 <form method="get" style="display:flex; justify-content: center; align-items:center;">
                                     <a href="AendreBooking?bookingId=@booking.Id" style="padding:0px; margin:0px;border:0px;"><p class="btn btn-warning Button1" style="padding:5px; margin:0px;">Ændre</p></a>
-                                        
-                                     @*<input asp-page="AendreBooking" asp-page-handler="" asp-route-bookingId="@booking.Id" class="Button1" type="submit" value="Ændre">*@
-                                    
                                     </form>
                             </th>
                     </tr>
@@ -179,7 +163,6 @@
                 <hr />
                 <h2>Rolle privilegier</h2>
                 <div style="display:flex; align-content: flex-start; align-items:center;">
-                @* <hr /> *@
                 <p class="adminButtons"><a class="btn btn-warning" href="AdminSletBookning" role="button">Slet en anden brugers booking</a></p>
                 </div>
             </div>

@@ -1,3 +1,4 @@
+// Roman
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication1.Services;
@@ -36,16 +37,6 @@ namespace WebApplication1.Pages.OurPages
             this.SkoleId = SkoleId;
             return Page();
         }
-
-        //public IActionResult OnGet(int Id)
-        //{
-        //    Lokale = _lokaleservice.Read(Id, LoginManager.LoggedInUser.SkoleId);
-        //    if (Lokale == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Page();
-        //}
 
         public IActionResult OnPostChange()
         {

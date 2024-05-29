@@ -1,4 +1,5 @@
-﻿CREATE DATABASE Databasen;
+﻿-- Jeppe
+CREATE DATABASE Databasen;
 USE Databasen;
 
 CREATE TABLE Skole(

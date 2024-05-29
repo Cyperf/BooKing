@@ -1,4 +1,5 @@
-﻿namespace WebApplication1.Services
+﻿// Jeppe
+namespace WebApplication1.Services
 {
 	using WebApplication1.SQL;
 	public abstract class Repository<T>
@@ -6,7 +7,6 @@
 		protected string _tableName = "";
 		protected abstract Func<T, string> _fromItemToString { get; }
 		protected abstract Func<Microsoft.Data.SqlClient.SqlDataReader, T> _fromReaderToItem { get; }
-		//protected Dictionary<string, Type> _columNamesAndTypes = new Dictionary<string, Type>();
 		/// <summary>
 		/// Adds an item to the database
 		/// </summary>

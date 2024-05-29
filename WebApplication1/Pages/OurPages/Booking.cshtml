@@ -1,4 +1,5 @@
-﻿@page
+﻿@* Jeppe *@
+@page
 @model WebApplication1.Pages.OurPages.BookingModel
 @{
 }
@@ -51,8 +52,6 @@
                 var lokaler = floorAndRooms[floor];
                 foreach (var lokale in lokaler)
                 {
-                    // <a asp-page="BookLokale" asp-route-year="@Model.date.Year" asp-route-month="@Model.date.Month" asp-route-day="@Model.date.Day" asp-route-lokaleId="@lokale.Id" asp-route-skoleId="@lokale.SkoleId">
-                    //<a asp-page="Booking" asp-route-lokaleIdPost="@lokale.Id" asp-route-skoleIdPost="@lokale.SkoleId">
                         <form method="post" style="display:flex; justify-content:left;">
 
                             @{
@@ -69,7 +68,6 @@
                             }
                             <input type="submit" asp-page-handler="BookLokale" asp-route-lokaleIdPost="@lokale.Id" asp-route-skoleIdPost="@lokale.SkoleId" value="Book lokale">
                         </form>
-                    //</a>
                 }
             }
         </div>

@@ -1,3 +1,4 @@
+// Jeppe
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
@@ -12,7 +13,6 @@ namespace WebApplication1.Pages.OurPages
         [BindProperty]
         [Display(Name = "Dato")]
         public DateOnly Date { get; set; }
-        //private static DateOnly staticDate { get; set; }
         [BindProperty]
         [Display(Name = "Skole")]
         public int SchoolId { get; set; }
@@ -58,7 +58,6 @@ namespace WebApplication1.Pages.OurPages
             return new BookingService().ReadAll($"Dato='{Date.Year + "-" + Date.Month + "-" + Date.Day}' AND SkoleId={SchoolId}")
                 .OrderBy(booking => booking.LokaleId)
                 .ThenBy(booking => booking.TidFra);
-            //return null;
         }
     }
 }

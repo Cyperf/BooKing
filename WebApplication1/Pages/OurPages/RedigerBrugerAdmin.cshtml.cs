@@ -1,3 +1,4 @@
+// Frederik
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
@@ -61,7 +62,6 @@ namespace WebApplication1.Pages.OurPages
         }
         public IActionResult OnPost()
         {
-            //_bruger = _brugerService.Read(GammelEmail);
             if (new BrugerRolleService().Read(Rolle) == null)
                 return RedirectToPage("/OurPages/RedigerBrugerAdmin", new { message = "Du skal vælge en rolle" });
             // make sure the school exists

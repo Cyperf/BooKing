@@ -1,4 +1,5 @@
-﻿namespace WebApplication1.Services
+﻿// Jeppe
+namespace WebApplication1.Services
 {
     using WebApplication1.Models;
     using WebApplication1.SQL;
@@ -39,11 +40,6 @@
 					//LoggedInUser = new Bruger(reader.GetString(0), reader.GetString(1), reader.GetString(2), GetUserRoleFromId(reader.GetInt32(3)), reader.GetInt32(4), DateOnly.FromDateTime(reader.GetDateTime(5)));
 				});
 			return b;
-		}
-
-		private static BrugerRolle GetUserRoleFromId(int id)
-		{
-			return new BrugerRolleService().Read(id);
 		}
 
         public static string HashPassword(string email, string password)

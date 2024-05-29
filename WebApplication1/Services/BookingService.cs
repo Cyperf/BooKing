@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿// Jeppe
+using Microsoft.Data.SqlClient;
 using WebApplication1.Models;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 

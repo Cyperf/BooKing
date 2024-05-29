@@ -1,3 +1,4 @@
+// Jeppe
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApplication1.Models;
@@ -88,7 +89,6 @@ namespace WebApplication1.Pages.OurPages
 
             // get all bookings for the day
             List<Booking> bookings = new BookingService().ReadAll($"Dato='{date.Year+"-"+date.Month+"-"+date.Day}' AND SkoleId={_skoleId}").ToList();
-            //List<Booking> bookings = new BookingService().ReadAll($"Dato='{date.Year + "-" + date.Month + "-" + date.Day}'").ToList();
             // go thorough all rooms
             foreach (var room in new LokaleService().ReadAll($"SkoleId={_skoleId}"))
             {
@@ -105,13 +105,6 @@ namespace WebApplication1.Pages.OurPages
                 for (j = 0; j < timeAvailable.Length; j++)
                     if (!timeAvailable[j])
                         break;
-                //if (room.Id == 1)
-                //{
-                //    System.Diagnostics.Debug.WriteLine("Stuff: " + j + " : " + timeAvailable.Length + " : " + timeAvailable[j]);
-                //    for (j = 0; j < timeAvailable.Length; j++)
-                //        if (!timeAvailable[j])
-                //            System.Diagnostics.Debug.WriteLine("yes: " + j);
-                //}
                 // if j is equal to timeAvailable.Length, there wern't any available time
                 if (j == timeAvailable.Length)
                     continue;

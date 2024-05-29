@@ -1,10 +1,9 @@
-﻿@page
+﻿@* Frederik *@
+@page
 @model WebApplication1.Pages.OurPages.OpretLokalerModel
 @{
     ViewData["Title"] = "OpretLokale";
 }
-@*Lavet af Frederik*@
-
 <body>
     <form method="post">
         <section class="h-100 h-custom gradient-custom-2">
@@ -34,13 +33,8 @@
                                                 <div class="col-md-7 mb-4 pb-2">
 
                                                     <div class="form-outline form-group form-white">
-                                                      @*   <label asp-for="SkoleId" class="control-label"></label>
-                                                        <input asp-for="SkoleId" class="form-control" />
-                                                        <span asp-validation-for="SkoleId" class="text-danger"></span> *@
                                                         <select name="SkoleId">
                                                             <option value="10">Vælg en skole</option>
-                                                           @*  <option value="1">Roskilde</option>
-                                                            <option value="2">Næstved</option> *@
                                                             @foreach(Models.Skole Skole in Model.AlleSkoler)
                                                             {
                                                                 <option value="@Skole.Id">@Skole.Location</option>

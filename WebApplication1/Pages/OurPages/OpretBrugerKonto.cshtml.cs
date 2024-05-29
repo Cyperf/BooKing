@@ -1,3 +1,4 @@
+// Frederik
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -59,19 +60,6 @@ namespace WebApplication1.Pages.OurPages
         }
         public IActionResult OnPost()
         {
-           //for(int i= 0;  i > 8; i++)
-           // {
-           //     int o = Random(1, 61);
-
-           //     if (o < 10){
-           //         Kodeord = Kodeord + $"{o}";
-           //     } else if (o < 35)
-           //     {
-           //         Kodeord = Kodeord + " ";
-           //     } else if {
-           //         Kodeord = Kodeord "":
-           //     }
-           // }
            if (string.IsNullOrEmpty(Navn))
                 return RedirectToPage("/OurPages/OpretBrugerKonto", new { message = "Du skal skrive et navn" });
            // make sure the email most likely makes sense

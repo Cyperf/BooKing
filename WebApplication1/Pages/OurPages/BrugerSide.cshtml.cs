@@ -1,3 +1,4 @@
+// Jeppe og Roman
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
@@ -8,11 +9,6 @@ namespace WebApplication1.Pages.OurPages
 {
     public class BrugerSideModel : PageModel
     {
-
-        //{
-        //    public static WebApplication1.Models.Bruger? LoggedInUser { get; private set; } = null;
-        //}
-
         private readonly BookingService _bookingService;
 
         public BrugerSideModel()

@@ -1,4 +1,5 @@
-﻿namespace WebApplication1.Models
+﻿// Jeppe
+namespace WebApplication1.Models
 {
     public class BrugerRolle
     {

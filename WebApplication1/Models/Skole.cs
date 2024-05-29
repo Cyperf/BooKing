@@ -1,4 +1,5 @@
-﻿namespace WebApplication1.Models
+﻿// Frederik
+namespace WebApplication1.Models
 {
     public class Skole
     {

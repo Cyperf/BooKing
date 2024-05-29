@@ -1,4 +1,5 @@
-﻿namespace WebApplication1.SQL
+﻿// Jeppe
+namespace WebApplication1.SQL
 {
 	using Microsoft.Data.SqlClient;
 	using System.Diagnostics;
